@@ -1,0 +1,106 @@
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+                 
+</head>
+
+<body>
+  
+  <h2 mat-dialog-title><i class="material-icons red-text medium">location_on</i>ADD NEW DIRECTORY</h2>
+  <hr>
+  <br>
+  <mat-dialog-content>
+    <form (submit)="onAdd()">
+        <div class="row">
+          <mat-form-field style="width: 50%;" class="col">
+            <mat-select placeholder="CATEGORY" [(ngModel)]="category" name = "category"[formControl]="categoryControl" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "directoryName" 
+            name="directoryName"
+            type="textt"
+            placeholder="DIRECTORY NAME"
+            required>
+            <mat-error>Directory name is required.</mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div class="row">
+          <mat-form-field style="width: 100%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "address" 
+            name="address"
+            type="textt"
+            placeholder="ADDRESS"
+            required>
+            <mat-error>Address is required.</mat-error>
+          </mat-form-field>
+        </div>
+          
+        <div class="row">
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "contactNumber" 
+            name="contactNumber"
+            type="textt"
+            placeholder="CONTACT NUMBER"
+            required>
+            <mat-error>Contact number is required.</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "operatingHours" 
+            name="operatingHours"
+            type="textt"
+            placeholder="OPERATING HOURS"
+            required>
+            <mat-error>Operating hours is required.</mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div class="row">
+          <mat-form-field style="width: 100%;" class="col">
+            <textarea 
+            matInput 
+            [(ngModel)] = "otherInformation" 
+            name="otherInformation"
+            placeholder="OTHER INFORMATION"
+            matTextareaAutosize 
+            matAutosizeMinRows="1"
+            matAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+        </div>
+      
+    
+      <mat-dialog-actions>
+        <div>
+            <input
+            mat-raised-button
+            class="black hoverable btn small"
+            type="submit"
+            name="submit"
+            value="ADD" > &nbsp;
+            <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
+        </div>
+        <br>
+        <br>
+        <br>
+      </mat-dialog-actions>
+    </form>  
+  </mat-dialog-content>
+  
+</body>

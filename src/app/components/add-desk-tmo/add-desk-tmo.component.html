@@ -1,0 +1,101 @@
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+                 
+</head>
+
+<body>
+  
+  <h2 mat-dialog-title><i class="material-icons red-text medium">recent_actors</i>ADD NEW DESK TMO</h2>
+  <hr>
+  <br>
+  <mat-dialog-content>
+    <form>
+        <div class="row">  
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "fName" 
+            name="fName"
+            type="textt"
+            placeholder="FIRST NAME"
+            required>
+            <mat-error>First name is required.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "lName" 
+            name="lName"
+            type="textt"
+            placeholder="LAST NAME"
+            required>
+            <mat-error>Last name is required.</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">  
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "username" 
+            name="username"
+            type="textt"
+            placeholder="USERNAME"
+            required>
+            <mat-error>Username is required.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "password" 
+            name="password"
+            type="textt"
+            placeholder="PASSWORD"
+            required>
+            <mat-error>Password is required.</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">  
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "emailAddress" 
+            name="emailAddress"
+            type="emaill"
+            placeholder="EMAIL"
+            required>
+            <mat-error>Email is required.</mat-error>
+          </mat-form-field>
+
+          <div style="width: 50%;" class="col">
+            <br>
+            <input
+            id = "image"
+            [(ngModel)] = "image" 
+            name="image"
+            type="file"
+            >
+          </div>
+        </div>
+    
+  
+      
+    
+      <mat-dialog-actions>
+        <div>
+            <button mat-raised-button class="black hoverable btn small" (click) = "onAdd()">ADD</button>
+            <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
+        </div>
+        <br>
+        <br>
+        <br>
+      </mat-dialog-actions>
+    </form>  
+  </mat-dialog-content>
+  
+</body>

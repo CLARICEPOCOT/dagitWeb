@@ -1,0 +1,50 @@
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+                   
+  </head>
+  
+  <body>
+    
+    <h2 mat-dialog-title><i class="material-icons red-text medium">search</i>SEARCH DIRECTORY</h2>
+    <hr>
+    <br>
+    <mat-dialog-content>
+      <form>
+          <div class="row">
+            <mat-form-field style="width: 50%;" class="col">
+              <mat-select placeholder="CATEGORY" [(ngModel)]="category" name = "category"[formControl]="categoryControl" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let category of categories" [value]="category.value">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field style="width: 50%;" class="col">
+              <input
+              matInput
+              [(ngModel)] = "searchValue" 
+              name="searchValue"
+              type="textt"
+              placeholder="SEARCH DIRECTORY"
+              required>
+              <mat-error>Please input directory to search.</mat-error>
+            </mat-form-field>
+          </div>
+          
+        <mat-dialog-actions>
+          <div>
+              <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>
+              <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
+          </div>
+          <br>
+          <br>
+          <br>
+        </mat-dialog-actions>
+      </form>  
+    </mat-dialog-content>
+    
+  </body>

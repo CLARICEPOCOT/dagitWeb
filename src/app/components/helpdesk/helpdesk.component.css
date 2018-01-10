@@ -1,0 +1,48 @@
+#container {
+    padding-top: 190px;
+    padding-left: 300px;
+}
+
+b {
+    size: 30px;
+}
+
+
+#messages {
+    background: #9DE69D;
+    width: 200px;
+    height: 200px;
+
+}
+
+#messagesIcon {
+    padding-top: 28px;
+    padding-left: 48px;
+}
+
+#areports {
+    background: rgba(246, 228, 60, 0.95);
+    width: 200px;
+    height: 200px;
+}
+
+#areportsIcon
+{
+    padding-top: 28px;
+    padding-left: 48px;
+
+}
+
+#vreports {
+    background: rgba(232, 40, 67, 0.95);
+    width: 200px;
+    height: 200px;
+}
+
+#vreportsIcon
+{
+    padding-top: 28px;
+    padding-left: 46px;
+
+}
+

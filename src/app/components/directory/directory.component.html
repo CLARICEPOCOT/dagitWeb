@@ -1,0 +1,205 @@
+<app-navbar></app-navbar>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>                  
+</head>
+
+  <body>
+    
+    <br><br>
+    <div class= "container">
+      <div>
+        <!--Collection for Hospitals -->
+      <i class="medium material-icons left teal-text">local_hospital</i>
+      <b style="font-size: 40px;">HOSPITALS</b><br>
+
+       <!--COLLAPSIBLE: loop data in database -->
+       <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+          <li *ngFor = "let directory of directories | async">
+            <div class="collapsible-header" *ngIf="directory.category == 'Medical'">
+              {{ directory.directoryName }}
+            </div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="col s4 center">
+                    <i class="material-icons">location_on</i><b>Address</b><hr>
+                    {{ directory.address }}
+                </div>
+                <div class="col s4 center">
+                    <i class="material-icons">phone</i><b>Contact Number</b><hr>
+                    {{ directory.contactNumber }}
+                </div>
+               <div class="col s4 center">
+                  <i class="material-icons">access_time</i><b>Operating Hours</b><hr>
+                  {{ directory.operatingHours }}
+               </div>
+               <br><br><br><br>
+               <div class="center">
+                  <a (click) ="openEdit(directory)" class="black hoverable btn small">EDIT</a>
+                  &nbsp;
+                  <a (click) = "onDeleteClick(directory.$key)" class="black hoverable btn small">DELETE</a>
+               </div>             
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <br>
+      
+    
+
+      <!--Collection for Fire Station -->
+      <div>
+          <i class="medium material-icons left red-text">whatshot</i>
+          <b style="font-size: 40px;">FIRE</b><br>
+           <!--loop data in database -->
+           <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+              <li *ngFor = "let directory of directories | async">
+                  <div class="collapsible-header" *ngIf="directory.category == 'Fire'">
+                    {{ directory.directoryName }}
+                  </div>
+                  <div class="collapsible-body">
+                    <div class="row">
+                      <div class="col s4 center">
+                          <i class="material-icons">location_on</i> Address<hr>
+                          {{ directory.address }}
+                      </div>
+                      <div class="col s4 center">
+                          <i class="material-icons">phone</i> Contact Number<hr>
+                          {{ directory.contactNumber }}
+                      </div>
+                     <div class="col s4 center">
+                        <i class="material-icons">access_time</i> Operating Hours<hr>
+                        {{ directory.operatingHours }}
+                     </div>
+                     <br><br><br><br>
+                     <div class="center">
+                        <a (click) ="openEdit(directory)" class="black hoverable btn small">EDIT</a>
+                        &nbsp;
+                        <a (click) = "onDeleteClick(directory.$key)" class="black hoverable btn small">DELETE</a>
+                     </div>     
+                    
+                    </div>
+                  </div>
+                </li>
+            </ul>
+      </div>
+      <br>
+      
+    
+      <!--Collection for Police Stations -->
+      <div>
+          <i class="medium material-icons left blue-text">assignment_ind</i>
+          <b style="font-size: 40px;">POLICE</b>
+      <br>
+      <!--loop data in database -->
+      <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+          <li *ngFor = "let directory of directories | async">
+              <div class="collapsible-header" *ngIf = "directory.category == 'Police'">
+                {{ directory.directoryName }}
+              </div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <div class="col s4 center">
+                    <i class="material-icons">location_on</i> Address<hr>
+                    {{ directory.address }}
+                  </div>
+                  <div class="col s4 center">
+                    <i class="material-icons">phone</i> Contact Number<hr>
+                    {{ directory.contactNumber }}
+                  </div>
+                 <div class="col s4 center">
+                    <i class="material-icons">access_time</i> Operating Hours<hr>
+                    {{ directory.operatingHours }}
+                 </div>
+                 <br><br><br><br>
+                 <div class="center">
+                    <a (click) ="openEdit(directory)" class="black hoverable btn small">EDIT</a>
+                    &nbsp;
+                    <a (click) = "onDeleteClick(directory.$key)" class="black hoverable btn small">DELETE</a>
+                 </div>     
+                
+                </div>
+              </div>
+            </li>
+        </ul>
+        </div>
+        <br>
+      
+    
+      <div>
+          <!--Collection for Terminals -->
+
+      <i class="medium material-icons left green-text">directions_bus</i>
+      <b style="font-size: 40px;">TERMINALS</b><br>
+      <!--loop data in database -->
+      <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+          <li *ngFor = "let directory of directories | async">
+              <div class="collapsible-header" *ngIf="directory.category == 'Terminal'">
+               {{ directory.directoryName }}
+              </div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <div class="col s4 center">
+                      <i class="material-icons">location_on</i> Address<hr>
+                      {{ directory.address }}
+                  </div>
+                  <div class="col s4 center">
+                      <i class="material-icons">phone</i> Contact Number<hr>
+                      {{ directory.contactNumber }}
+                  </div>
+                 <div class="col s4 center">
+                    <i class="material-icons">access_time</i> Operating Hours<hr>
+                    {{ directory.operatingHours }}
+                 </div>
+                 <br><br><br><br>
+                 <div class="center">
+                    <a (click) ="openEdit(directory)" class="black hoverable btn small">EDIT</a>
+                    &nbsp;
+                    <a (click) = "onDeleteClick(directory.$key)" class="black hoverable btn small">DELETE</a>
+                 </div>     
+                
+                </div>
+              </div>
+            </li>
+      </ul>
+      </div>
+    
+      
+    </div> <!-- end of container -->
+ 
+    <!-- fixed button -->
+    <div class="fixed-action-btn">
+        <a class="btn-floating  yellow darken-1 btn-large hoverable">
+          <i class="large material-icons black-text">add</i>
+        </a>
+        <ul>           
+            <li>
+              <a materialize="tooltip"
+              class="btn-floating green tooltipped"
+              data-position="left"
+              data-delay="30"
+              data-tooltip="Search directory"
+              (click) = "openSearch()">
+              <i class="material-icons">search</i>
+            </a>
+            </li>
+            <li>
+              <a materialize="tooltip"
+              class="btn-floating red modal-trigger tooltipped" 
+              data-position="left"
+              data-delay="30"
+              data-tooltip="Add directory"
+              (click) = "openDialog()">
+              <i class="material-icons">add_location</i></a>
+            </li>
+        </ul>
+    </div><br><br>
+
+
+  </body>

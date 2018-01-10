@@ -1,0 +1,136 @@
+<app-navbar></app-navbar>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+    
+    <br><br>
+    <div class= "container">
+     
+      <div>
+          <i class="medium material-icons left red-text">recent_actors</i>
+          <b style="font-size: 40px;">DESK TMO ACCOUNTS</b><br>
+        <!--loop data in database -->
+       <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+          <li *ngFor = "let account of deskTMO">
+            <div class="collapsible-header" >
+              {{account.fName + ' ' + account.lName }}
+            </div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="col" style="width: 50%;">
+                  IMAGE
+                </div>
+                <div class="col" style="width: 50%;">
+                 <b>Username:</b> {{account.username}}<br>
+                 <b>Email Address: </b> {{ account.emailAddress }}<br>
+                 <b>Password: </b> {{ account.password }}
+                </div>
+              </div>
+
+              <br><br>
+              <div class="center">
+                 <a (click) ="onEditDesk(account)" class="black hoverable btn small">EDIT</a>
+                 &nbsp;
+                 <a (click) = "onDeleteDesk(account.$key)" class="black hoverable btn small">DELETE</a>
+                 &nbsp;
+                 <!--<a class="black hoverable btn small">DISABLE</a>-->
+              </div>       
+
+            </div>
+          </li>
+        </ul>
+
+      </div>
+      <br>
+      <br>
+
+      <div>
+          <i class="medium material-icons left orange-text">person_pin_circle</i>
+          <b style="font-size: 40px;">ON-FIELD TMO ACCOUNTS</b><br>
+        <!--loop data in database -->
+        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+            <li *ngFor = "let account of onFieldTMO">
+              <div class="collapsible-header" >
+                {{account.fName + ' ' + account.lName }}
+              </div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <div class="col" style="width: 50%;">
+                      <img style="width:100%;" class="thumbnail" src="{{imageURL}}">
+                  </div>
+                  <div class="col" style="width: 50%;">
+                   <b>Username:</b> {{account.username}}<br>
+                   <b>Password: </b> {{ account.password }}<br>
+                   <b>Assigned Location: </b> {{ account.location }}
+                  </div>
+                </div>
+  
+                <br><br>
+                <div class="center">
+                   <a (click) ="onEditOnfield(account)" class="black hoverable btn small">EDIT</a>
+                   &nbsp;
+                   <a (click) = "onDeleteOnfield(account.$key)" class="black hoverable btn small">DELETE</a>
+                   &nbsp;
+                   <!--<a class="black hoverable btn small">DISABLE</a>-->
+                </div>       
+  
+              </div>
+            </li>
+          </ul>
+
+      </div>
+
+      
+    </div> <!-- end of container -->
+ 
+    
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large yellow darken-1 hoverable">
+          <i class="large material-icons black-text">person_add</i>
+        </a>
+        <ul>
+            <li>
+                <a materialize="tooltip"
+                class="btn-floating green modal-trigger tooltipped" 
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Search account"
+                (click) = "openSearch()">
+                <i class="material-icons">search</i></a>
+              </li>
+        
+          <li>
+            <a materialize="tooltip"
+            class="btn-floating red modal-trigger tooltipped" 
+            data-position="left"
+            data-delay="30"
+            data-tooltip="Add desk TMO"
+            (click) = "openDialog1()">
+            <i class="material-icons">recent_actors</i></a>
+          </li>
+          <li>
+            <a materialize="tooltip"
+            class="btn-floating orange modal-trigger tooltipped" 
+            data-position="left"
+            data-delay="30"
+            data-tooltip="Add on-field TMO"
+            (click) = "openDialog2()">
+            <i class="material-icons">person_pin_circle</i></a>
+          </li>
+        </ul>
+      </div>
+
+
+   
+  </body>
+
+
+

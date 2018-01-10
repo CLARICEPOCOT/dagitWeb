@@ -1,0 +1,66 @@
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+  
+
+      <div class="container">
+        <br><br><br><br><br>
+        <div class="center">
+          <img src="https://firebasestorage.googleapis.com/v0/b/dagit-f9140.appspot.com/o/LogoDAGIT.png?alt=media&token=e7baee80-c6cb-41e1-9c9d-08d72d27b885" 
+          alt="" class="responsive-img" width="290px">
+        </div>
+     
+          <br><br>
+          <div class="center">
+            <form (submit)="checkUser()">
+                <mat-form-field style="width: 400px;" >                
+                    <input
+                    matInput
+                    [(ngModel)] = "tempUser" 
+                    name="username"
+                    type="textt"
+                    placeholder="USERNAME"
+                    required>
+                    <mat-error>Username is required.</mat-error>
+                </mat-form-field>
+                <br>
+                <br>
+                <mat-form-field style="width: 400px;" >
+                    <input
+                    matInput
+                    [(ngModel)] = "tempPass" 
+                    name="password"
+                    type="passwordd"
+                    placeholder="PASSWORD"
+                    required
+                    style="-webkit-text-security: disc;">
+                    <mat-error>Password is required.</mat-error>
+                </mat-form-field>            
+              <br>
+              <br>
+              <br>           
+   
+        
+          <div class="center">
+              <input
+              mat-raised-button
+              class="black hoverable btn small"
+              type="submit"
+              name="submit"
+              value="LOGIN" >
+             <br><br>
+          </div>
+        </form>
+      </div>
+    </div> 
+    </body>
+
+
