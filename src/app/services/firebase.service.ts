@@ -97,6 +97,9 @@ export class FirebaseService {
     }
   }
 
+  addOnfieldTMONoPhoto(onFieldTMO) {
+    this.dagit.list('ACCOUNTS/ON_FIELD_TMO').push(onFieldTMO);
+  }
   getOnfieldTMO() {
     return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO');
   }
