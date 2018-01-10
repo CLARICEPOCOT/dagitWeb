@@ -19,7 +19,7 @@ export class AddOnfieldComponent implements OnInit {
   username: string;
   password: string;
   location: string;
-  image?: string;
+  image: any;
   
 
   constructor(

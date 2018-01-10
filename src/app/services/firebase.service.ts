@@ -58,6 +58,10 @@ export class FirebaseService {
 
   }
 
+  addDeskTMONoPhoto(deskTMO) {
+    this.dagit.list('/ACCOUNTS/DESK_TMO').push(deskTMO);
+  }
+
   getDeskTMODetails() {
     return this.dagit.list('/ACCOUNTS/DESK_TMO', {
       preserveSnapshot: true

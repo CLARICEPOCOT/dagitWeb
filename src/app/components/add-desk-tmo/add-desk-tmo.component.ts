@@ -33,17 +33,44 @@ export class AddDeskTmoComponent implements OnInit {
   }
 
   onAdd(deskTMO) {
-    this.deskTMO = {
-      'fName': this.fName,
-      'lName': this.lName,
-      'username': this.username,
-      'password': this.password,
-      'emailAddress': this.emailAddress,
-    };
+    let complete = false;
+    if (
+      this.fName != null &&
+      this.lName != null &&
+      this.username != null &&
+      this.password != null &&
+      this.emailAddress != null ) {
+        complete = true;
 
-    this.firebaseService.addDeskTMO(this.deskTMO);
-    console.log('Desk TMO added');
-    this.thisDialogRef1.close('Add');
+      } else {
+        complete = false;
+      }
+
+      if (complete) {
+        this.deskTMO = {
+          'fName': this.fName,
+          'lName': this.lName,
+          'username': this.username,
+          'password': this.password,
+          'emailAddress': this.emailAddress,
+        };
+
+        if (this.image != null) {
+          this.firebaseService.addDeskTMO(this.deskTMO);
+          console.log('Desk TMO with image added');
+          this.thisDialogRef1.close('ADD');
+        } else {
+          this.firebaseService.addDeskTMONoPhoto(this.deskTMO);
+          console.log('Desk TMO added with no image added');
+          this.thisDialogRef1.close('ADD');
+
+        }
+
+
+      } else {
+        console.log('Please fill in all the required fields.');
+      }
+
   }
 
   onCancel() {
