@@ -20,7 +20,7 @@ export class AddOnfieldComponent implements OnInit {
   password: string;
   location: string;
   image: any;
-  
+
 
   constructor(
     public thisDialogRef2: MatDialogRef<ManageAccountsComponent>,
@@ -32,17 +32,43 @@ export class AddOnfieldComponent implements OnInit {
   }
 
   onAdd(onFieldTMO) {
-    this.onFieldTMO = {
-      'fName': this.fName,
-      'lName': this.lName,
-      'username': this.username,
-      'password': this.password,
-      'location': this.location,
-    };
-    this.firebaseService.addOnfieldTMO(this.onFieldTMO);
-    console.log('Directory added');
-    this.thisDialogRef2.close('Add');
+    let complete = false;
+    if (
+      this.fName != null &&
+      this.lName != null &&
+      this.username != null &&
+      this.password != null &&
+      this.location != null ) {
+        complete = true;
 
+      } else {
+        complete = false;
+      }
+
+      if (complete) {
+        this.onFieldTMO = {
+          'fName': this.fName,
+          'lName': this.lName,
+          'username': this.username,
+          'password': this.password,
+          'emailAddress': this.location,
+        };
+
+        if (this.image != null) {
+          this.firebaseService.addOnfieldTMO(this.onFieldTMO);
+          console.log('Onfield TMO with image added');
+          this.thisDialogRef2.close('ADD');
+        } else {
+          this.firebaseService.addOnFieldTMONoPhoto(this.onFieldTMO);
+          console.log('Onfield TMO added with no image added');
+          this.thisDialogRef2.close('ADD');
+
+        }
+
+
+      } else {
+        console.log('Please fill in all the required fields.');
+      }
 
   }
 

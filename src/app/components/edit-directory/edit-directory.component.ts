@@ -22,6 +22,13 @@ export class EditDirectoryComponent implements OnInit {
   operatingHours: string;
   otherInformation?: string;
 
+  newCategory: string;
+  newDirectoryName: string;
+  newAddress: string;
+  newContactNumber: string;
+  newOperatingHours: string;
+  newOtherInformation?: string;
+
 
   categoryControl = new FormControl('', [Validators.required]);
 
@@ -45,6 +52,48 @@ export class EditDirectoryComponent implements OnInit {
 
 
     onEdit(key, directory) {
+      // tslint:disable-next-line:triple-equals
+      if (this.newCategory != null) {
+        this.category = this.newCategory;
+      } else {
+        this.category = this.directory.category;
+      }
+
+      if (this.newDirectoryName != null) {
+        this.directoryName = this.newDirectoryName;
+      } else {
+        this.directoryName = this.directory.directoryName;
+      }
+
+      if (this.newAddress != null) {
+        this.address = this.newAddress;
+      } else {
+        this.address = this.directory.address;
+      }
+
+      if (this.newContactNumber != null) {
+        this.contactNumber = this.newContactNumber;
+      } else {
+        this.contactNumber = this.directory.contactNumber;
+      }
+
+      if (this.newOperatingHours != null) {
+        this.operatingHours = this.newOperatingHours;
+      } else {
+        this.operatingHours = this.directory.operatingHours;
+      }
+
+      if (this.newOtherInformation != null) {
+        this.otherInformation = this.newOtherInformation;
+      } else {
+        if (this.directory.otherInformation == null) {
+          this.otherInformation = null;
+        } else {
+          this.otherInformation = this.directory.otherInformation;
+        }
+      }
+
+
       this.directory = {
         'category': this.category,
         'directoryName': this.directoryName,
@@ -53,11 +102,11 @@ export class EditDirectoryComponent implements OnInit {
         'operatingHours': this.operatingHours,
         'otherInformation': this.otherInformation,
       };
-      console.log('Directory added');
-      this.thisDialogRef.close('Add');
+
 
       this.firebaseService.updateDirectory(key, this.directory);
-
+      console.log('Directory added');
+      this.thisDialogRef.close('Add');
 
     }
 

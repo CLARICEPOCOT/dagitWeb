@@ -74,6 +74,7 @@ export class AddDirectoryComponent implements OnInit {
             'address': this.address,
             'contactNumber': this.contactNumber,
             'operatingHours': this.operatingHours,
+            'otherInformation': null,
           };
 
           this.firebaseService.addDirectory(this.directory);

@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButton, MatSnackBar } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio';
 
 // imports for database
 import { AngularFireModule } from 'angularfire2';
@@ -58,6 +59,8 @@ import { SearchAccountsComponent } from './components/search-accounts/search-acc
 import { SearchNotificationsComponent } from './components/search-notifications/search-notifications.component';
 import { EditOnFieldComponent } from './components/edit-on-field/edit-on-field.component';
 import { EditDeskComponent } from './components/edit-desk/edit-desk.component';
+import { AddTrafficComponent } from './components/add-traffic/add-traffic.component';
+import { AddParkingComponent } from './components/add-parking/add-parking.component';
 
 
 
@@ -119,7 +122,9 @@ const appRoutes: Routes = [
     SearchAccountsComponent,
     SearchNotificationsComponent,
     EditOnFieldComponent,
-    EditDeskComponent
+    EditDeskComponent,
+    AddTrafficComponent,
+    AddParkingComponent
   ],
   imports: [
     BrowserModule,
@@ -136,7 +141,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule
   ],
   entryComponents: [
     AddDirectoryComponent,
@@ -148,7 +154,9 @@ const appRoutes: Routes = [
     SearchNotificationsComponent,
     EditDirectoryComponent,
     EditDeskComponent,
-    EditOnFieldComponent
+    EditOnFieldComponent,
+    AddTrafficComponent,
+    AddParkingComponent,
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

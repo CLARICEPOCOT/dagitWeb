@@ -7,15 +7,16 @@ import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
-  selector: 'app-add-notification',
-  templateUrl: './add-notification.component.html',
-  styleUrls: ['./add-notification.component.css']
+  selector: 'app-add-traffic',
+  templateUrl: './add-traffic.component.html',
+  styleUrls: ['./add-traffic.component.css']
 })
-export class AddNotificationComponent implements OnInit {
+export class AddTrafficComponent implements OnInit {
 
   notification: any;
-  title: string;
-  description: string;
+  rating: string;
+  location: string;
+  category: string;
   notifDetail: string;
   today = new Date();
 
@@ -28,7 +29,13 @@ export class AddNotificationComponent implements OnInit {
   time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;
   timeStamp = this.date + ' ' + this.time;
 
+  categoryControl = new FormControl('', [Validators.required]);
 
+      categories = [
+        {name: 'Light', value: 'Light Traffic'},
+        {name: 'Moderate', value: 'Moderate Traffic'},
+        {name: 'Heavy', value: 'Heavy Traffic'}
+      ];
 
   constructor(
     public thisDialogRef: MatDialogRef<NotificationsComponent>,
@@ -40,9 +47,9 @@ export class AddNotificationComponent implements OnInit {
   }
 
 
-  onAdd(notification) {
+  rateParking(notification) {
     let complete = false;
-    if (this.title != null && this.description != null) {
+    if (this.rating != null && this.location != null) {
       complete = true;
     } else {
       console.log('Please fill in all the required fields.');
@@ -50,10 +57,9 @@ export class AddNotificationComponent implements OnInit {
 
     if (complete) {
       this.notification = {
-        'category': 'Announcement',
+        'category': 'Traffic',
         'timeStamp': this.timeStamp,
-        'title': this.title,
-        'notifDetail': this.description,
+        'notifDetail': this.rating + ': ' + this.location,
       };
 
       this.firebaseService.addNotification(this.notification);

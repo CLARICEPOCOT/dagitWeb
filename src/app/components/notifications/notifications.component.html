@@ -21,10 +21,9 @@
          <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
             <li *ngFor = "let notification of notifications">
               <div class="collapsible-header" *ngIf = "notification.category == 'Traffic'">
-                {{ notification.notifDetail }}
-              </div>
-              <div class="collapsible-body">
-                <span>{{ notification.timeStamp }}</span>
+               <span style="width: 300px;">{{ notification.notifDetail }} </span>
+               <span style="width: 250px;">{{ notification.timeStamp }}</span>
+               <span>Published by: {{notification.fName + ' ' + notification.lName}}</span>
               </div>
             </li>       
           </ul><br>
@@ -37,12 +36,11 @@
 
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
           <li *ngFor = "let notification of notifications">
-            <div class="collapsible-header" *ngIf = "notification.category == 'Parking'">
-              {{ notification.notifDetail }}
-            </div>
-            <div class="collapsible-body">
-              <span>{{ notification.timeStamp }}</span>
-            </div>
+              <div class="collapsible-header" *ngIf = "notification.category == 'Parking'">
+                  <span style="width: 300px;">{{ notification.notifDetail }} </span>
+                  <span style="width: 250px;">{{ notification.timeStamp }}</span>
+                  <span>Published by: {{notification.fName + ' ' + notification.lName}}</span>
+              </div>
           </li>       
         </ul><br>
 
@@ -53,11 +51,14 @@
 
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
           <li *ngFor = "let notification of notifications">
-            <div class="collapsible-header" *ngIf = "notification.category == 'Announcement'">
-              {{ notification.notifDetail }}
-            </div>
+              <div class="collapsible-header" *ngIf = "notification.category == 'Announcement'">
+                  <span style="width: 300px;">{{ notification.title }} </span>
+                  <span style="width: 250px;">{{ notification.timeStamp }}</span>
+                  <span>Published by: {{notification.fName + ' ' + notification.lName}}</span>
+                 </div>
             <div class="collapsible-body">
-              <span>{{ notification.timeStamp }}</span>
+              <span>ANNOUNCEMENT DETAILS: </span> <br>
+              <span>{{ notification.notifDetail }}</span>
             </div>
           </li>       
         </ul><br>
@@ -67,7 +68,7 @@
        <!-- fixed button -->
        <div class="fixed-action-btn">
           <a class="btn-floating btn-large yellow darken-1 hoverable">
-            <i class="large material-icons black-text">create</i>
+            <i class="large material-icons black-text">add_alert</i>
           </a>
           <ul>
               <li>
@@ -85,9 +86,29 @@
                   class="btn-floating light-blue-text tooltipped"
                   data-position="left"
                   data-delay="30"
-                  data-tooltip="Publish notification"
-                  (click) = "openDialog()">
-                  <i class="material-icons">add_alert</i>
+                  data-tooltip="Publish announcement"
+                  (click) = "addAnnouncement()">
+                  <i class="material-icons">description</i>
+                </a>
+              </li>
+              <li>
+                <a materialize="tooltip"
+                class="btn-floating red tooltipped"
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Add traffic advisory"
+                (click) = "addTraffic()">
+                <i class="material-icons">traffic</i>
+              </a>
+              </li>
+              <li>
+                  <a materialize="tooltip"
+                  class="btn-floating orange tooltipped"
+                  data-position="left"
+                  data-delay="30"
+                  data-tooltip="Add parking advisory"
+                  (click) = "addParking()">
+                  <i class="material-icons">local_taxi</i>
                 </a>
                 </li>
           </ul>

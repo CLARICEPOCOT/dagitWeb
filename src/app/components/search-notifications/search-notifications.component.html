@@ -15,7 +15,6 @@
           <div class="row">
             <mat-form-field style="width: 50%;" class="col">
               <mat-select placeholder="CATEGORY" [(ngModel)]="category" name = "category"[formControl]="categoryControl" required>
-                <mat-option>--</mat-option>
                 <mat-option *ngFor="let category of categories" [value]="category.value">
                   {{category.name}}
                 </mat-option>
