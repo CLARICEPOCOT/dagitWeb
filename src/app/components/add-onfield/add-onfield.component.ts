@@ -14,6 +14,7 @@ import { FirebaseService } from '../../services/firebase.service';
 export class AddOnfieldComponent implements OnInit {
 
   onFieldTMO: any;
+  userInfo: any;
   fName: string;
   lName: string;
   username: string;
@@ -21,14 +22,50 @@ export class AddOnfieldComponent implements OnInit {
   location: string;
   image: any;
 
+  dbUser: any[] = [];
+  duplicateUser: boolean;
+
 
   constructor(
     public thisDialogRef2: MatDialogRef<ManageAccountsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
-  ) { }
+  ) {
+    this.userInfo = this.firebaseService.getOnfieldTMODetails();
+    let i = 0;
+    this.userInfo.subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+        this.dbUser[i] = snapshot.val().username;
+        i++;
+      });
+    });
+   }
 
   ngOnInit() {
+  }
+
+
+  onCheck() {
+
+    this.duplicateUser = true;
+
+    for ( let j = 0; j < this.dbUser.length; j++ ) {
+     // tslint:disable-next-line:triple-equals
+     if (this.username != this.dbUser[j] ) {
+      this.duplicateUser = false;
+     } else {
+       this.duplicateUser = true;
+       break;
+     }
+    }
+
+
+    if ( !this.duplicateUser) {
+      this.onAdd(this.onFieldTMO);
+    } else {
+      console.log('duplicate username');
+    }
+
   }
 
   onAdd(onFieldTMO) {
@@ -52,6 +89,7 @@ export class AddOnfieldComponent implements OnInit {
           'username': this.username,
           'password': this.password,
           'emailAddress': this.location,
+          'access': 'enabled'
         };
 
         if (this.image != null) {

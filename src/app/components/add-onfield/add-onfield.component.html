@@ -11,7 +11,7 @@
   <hr>
   <br>
   <mat-dialog-content>
-    <form (submit) = "onAdd()">
+    <form (submit) = "onCheck()">
         <div class="row">  
           <mat-form-field style="width: 50%;" class="col">
             <input
@@ -58,6 +58,9 @@
             required>
             <mat-error>Password is required.</mat-error>
           </mat-form-field>
+          <span style="font-size: small; color: red; padding-left: 10px; margin-top: none;" *ngIf="duplicateUser == true">
+              Username is already taken.
+          </span>
         </div>
 
         <div class="row">  
@@ -71,7 +74,7 @@
             required>
             <mat-error>Location is required.</mat-error>
           </mat-form-field>
-
+          <!--
           <div style="width: 50%;" class="col">
             <br>
             <input
@@ -80,7 +83,7 @@
             name="image"
             type="file"
             >
-          </div>
+          </div> -->
         </div>
     
   

@@ -59,18 +59,29 @@
         <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
             <li *ngFor = "let account of onFieldTMO">
               <div class="collapsible-header" >
-                {{account.fName + ' ' + account.lName }}
+                <span style="width: 590px;"class="col">{{account.fName + ' ' + account.lName }} </span>
+                <!--
+                <span style="width: 150px;"class="switch col">
+                    <label>
+                      Disable
+                      <input type="checkbox">
+                      <span class="lever"></span>
+                      Enable
+                    </label>
+                  </span>
+                -->
               </div>
               <div class="collapsible-body">
                 <div class="row">
                   <div class="col" style="width: 50%;">
-                      <img style="width:100%;" class="thumbnail" src="{{imageURL}}">
+                      <!--<img style="width:100%;" class="thumbnail" src="{{imageURL}}"> -->
                   </div>
                   <div class="col" style="width: 50%;">
-                   <b>Username:</b> {{account.username}}<br>
+                   <b>Username:</b> {{ account.username }}<br>
                    <b>Password: </b> {{ account.password }}<br>
                    <b>Assigned Location: </b> {{ account.location }}
                   </div>
+               
                 </div>
   
                 <br><br>
@@ -79,6 +90,7 @@
                    &nbsp;
                    <a (click) = "onDeleteOnfield(account.$key)" class="black hoverable btn small">DELETE</a>
                    &nbsp;
+                  
                    <!--<a class="black hoverable btn small">DISABLE</a>-->
                 </div>       
   

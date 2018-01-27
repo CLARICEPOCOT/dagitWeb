@@ -22,6 +22,11 @@ export class EditOnFieldComponent implements OnInit {
   image?: string;
   account: any;
 
+  newFName: string;
+  newLName: string;
+  newPassword: string;
+  newLocation: string;
+
 
   constructor(
     public thisDialogRef2: MatDialogRef<ManageAccountsComponent>,
@@ -29,12 +34,46 @@ export class EditOnFieldComponent implements OnInit {
     private firebaseService: FirebaseService,
   ) {
       this.account = data;
+      this.newFName = this.account.fName;
+      this.newLName = this.account.lName;
+      this.newPassword = this.account.password;
+      this.username = this.account.username;
+      this.newLocation = this.account.location;
   }
 
   ngOnInit() {
   }
 
   onEditOnfield(key, onFieldTMO) {
+
+    // tslint:disable-next-line:triple-equals
+    if (this.newFName != this.account.fName) {
+      this.fName = this.newFName;
+    } else {
+      this.fName = this.account.fName;
+    }
+
+      // tslint:disable-next-line:triple-equals
+      if (this.newLName != this.account.lName) {
+        this.lName = this.newLName;
+      } else {
+        this.lName = this.account.lName;
+      }
+
+        // tslint:disable-next-line:triple-equals
+    if (this.newPassword != this.account.password) {
+      this.password = this.newPassword;
+    } else {
+      this.password = this.account.password;
+    }
+
+      // tslint:disable-next-line:triple-equals
+      if (this.newLocation != this.account.location) {
+        this.location = this.newLocation;
+      } else {
+        this.location = this.account.location;
+      }
+
     this.onFieldTMO = {
       'fName': this.fName,
       'lName': this.lName,
@@ -43,8 +82,8 @@ export class EditOnFieldComponent implements OnInit {
       'location': this.location,
     };
     this.firebaseService.updateOnfieldTMO(key, this.onFieldTMO);
-    console.log('Directory added');
-    this.thisDialogRef2.close('Add');
+    console.log('Account updated');
+    this.thisDialogRef2.close('Edit');
 
 
   }

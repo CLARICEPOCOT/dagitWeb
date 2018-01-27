@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class FirebaseService {
 
+  currentUser: any;
   deskTMOfolder: any;
   onFieldTMOFolder: any;
   directory: any;
@@ -72,6 +73,10 @@ export class FirebaseService {
     return this.dagit.list('/ACCOUNTS/DESK_TMO');
   }
 
+  deskTMODetails(key) {
+    return this.dagit.object('/ACCOUNTS/DESK_TMO' + key);
+  }
+
   updateDeskTMO(id, deskTMO) {
     return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
   }
@@ -111,6 +116,10 @@ export class FirebaseService {
     });
   }
 
+  onFieldTMODetails(key) {
+    return this.dagit.object('/ACCOUNTS/ON_FIELD_TMO' + key);
+  }
+
   updateOnfieldTMO(id, onFieldTMO) {
     return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
   }
@@ -127,7 +136,11 @@ export class FirebaseService {
   }
 
   getNotification() {
-    return this.dagit.list('/NOTIFICATIONS');
+    return this.dagit.list('/NOTIFICATIONS', {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
   }
 
   updateNotification(id, notification) {
@@ -138,7 +151,21 @@ export class FirebaseService {
     return this.dagit.list('/NOTIFICATION').remove(key);
   }
 
+
+  storeCurrent(user) {
+    this.dagit.list('/CURRENTDESK').push(user);
+  }
+
+  getCurrent() {
+    return this.dagit.list('/CURRENTDESK', {
+      preserveSnapshot: true
+  });
+ }
+
+
+
 }
+
 
 // not used
 interface Directory {

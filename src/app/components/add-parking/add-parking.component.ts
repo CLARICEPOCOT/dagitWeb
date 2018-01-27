@@ -18,6 +18,13 @@ export class AddParkingComponent implements OnInit {
   location: string;
   category: string;
   notifDetail: string;
+
+  current: any;
+  dbFName: any[] = [];
+  dbLName: any[] = [];
+  fName: string;
+  lName: string;
+
   today = new Date();
 
   date = (this.today.getMonth() + 1) + '/' + this.today.getDate() + '/' + this.today.getFullYear();
@@ -40,7 +47,20 @@ export class AddParkingComponent implements OnInit {
     public thisDialogRef: MatDialogRef<NotificationsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
-  ) { }
+  ) {
+    this.current = this.firebaseService.getCurrent();
+
+        let j = 0;
+        this.current.subscribe(snapshots => {
+          snapshots.forEach(snapshot => {
+            this.dbFName[j] = snapshot.val().fName;
+            this.dbLName[j] = snapshot.val().lName;
+            j++;
+          });
+        });
+        this.getUser();
+
+  }
 
   ngOnInit() {
   }
@@ -55,11 +75,16 @@ export class AddParkingComponent implements OnInit {
     }
 
     if (complete) {
+      this.getUser();
       this.notification = {
         'category': 'Parking',
         'timeStamp': this.timeStamp,
         'notifDetail': this.rating + ': ' + this.location,
+        'fName': this.fName,
+        'lName': this.lName
       };
+      console.log(this.fName);
+      console.log(this.lName);
 
       this.firebaseService.addNotification(this.notification);
       console.log('Notification added');
@@ -72,6 +97,16 @@ export class AddParkingComponent implements OnInit {
   onCancel() {
     this.thisDialogRef.close('Cancel');
 
+  }
+
+  getUser() {
+    for ( let i = 0; i < this.dbFName.length; i++) {
+       this.fName = this.dbFName[i];
+    }
+
+    for ( let j = 0; j < this.dbLName.length; j++) {
+       this.lName = this.dbLName[j];
+    }
   }
 
 }

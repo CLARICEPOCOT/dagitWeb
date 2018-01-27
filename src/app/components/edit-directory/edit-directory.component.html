@@ -13,78 +13,83 @@
     <hr>
     <mat-dialog-content>
       <form (submit) = "onEdit(directory.$key)">
-
-        <div>
-            <span style="font-size:small; margin-right:302px;"><b>CATEGORY</b></span>
-            <span style="font-size:small;"><b>DIRECTORY NAME</b></span>
-            <br>
-            <input 
-            style="width: 48%; margin-right:13px;"
-            type="textt" 
-            ng-model = "newCategory"
-            placeholder="{{ directory.category }}"
-            name="newCategory"  >
-
-            <input 
-            style="width: 49%; margin:0px;"
-            type="textt" 
-            [(ngModel)] = "newDirectoryName"
-            name= "newDirectoryName" 
-            placeholder = "{{ directory.directoryName }}" >
-            
-        </div>
-        <br>
-        <div>
-            <span style="font-size:small;"><b>ADDRESS</b></span>
-            <br>
-            <input 
-            style="width: 99%; margin:0px;"
-            type="textt" 
-            [(ngModel)] = "newAddress"
-            name= "newAddress" 
-            placeholder = "{{ directory.address }}" >       
-        </div>
-        <br>
-        <div>
-            <span style="font-size:small; margin-right:250px;"><b>CONTACT NUMBER</b></span>
-            <span style="font-size:small;"><b>OPERATING HOURS</b></span>
-            <br>
-            <input 
-            style="width: 48%; margin-right:13px;"
-            type="textt" 
-            ng-model = "newContactNumber"
-            placeholder="{{ directory.contactNumber }}"
-            name="newContactNumber"  >
-
-            <input 
-            style="width: 49%; margin:0px;"
-            type="textt" 
-            [(ngModel)] = "newOperatingHours"
-            name= "newOperatingHours" 
-            placeholder = "{{ directory.operatingHours }}" >
-        </div>
         <br>
         <div class="row">
-          <span style="font-size:small;"><b>OTHER INFORMATION</b></span>
-          <textarea
-           rows="5"
-           cols="50"
-           style="width: 99%; margin:0px;"
-           [(ngModel)] = "newOtherInformation"
-           name="newOtherInformation"
-           placeholder= "{{ directory.otherInformation }}">
-          </textarea>    
+          <mat-form-field style="width: 50%;" class="col">
+            <mat-select placeholder="CATEGORY" [(ngModel)]="newCategory" name = "newCategory"[formControl]="categoryControl" required>
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newDirectoryName" 
+            name="newDirectoryName"
+            type="textt"
+            placeholder="DIRECTORY NAME"
+            value = "{{ this.newDirectoryName }}"
+            required>
+            <mat-error>Directory name is required.</mat-error>
+          </mat-form-field>
         </div>
-
-        <select
-        name="newCategory"
-        [(ngModel)]= "newCategory">
-          <option value="Medical">Medical</option>
-          <option value="Medical">Fire</option>
-        </select>
-
-            
- 
+    
+        <div class="row">
+          <mat-form-field style="width: 100%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newAddress" 
+            name="newAddress"
+            type="textt"
+            placeholder="ADDRESS"
+            value = "{{ this.newAddress }}"
+            required>
+            <mat-error>Address is required.</mat-error>
+          </mat-form-field>
+        </div>
+          
+        <div class="row">
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newContactNumber" 
+            name="newContactNumber"
+            type="textt"
+            placeholder="CONTACT NUMBER"
+            value = "{{ this.newContactNumer }}"
+            required>
+            <mat-error>Contact number is required.</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newOperatingHours" 
+            name="newOperatingHours"
+            type="textt"
+            placeholder="OPERATING HOURS"
+            value = "{{ this.newOperatingHours }}"
+            required>
+            <mat-error>Operating hours is required.</mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div class="row">
+          <mat-form-field style="width: 100%;" class="col">
+            <textarea 
+            matInput 
+            [(ngModel)] = "newOtherInformation" 
+            name="newOtherInformation"
+            placeholder="OTHER INFORMATION"
+            value = "{{ this.newOtherInformation }}"
+            matTextareaAutosize 
+            matAutosizeMinRows="1"
+            matAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+        </div>
     
         <mat-dialog-actions fixed>
           <div>
@@ -93,7 +98,7 @@
              class="black hoverable btn small"            
              type="submit"
              name="submit"
-             value="edit" > &nbsp;
+             value="EDIT" > &nbsp;
             <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
           </div>
           <br>

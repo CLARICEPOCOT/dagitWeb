@@ -24,7 +24,8 @@ export class ManageAccountsComponent implements OnInit {
   onFieldTMO: any;
   deskTMO: any;
   imageURL: any;
-  id: any;
+  deskID: any;
+  onFieldID: any;
 
   constructor(
     public dialog: MatDialog,
@@ -35,11 +36,12 @@ export class ManageAccountsComponent implements OnInit {
   }
 
   ngOnInit() {
-  
+
+
     this.firebaseService.getOnfieldTMO().subscribe(onFieldTMO => {
-
+      
       this.onFieldTMO = onFieldTMO;
-
+    
       const storageRef = firebase.storage().ref();
       const spaceRef = storageRef.child(this.onFieldTMO.path);
       storageRef.child(this.onFieldTMO.path).getDownloadURL().then((url) => {
@@ -51,7 +53,7 @@ export class ManageAccountsComponent implements OnInit {
     });
 
     this.firebaseService.getDeskTMO().subscribe(deskTMO => {
- 
+
       this.deskTMO = deskTMO;
 
       const storageRef = firebase.storage().ref();
@@ -63,7 +65,7 @@ export class ManageAccountsComponent implements OnInit {
         console.log(error);
       });
 
-    });
+    }); 
   }
 
   openDialog1() {

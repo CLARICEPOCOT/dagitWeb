@@ -45,6 +45,12 @@ export class EditDirectoryComponent implements OnInit {
     private firebaseService: FirebaseService,
     ) {
       this.directory = data;
+      this.newCategory = this.directory.category;
+      this.newDirectoryName = this.directory.directoryName;
+      this.newAddress = this.directory.address;
+      this.newContactNumber = this.directory.contactNumber;
+      this.newOperatingHours = this.directory.operatingHours;
+      this.newOtherInformation = this.directory.otherInformation;
      }
 
     ngOnInit() {
@@ -53,43 +59,54 @@ export class EditDirectoryComponent implements OnInit {
 
     onEdit(key, directory) {
       // tslint:disable-next-line:triple-equals
-      if (this.newCategory != null) {
+      if (this.newCategory != this.directory.category) {
         this.category = this.newCategory;
       } else {
         this.category = this.directory.category;
       }
 
-      if (this.newDirectoryName != null) {
+      // tslint:disable-next-line:triple-equals
+      if (this.newDirectoryName != this.directory.directoryName) {
         this.directoryName = this.newDirectoryName;
       } else {
         this.directoryName = this.directory.directoryName;
       }
 
-      if (this.newAddress != null) {
+      // tslint:disable-next-line:triple-equals
+      if (this.newAddress != this.directory.address) {
         this.address = this.newAddress;
       } else {
         this.address = this.directory.address;
       }
 
-      if (this.newContactNumber != null) {
+      // tslint:disable-next-line:triple-equals
+      if (this.newContactNumber != this.directory.contactNumber) {
         this.contactNumber = this.newContactNumber;
       } else {
         this.contactNumber = this.directory.contactNumber;
       }
 
-      if (this.newOperatingHours != null) {
+      // tslint:disable-next-line:triple-equals
+      if (this.newOperatingHours != this.directory.operatingHours) {
         this.operatingHours = this.newOperatingHours;
       } else {
         this.operatingHours = this.directory.operatingHours;
       }
 
-      if (this.newOtherInformation != null) {
+      // tslint:disable-next-line:triple-equals
+      if (this.newOtherInformation != this.directory.otherInformation) {
         this.otherInformation = this.newOtherInformation;
       } else {
         if (this.directory.otherInformation == null) {
           this.otherInformation = null;
         } else {
-          this.otherInformation = this.directory.otherInformation;
+          // tslint:disable-next-line:triple-equals
+          if (this.newOtherInformation.length == 0) {
+            this.otherInformation = null;
+          } else {
+            this.otherInformation = this.directory.otherInformation;
+          }
+
         }
       }
 
@@ -105,7 +122,7 @@ export class EditDirectoryComponent implements OnInit {
 
 
       this.firebaseService.updateDirectory(key, this.directory);
-      console.log('Directory added');
+      console.log('Directory edited');
       this.thisDialogRef.close('Add');
 
     }

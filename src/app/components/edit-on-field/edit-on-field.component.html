@@ -10,88 +10,63 @@
           <b style="color: black;">CURRENT ACCOUNT DETAILS</b>
         </span>
         <br><br>
-      <div>     
-            <span>Name:  {{account.fName + ' ' + account.lName }}</span><br>
-            <span>Username: {{account.username}}</span><br>
-            <span>Password: {{account.password}}</span><br>
-            <span>Location: {{account.location}}</span>
-      </div>
     <hr>
     <br>
     <mat-dialog-content>
       <form (submit) = "onEditOnfield(account.$key)">
           <div class="row">  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "fName" 
-              name="fName"
-              type="textt"
-              placeholder="FIRST NAME"
-              required>
-              <mat-error>First name is required.</mat-error>
-            </mat-form-field>
-  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "lName" 
-              name="lName"
-              type="textt"
-              placeholder="LAST NAME"
-              required>
-              <mat-error>Last name is required.</mat-error>
-            </mat-form-field>
-          </div>
-  
-          <div class="row">  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "username" 
-              name="username"
-              type="textt"
-              placeholder="USERNAME"
-              required>
-              <mat-error>Username is required.</mat-error>
-            </mat-form-field>
-  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "password" 
-              name="password"
-              type="textt"
-              placeholder="PASSWORD"
-              required>
-              <mat-error>Password is required.</mat-error>
-            </mat-form-field>
-          </div>
-  
-          <div class="row">  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "location" 
-              name="location"
-              type="textt"
-              placeholder="LOCATION"
-              required>
-              <mat-error>Location is required.</mat-error>
-            </mat-form-field>
-  
-            <div style="width: 50%;" class="col">
-              <br>
-              <input
-              id = "image"
-              [(ngModel)] = "image" 
-              name="image"
-              type="file"
-              >
-            </div>
-          </div>
-      
+              <mat-form-field style="width: 50%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "newFName" 
+                name="newFName"
+                type="textt"
+                placeholder="FIRST NAME"
+                value = "{{ this.newFName }}"
+                required>
+                <mat-error>First name is required.</mat-error>
+              </mat-form-field>
     
+              <mat-form-field style="width: 50%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "newLName" 
+                name="newLName"
+                type="textt"
+                placeholder="LAST NAME"
+                value = "{{ this.newLName }}"
+                required>
+                <mat-error>Last name is required.</mat-error>
+              </mat-form-field>
+            </div>
+    
+            <div class="row">  
+                        
+              <mat-form-field style="width: 50%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "newPassword" 
+                name="newPassword"
+                type="textt"
+                placeholder="PASSWORD"
+                value = "{{ this.newPassword }}"
+                required>
+                <mat-error>Password is required.</mat-error>
+              </mat-form-field>
+
+              <mat-form-field style="width: 50%;" class="col">
+                  <input
+                  matInput
+                  [(ngModel)] = "newLocation" 
+                  name="newLocation"
+                  type="textt"
+                  placeholder="LOCATION"
+                  value = "{{ this.newLocation }}"
+                  required>
+                  <mat-error>Location is required.</mat-error>
+                </mat-form-field>
+            </div>
+        
         
       
         <mat-dialog-actions>

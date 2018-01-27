@@ -11,7 +11,7 @@
   <hr>
   <br>
   <mat-dialog-content>
-    <form (submit) = "onAdd()">
+    <form (submit) = "onCheck()">
         <div class="row">  
           <mat-form-field style="width: 50%;" class="col">
             <input
@@ -47,7 +47,7 @@
             required>
             <mat-error>Username is required.</mat-error>
           </mat-form-field>
-
+                    
           <mat-form-field style="width: 50%;" class="col">
             <input
             matInput
@@ -58,9 +58,15 @@
             required>
             <mat-error>Password is required.</mat-error>
           </mat-form-field>
+          <span style="font-size: small; color: red; padding-left: 10px; margin-top: none;" *ngIf="duplicateUser == true">
+              Username is already taken.
+          </span>
         </div>
 
+
+
         <div class="row">  
+          
           <mat-form-field style="width: 50%;" class="col">
             <input
             matInput
@@ -68,10 +74,17 @@
             name="emailAddress"
             type="emaill"
             placeholder="EMAIL"
+            [formControl]="emailFormControl"
+            [errorStateMatcher]="matcher"
             required>
-            <mat-error>Email is required.</mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">Email is required.</mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address.
+            </mat-error>
           </mat-form-field>
 
+          
+          <!--
           <div style="width: 50%;" class="col">
             <br>
             <input
@@ -80,8 +93,12 @@
             name="image"
             type="file"
             >
-          </div>
+          </div> -->
         </div>
+        <span style="font-size: small; color: red; padding-left: 10px; margin-top: none;" *ngIf="duplicateEmail == true">
+            Email address is already taken.
+        </span>
+
     
   
       

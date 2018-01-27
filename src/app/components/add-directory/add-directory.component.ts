@@ -26,6 +26,7 @@ export class AddDirectoryComponent implements OnInit {
   otherInformation?: string;
 
 
+
   categoryControl = new FormControl('', [Validators.required]);
 
     categories = [
@@ -41,6 +42,9 @@ export class AddDirectoryComponent implements OnInit {
     private firebaseService: FirebaseService,
     public snackBar: MatSnackBar
     ) {
+      // this.currentUser = this.firebaseService.getCurrent();
+      // this.fName = this.currentUser.fName;
+      // this.lName = this.currentUser.lName;
 
      }
 
@@ -98,7 +102,7 @@ export class AddDirectoryComponent implements OnInit {
 
       } else {
         console.log('Please fill in all required fields.');
-        // toast('I am a toast!', 4000);
+
       }
 
 

@@ -17,6 +17,11 @@ export class LoginComponent implements OnInit {
   userInfo: any;
   confirmUser: any[] = [];
   confirmPass: any[] = [];
+  check: boolean;
+
+  currentUser: any;
+  fName: any[] = [];
+  lName: any[] = [];
 
   constructor(
     private firebaseService: FirebaseService,
@@ -26,6 +31,8 @@ export class LoginComponent implements OnInit {
     let i = 0;
     this.userInfo.subscribe(snapshots => {
       snapshots.forEach(snapshot => {
+        this.fName[i] = snapshot.val().fName;
+        this.lName[i] = snapshot.val().lName;
         this.confirmUser[i] = snapshot.val().username;
         this.confirmPass[i] = snapshot.val().password;
         i++;
@@ -39,7 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   checkUser() {
-    let check = false;
+    this.check = false;
    // console.log(this.confirmUser[0]);
     for (let i = 0; i < this.confirmUser.length; i++) {
     // console.log(this.confirmUser[i]);
@@ -47,15 +54,19 @@ export class LoginComponent implements OnInit {
         if (this.tempUser == this.confirmUser[i]) {
           // tslint:disable-next-line:triple-equals
           if (this.tempPass == this.confirmPass[i]) {
-            check = true;
+            this.check = true;
+            this.currentUser = {
+              'fName': this.fName[i],
+              'lName': this.lName[i]
+            };
+            this.firebaseService.storeCurrent(this.currentUser);
             this.router.navigate(['/map']);
             console.log('Logged in');
           }
         }
     }
 
-    if (!check)
-    {
+    if (!this.check) {
       console.log('Invalid credentials');
     }
 

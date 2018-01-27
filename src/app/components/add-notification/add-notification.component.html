@@ -15,16 +15,16 @@
 
         <div class="row">
             <mat-form-field style="width: 100%;" class="col">
-              <textarea 
+              <input
               matInput 
+              type="textt"
               [(ngModel)] = "title" 
               name="title"
               placeholder="ANNOUNCEMENT TITLE"
               matTextareaAutosize 
               matAutosizeMinRows="1"
               matAutosizeMaxRows="5"
-              required>
-            </textarea>
+              required>         
             <mat-error>Title is required.</mat-error>
             </mat-form-field>
           </div>
