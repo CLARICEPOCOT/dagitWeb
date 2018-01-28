@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes} from '@angular/router';
 
 
-
 import { AppComponent } from './app.component';
 
 // imports for materialize
@@ -31,6 +30,11 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FirebaseService } from './services/firebase.service';
 // import { AngularFireAuthModule, AngularFireAuthProvider, AUTH_PROVIDERS } from 'angularfire2/auth';
 // import { environment } from '../environments/environment';
+
+
+// imports for maps
+import { environment } from './../environments/environment';
+import { AgmCoreModule } from '@agm/core';
 
 
 // dagit modules
@@ -136,7 +140,10 @@ const appRoutes: Routes = [
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapsKey
+    })
   ],
   entryComponents: [
     AddDirectoryComponent,

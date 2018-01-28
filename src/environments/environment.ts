@@ -13,5 +13,7 @@ export const environment = {
     projectId: 'dagit-7cbac',
     storageBucket: 'dagit-7cbac.appspot.com',
     messagingSenderId: '902262473533'
-  }
+  },
+
+  googleMapsKey: 'AIzaSyCIUI0wFmpSPwOJUWHQx3zNYr2JmwoluxE'
 };
