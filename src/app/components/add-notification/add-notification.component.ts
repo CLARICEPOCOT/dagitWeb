@@ -40,9 +40,8 @@ export class AddNotificationComponent implements OnInit {
     public thisDialogRef: MatDialogRef<NotificationsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
-  ) { 
+  ) {
     this.current = this.firebaseService.getCurrent();
-    
                 let j = 0;
                 this.current.subscribe(snapshots => {
                   snapshots.forEach(snapshot => {
