@@ -7,43 +7,52 @@
 
 <body>
   
-  <h2 mat-dialog-title><i class="material-icons red-text medium">create</i>PUBLISH NOTIFICATION</h2>
+  <h2 mat-dialog-title><i class="material-icons blue-text medium">description</i>PUBLISH AN ANNOUNCEMENT</h2>
   <hr>
   <br>
   <mat-dialog-content>
-    <form>
+    <form (submit)="onAdd()">
 
         <div class="row">
-          <mat-form-field style="width: 50%;" class="col">
-            <mat-select placeholder="CATEGORY" [(ngModel)]="category" name = "category"[formControl]="categoryControl" required>
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let category of categories" [value]="category.value">
-                {{category.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
-          </mat-form-field>
-        </div>
+            <mat-form-field style="width: 100%;" class="col">
+              <input
+              matInput 
+              type="textt"
+              [(ngModel)] = "title" 
+              name="title"
+              placeholder="ANNOUNCEMENT TITLE"
+              matTextareaAutosize 
+              matAutosizeMinRows="1"
+              matAutosizeMaxRows="5"
+              required>         
+            <mat-error>Title is required.</mat-error>
+            </mat-form-field>
+          </div>
 
         <div class="row">
           <mat-form-field style="width: 100%;" class="col">
             <textarea 
             matInput 
-            [(ngModel)] = "notifDetail" 
-            name="notifDetail"
-            placeholder="NOTIFICATION DETAIL"
+            [(ngModel)] = "description" 
+            name="description"
+            placeholder="DESCRIPTION"
             matTextareaAutosize 
             matAutosizeMinRows="1"
             matAutosizeMaxRows="5"
             required>
           </textarea>
-          <mat-error>Notification detail is required.</mat-error>
+          <mat-error>Description is required.</mat-error>
           </mat-form-field>
         </div>
       
       <mat-dialog-actions>
         <div>
-            <button mat-raised-button class="black hoverable btn small" (click) = "onAdd()">PUBLISH</button>
+            <input
+            mat-raised-button
+            class="black hoverable btn small"
+            type="submit"
+            name="submit"
+            value="PUBLISH" > &nbsp;
             <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
         </div>
         <br>

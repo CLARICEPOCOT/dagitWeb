@@ -10,89 +10,51 @@
           <b style="color: black;">CURRENT ACCOUNT DETAILS</b>
         </span>
         <br><br>
-      <div>     
-            <span>Name:  {{account.fName + ' ' + account.lName }}</span><br>
-            <span>Username: {{account.username}}</span><br>
-            <span>Password: {{account.password}}</span><br>
-            <span>Email: {{account.emailAddress}}</span>
-      </div>
     <hr>
     <br>
     <mat-dialog-content>
-      <form (submit) = "onDesk(account.$key)">
+      <form (submit) = "onEdit(account.$key)">
           <div class="row">  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "fName" 
-              name="fName"
-              type="textt"
-              placeholder="FIRST NAME"
-              required>
-              <mat-error>First name is required.</mat-error>
-            </mat-form-field>
-  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "lName" 
-              name="lName"
-              type="textt"
-              placeholder="LAST NAME"
-              required>
-              <mat-error>Last name is required.</mat-error>
-            </mat-form-field>
-          </div>
-  
-          <div class="row">  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "username" 
-              name="username"
-              type="textt"
-              placeholder="USERNAME"
-              required>
-              <mat-error>Username is required.</mat-error>
-            </mat-form-field>
-  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "password" 
-              name="password"
-              type="textt"
-              placeholder="PASSWORD"
-              required>
-              <mat-error>Password is required.</mat-error>
-            </mat-form-field>
-          </div>
-  
-          <div class="row">  
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "email" 
-              name="email"
-              type="textt"
-              placeholder="EMAIL"
-              required>
-              <mat-error>Email is required.</mat-error>
-            </mat-form-field>
-  
-            <div style="width: 50%;" class="col">
-              <br>
-              <input
-              id = "image"
-              [(ngModel)] = "image" 
-              name="image"
-              type="file"
-              >
-            </div>
-          </div>
-      
+              <mat-form-field style="width: 50%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "newFName" 
+                name="newFName"
+                type="textt"
+                value = "{{ this.newFName }}"
+                placeholder="FIRST NAME"
+                required>
+                <mat-error>First name is required.</mat-error>
+              </mat-form-field>
     
-        
+              <mat-form-field style="width: 50%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "newLName" 
+                name="newLName"
+                type="textt"
+                value = "{{ this.newLName }}"
+                placeholder="LAST NAME"
+                required>
+                <mat-error>Last name is required.</mat-error>
+              </mat-form-field>
+            </div>
+    
+            <div class="row">  
+                        
+              <mat-form-field style="width: 50%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "newPassword" 
+                name="newPassword"
+                type="textt"
+                placeholder="PASSWORD"
+                value = "{{ this.newPassword }}"
+                required>
+                <mat-error>Password is required.</mat-error>
+              </mat-form-field>
+            </div>
+             
       
         <mat-dialog-actions>
           <div>

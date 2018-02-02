@@ -9,102 +9,88 @@
       <span style="background-color:#FFF176; padding: 12px; border-radius: 5px;">
           <b style="color: black;">CURRENT DIRECTORY DETAILS</b>
         </span>
-        <br><br>
-    <div class="row">     
-      <div style="width: 380px;" class="col">
-          <span>Category: {{directory.category}}</span><br>
-          <span>Address: {{directory.address}}</span><br>
-          <span>Operating Hours: {{directory.operatingHours}}</span><br>
-      </div>
-      <div>
-          <span>Directory Name: {{directory.directoryName}}</span><br>          
-          <span>Contact Number: {{directory.contactNumber}}</span><br>        
-          <span>Other Information: {{directory.otherInformation}}</span>  
-      </div>
-    </div>
-  
+        <br><br>  
     <hr>
-    <br>
     <mat-dialog-content>
       <form (submit) = "onEdit(directory.$key)">
-          <div class="row">
-            <mat-form-field style="width: 50%;" class="col">
-              <mat-select placeholder="CATEGORY"
-               [(ngModel)]="category"
-               name = "category"
-               [formControl]="categoryControl"
-               required>
-                <mat-option *ngFor="let category of categories" [value]="category.value">
-                  {{category.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
-            </mat-form-field>
-      
-            <mat-form-field style="width: 50%;" class="col">
-                <input
-                matInput
-                [(ngModel)] = "directoryName" 
-                name="directoryName"
-                type="textt"
-                placeholder="DIRECTORY NAME"
-                required>
-                <mat-error>Directory name is required.</mat-error>
-              </mat-form-field>
-       
-          </div>
-      
-          <div class="row">
-            <mat-form-field style="width: 100%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "address" 
-              name="address"
-              type="textt"
-              placeholder="ADDRESS"
-              required>
-              <mat-error>Address is required.</mat-error>
-            </mat-form-field>
-          </div>
-            
-          <div class="row">
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "contactNumber" 
-              name="contactNumber"
-              type="textt"
-              placeholder="CONTACT NUMBER"
-              required>
-              <mat-error>Contact number is required.</mat-error>
-            </mat-form-field>
-      
-            <mat-form-field style="width: 50%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "operatingHours" 
-              name="operatingHours"
-              type="textt"
-              placeholder="OPERATING HOURS"
-              required>
-              <mat-error>Operating hours is required.</mat-error>
-            </mat-form-field>
-          </div>
-      
-          <div class="row">
-            <mat-form-field style="width: 100%;" class="col">
-              <textarea 
-              matInput 
-              [(ngModel)] = "otherInformation" 
-              name="otherInformation"
-              placeholder= "OTHER INFORMATION"
-              matTextareaAutosize 
-              matAutosizeMinRows="1"
-              matAutosizeMaxRows="5"></textarea>
-            </mat-form-field>
-          </div>
-
-      
+        <br>
+        <div class="row">
+          <mat-form-field style="width: 50%;" class="col">
+            <mat-select placeholder="CATEGORY" [(ngModel)]="newCategory" name = "newCategory"[formControl]="categoryControl" required>
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newDirectoryName" 
+            name="newDirectoryName"
+            type="textt"
+            placeholder="DIRECTORY NAME"
+            value = "{{ this.newDirectoryName }}"
+            required>
+            <mat-error>Directory name is required.</mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div class="row">
+          <mat-form-field style="width: 100%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newAddress" 
+            name="newAddress"
+            type="textt"
+            placeholder="ADDRESS"
+            value = "{{ this.newAddress }}"
+            required>
+            <mat-error>Address is required.</mat-error>
+          </mat-form-field>
+        </div>
+          
+        <div class="row">
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newContactNumber" 
+            name="newContactNumber"
+            type="textt"
+            placeholder="CONTACT NUMBER"
+            value = "{{ this.newContactNumer }}"
+            required>
+            <mat-error>Contact number is required.</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "newOperatingHours" 
+            name="newOperatingHours"
+            type="textt"
+            placeholder="OPERATING HOURS"
+            value = "{{ this.newOperatingHours }}"
+            required>
+            <mat-error>Operating hours is required.</mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div class="row">
+          <mat-form-field style="width: 100%;" class="col">
+            <textarea 
+            matInput 
+            [(ngModel)] = "newOtherInformation" 
+            name="newOtherInformation"
+            placeholder="OTHER INFORMATION"
+            value = "{{ this.newOtherInformation }}"
+            matTextareaAutosize 
+            matAutosizeMinRows="1"
+            matAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+        </div>
+    
         <mat-dialog-actions fixed>
           <div>
             <input
@@ -112,8 +98,8 @@
              class="black hoverable btn small"            
              type="submit"
              name="submit"
-             value="edit" >
-              <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
+             value="EDIT" > &nbsp;
+            <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
           </div>
           <br>
           <br>

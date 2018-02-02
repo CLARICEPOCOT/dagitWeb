@@ -11,7 +11,7 @@ export class LogoutComponent implements OnInit {
 
   constructor(
     private router: Router
-  ) { 
+  ) {
     this.router.navigate(['/']);
   }
 

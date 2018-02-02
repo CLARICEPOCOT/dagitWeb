@@ -23,6 +23,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButton, MatSnackBar } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio';
+
 
 // imports for database
 import { AngularFireModule } from 'angularfire2';
@@ -62,10 +64,15 @@ import { SearchAccountsComponent } from './components/search-accounts/search-acc
 import { SearchNotificationsComponent } from './components/search-notifications/search-notifications.component';
 import { EditOnFieldComponent } from './components/edit-on-field/edit-on-field.component';
 import { EditDeskComponent } from './components/edit-desk/edit-desk.component';
+<<<<<<< HEAD
 import { GeoService } from './geo.service';
 import { InformationComponent } from './components/information/information.component';
 import { AddInformationComponent } from './components/add-information/add-information.component';
 import { EditInformationComponent } from './components/edit-information/edit-information.component';
+=======
+import { AddTrafficComponent } from './components/add-traffic/add-traffic.component';
+import { AddParkingComponent } from './components/add-parking/add-parking.component';
+>>>>>>> master
 
 
 
@@ -130,9 +137,14 @@ const appRoutes: Routes = [
     SearchNotificationsComponent,
     EditOnFieldComponent,
     EditDeskComponent,
+<<<<<<< HEAD
     InformationComponent,
     AddInformationComponent,
     EditInformationComponent
+=======
+    AddTrafficComponent,
+    AddParkingComponent
+>>>>>>> master
   ],
   imports: [
     BrowserModule,
@@ -150,10 +162,14 @@ const appRoutes: Routes = [
     MatSelectModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+<<<<<<< HEAD
     AgmCoreModule.forRoot({
       apiKey: environment.googleMapsKey,
       libraries: ['places']
     })
+=======
+    MatRadioModule
+>>>>>>> master
   ],
   entryComponents: [
     AddDirectoryComponent,
@@ -166,7 +182,12 @@ const appRoutes: Routes = [
     EditDirectoryComponent,
     EditDeskComponent,
     EditOnFieldComponent,
+<<<<<<< HEAD
     AddInformationComponent
+=======
+    AddTrafficComponent,
+    AddParkingComponent,
+>>>>>>> master
   ],
   providers: [FirebaseService, GeoService],
   bootstrap: [AppComponent]

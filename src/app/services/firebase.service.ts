@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class FirebaseService {
 
+  currentUser: any;
   deskTMOfolder: any;
   onFieldTMOFolder: any;
   directory: any;
@@ -58,6 +59,10 @@ export class FirebaseService {
 
   }
 
+  addDeskTMONoPhoto(deskTMO) {
+    this.dagit.list('/ACCOUNTS/DESK_TMO').push(deskTMO);
+  }
+
   getDeskTMODetails() {
     return this.dagit.list('/ACCOUNTS/DESK_TMO', {
       preserveSnapshot: true
@@ -66,6 +71,10 @@ export class FirebaseService {
 
   getDeskTMO() {
     return this.dagit.list('/ACCOUNTS/DESK_TMO');
+  }
+
+  deskTMODetails(key) {
+    return this.dagit.object('/ACCOUNTS/DESK_TMO' + key);
   }
 
   updateDeskTMO(id, deskTMO) {
@@ -93,6 +102,10 @@ export class FirebaseService {
     }
   }
 
+  addOnFieldTMONoPhoto(onFieldTMO) {
+    this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').push(onFieldTMO);
+  }
+
   getOnfieldTMO() {
     return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO');
   }
@@ -101,6 +114,10 @@ export class FirebaseService {
     return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO', {
       preserveSnapshot: true
     });
+  }
+
+  onFieldTMODetails(key) {
+    return this.dagit.object('/ACCOUNTS/ON_FIELD_TMO' + key);
   }
 
   updateOnfieldTMO(id, onFieldTMO) {
@@ -119,7 +136,11 @@ export class FirebaseService {
   }
 
   getNotification() {
-    return this.dagit.list('/NOTIFICATIONS');
+    return this.dagit.list('/NOTIFICATIONS', {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
   }
 
   updateNotification(id, notification) {
@@ -131,6 +152,7 @@ export class FirebaseService {
   }
 
 
+<<<<<<< HEAD
 // INFORMATION
 
   addInformation(information) {
@@ -148,8 +170,22 @@ export class FirebaseService {
   deleteInformation(key) {
     return this.dagit.list('INFORMATION').remove(key);
   }
+=======
+  storeCurrent(user) {
+    this.dagit.list('/CURRENTDESK').push(user);
+  }
+
+  getCurrent() {
+    return this.dagit.list('/CURRENTDESK', {
+      preserveSnapshot: true
+  });
+ }
+
+
+>>>>>>> master
 
 }
+
 
 // not used
 interface Directory {

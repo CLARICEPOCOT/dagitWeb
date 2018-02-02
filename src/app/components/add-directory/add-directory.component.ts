@@ -8,6 +8,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { MatSnackBar } from '@angular/material';
 
 
+
 @Component({
   selector: 'app-add-directory',
   templateUrl: './add-directory.component.html',
@@ -25,6 +26,7 @@ export class AddDirectoryComponent implements OnInit {
   otherInformation?: string;
 
 
+
   categoryControl = new FormControl('', [Validators.required]);
 
     categories = [
@@ -40,26 +42,69 @@ export class AddDirectoryComponent implements OnInit {
     private firebaseService: FirebaseService,
     public snackBar: MatSnackBar
     ) {
+      // this.currentUser = this.firebaseService.getCurrent();
+      // this.fName = this.currentUser.fName;
+      // this.lName = this.currentUser.lName;
 
      }
 
     ngOnInit() {
+
     }
 
 
     onAdd(directory) {
-      this.directory = {
-        'category': this.category,
-        'directoryName': this.directoryName,
-        'address': this.address,
-        'contactNumber': this.contactNumber,
-        'operatingHours': this.operatingHours,
-        'otherInformation': this.otherInformation,
-      };
-      console.log('Directory added');
-      this.thisDialogRef.close('Add');
+      let complete = false;
+      if (this.category == null) {
+        complete = false;
+      } else if (this.directoryName == null) {
+        complete = false;
+      } else if (this.address == null) {
+        complete = false;
+      } else if (this.contactNumber == null) {
+        complete = false;
+      } else if (this.operatingHours == null) {
+        complete = false;
+      } else {
+        complete = true;
+      }
 
-      this.firebaseService.addDirectory(this.directory);
+      if (complete) {
+
+        if (this.otherInformation == null) { // if without otherInformation
+          this.directory = {
+            'category': this.category,
+            'directoryName': this.directoryName,
+            'address': this.address,
+            'contactNumber': this.contactNumber,
+            'operatingHours': this.operatingHours,
+            'otherInformation': null,
+          };
+
+          this.firebaseService.addDirectory(this.directory);
+          console.log('Directory added');
+          this.thisDialogRef.close('ADD');
+        } else { // if with otherInformation
+          this.directory = {
+            'category': this.category,
+            'directoryName': this.directoryName,
+            'address': this.address,
+            'contactNumber': this.contactNumber,
+            'operatingHours': this.operatingHours,
+            'otherInformation': this.otherInformation,
+          };
+
+          this.firebaseService.addDirectory(this.directory);
+          console.log('Directory added');
+          this.thisDialogRef.close('ADD');
+        }
+
+
+      } else {
+        console.log('Please fill in all required fields.');
+
+      }
+
 
 
     }

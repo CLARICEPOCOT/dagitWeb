@@ -7,23 +7,25 @@ import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
-  selector: 'app-add-notification',
-  templateUrl: './add-notification.component.html',
-  styleUrls: ['./add-notification.component.css']
+  selector: 'app-add-parking',
+  templateUrl: './add-parking.component.html',
+  styleUrls: ['./add-parking.component.css']
 })
-export class AddNotificationComponent implements OnInit {
+export class AddParkingComponent implements OnInit {
 
   notification: any;
-  title: string;
-  description: string;
+  rating: string;
+  location: string;
+  category: string;
   notifDetail: string;
-  today = new Date();
 
   current: any;
   dbFName: any[] = [];
   dbLName: any[] = [];
   fName: string;
   lName: string;
+
+  today = new Date();
 
   date = (this.today.getMonth() + 1) + '/' + this.today.getDate() + '/' + this.today.getFullYear();
   hours = this.today.getHours() <= 12 ? this.today.getHours() : this.today.getHours() - 12;
@@ -34,7 +36,12 @@ export class AddNotificationComponent implements OnInit {
   time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;
   timeStamp = this.date + ' ' + this.time;
 
+  categoryControl = new FormControl('', [Validators.required]);
 
+      categories = [
+        {name: 'Available', value: 'Available Parking'},
+        {name: 'Not Available', value: 'No Available Parking'},
+      ];
 
   constructor(
     public thisDialogRef: MatDialogRef<NotificationsComponent>,
@@ -42,24 +49,26 @@ export class AddNotificationComponent implements OnInit {
     private firebaseService: FirebaseService,
   ) {
     this.current = this.firebaseService.getCurrent();
-                let j = 0;
-                this.current.subscribe(snapshots => {
-                  snapshots.forEach(snapshot => {
-                    this.dbFName[j] = snapshot.val().fName;
-                    this.dbLName[j] = snapshot.val().lName;
-                    j++;
-                  });
-                });
-                this.getUser();
+
+        let j = 0;
+        this.current.subscribe(snapshots => {
+          snapshots.forEach(snapshot => {
+            this.dbFName[j] = snapshot.val().fName;
+            this.dbLName[j] = snapshot.val().lName;
+            j++;
+          });
+        });
+        this.getUser();
+
   }
 
   ngOnInit() {
   }
 
 
-  onAdd(notification) {
+  rateParking(notification) {
     let complete = false;
-    if (this.title != null && this.description != null) {
+    if (this.rating != null && this.location != null) {
       complete = true;
     } else {
       console.log('Please fill in all the required fields.');
@@ -68,13 +77,14 @@ export class AddNotificationComponent implements OnInit {
     if (complete) {
       this.getUser();
       this.notification = {
-        'category': 'Announcement',
+        'category': 'Parking',
         'timeStamp': this.timeStamp,
-        'title': this.title,
-        'notifDetail': this.description,
+        'notifDetail': this.rating + ': ' + this.location,
         'fName': this.fName,
         'lName': this.lName
       };
+      console.log(this.fName);
+      console.log(this.lName);
 
       this.firebaseService.addNotification(this.notification);
       console.log('Notification added');
