@@ -152,7 +152,6 @@ export class FirebaseService {
   }
 
 
-<<<<<<< HEAD
 // INFORMATION
 
   addInformation(information) {
@@ -170,7 +169,6 @@ export class FirebaseService {
   deleteInformation(key) {
     return this.dagit.list('INFORMATION').remove(key);
   }
-=======
   storeCurrent(user) {
     this.dagit.list('/CURRENTDESK').push(user);
   }
@@ -182,7 +180,6 @@ export class FirebaseService {
  }
 
 
->>>>>>> master
 
 }
 
