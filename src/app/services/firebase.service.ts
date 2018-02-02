@@ -130,6 +130,25 @@ export class FirebaseService {
     return this.dagit.list('/NOTIFICATION').remove(key);
   }
 
+
+// INFORMATION
+
+  addInformation(information) {
+    this.dagit.list('/INFORMATION').push(information);
+  }
+
+  getInformation() {
+    return this.dagit.list('/INFORMATION');
+  }
+
+  updateInformation(id, information) {
+    return this.dagit.list('/INFORMATION').update(id, information);
+  }
+
+  deleteInformation(key) {
+    return this.dagit.list('INFORMATION').remove(key);
+  }
+
 }
 
 // not used

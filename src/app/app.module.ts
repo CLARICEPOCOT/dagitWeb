@@ -62,6 +62,10 @@ import { SearchAccountsComponent } from './components/search-accounts/search-acc
 import { SearchNotificationsComponent } from './components/search-notifications/search-notifications.component';
 import { EditOnFieldComponent } from './components/edit-on-field/edit-on-field.component';
 import { EditDeskComponent } from './components/edit-desk/edit-desk.component';
+import { GeoService } from './geo.service';
+import { InformationComponent } from './components/information/information.component';
+import { AddInformationComponent } from './components/add-information/add-information.component';
+import { EditInformationComponent } from './components/edit-information/edit-information.component';
 
 
 
@@ -93,7 +97,9 @@ const appRoutes: Routes = [
   {path: 'add-directory', component: AddDirectoryComponent},
   {path: 'publish-announcement', component: PublishAnnouncementComponent},
   {path: 'publish-parking', component: PublishParkingComponent},
-  {path: 'publish-traffic', component: PublishTrafficComponent}
+  {path: 'publish-traffic', component: PublishTrafficComponent},
+  {path: 'information', component: InformationComponent},
+  {path: 'add-information', component: AddInformationComponent}
 ];
 
 
@@ -123,7 +129,10 @@ const appRoutes: Routes = [
     SearchAccountsComponent,
     SearchNotificationsComponent,
     EditOnFieldComponent,
-    EditDeskComponent
+    EditDeskComponent,
+    InformationComponent,
+    AddInformationComponent,
+    EditInformationComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +151,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatSnackBarModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.googleMapsKey
+      apiKey: environment.googleMapsKey,
+      libraries: ['places']
     })
   ],
   entryComponents: [
@@ -155,9 +165,10 @@ const appRoutes: Routes = [
     SearchNotificationsComponent,
     EditDirectoryComponent,
     EditDeskComponent,
-    EditOnFieldComponent
+    EditOnFieldComponent,
+    AddInformationComponent
   ],
-  providers: [FirebaseService],
+  providers: [FirebaseService, GeoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

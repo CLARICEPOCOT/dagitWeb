@@ -1,15 +1,28 @@
 <app-navbar></app-navbar>
-<div *ngIf="lat && lng">
+<div class="form-group">
+    <input 
+    style="margin-bottom:2px;"
+    placeholder="   Search for a location" 
+    autocorrect="off" autocapitalize="off" 
+    spellcheck="off" type="text" class="form-control" 
+    #search [formControl]="searchControl">
+</div>
+<div *ngIf="latitude && longitude">
+    
+    <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom">
 
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng">
-      <agm-info-window>
-        <h5>
-          <strong>HEY!</strong>
-          <p>You are here!</p>
-        </h5>
-      </agm-info-window>
-    </agm-marker>
-  </agm-map>
+        <agm-marker [latitude]="latitude" [longitude]="longitude">
+          <!--
+          <agm-info-window>
+            <h6> <strong>HEY!</strong> </h6>
+              <p>{{ this.place }}</p>   
+          </agm-info-window>
+          -->
+        </agm-marker>
+    
+     
+      </agm-map>
 
 </div>
+
+

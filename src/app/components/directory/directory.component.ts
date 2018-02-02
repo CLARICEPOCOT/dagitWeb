@@ -25,7 +25,7 @@ export class DirectoryComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private firebaseService: FirebaseService,
+    private firebaseService: FirebaseService
     ) {
       this.directories = this.firebaseService.getDirectory();
    }
