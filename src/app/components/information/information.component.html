@@ -14,38 +14,29 @@
     <br><br>
     <div class= "container">
       <div>
-        <!--Collection for Hospitals -->
+        <!--Collection for Information -->
       <i class="medium material-icons left red-text">import_contacts</i>
       <b style="font-size: 40px;">PUBLISHED INFORMATION</b><br>
 
        <!--COLLAPSIBLE: loop data in database -->
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-          <li *ngFor = "let directory of directories | async">
-            <div class="collapsible-header" *ngIf="directory.category == 'Medical'">
-              {{ directory.directoryName }}
+          <li *ngFor = "let information of allInformation">
+            <div class="collapsible-header">
+              {{ information.title }}
             </div>
             <div class="collapsible-body">
-              <div class="row">
-                <div class="col s4 center">
-                    <i class="material-icons">location_on</i><b>Address</b><hr>
-                    {{ directory.address }}
-                </div>
-                <div class="col s4 center">
-                    <i class="material-icons">phone</i><b>Contact Number</b><hr>
-                    {{ directory.contactNumber }}
-                </div>
-               <div class="col s4 center">
-                  <i class="material-icons">access_time</i><b>Operating Hours</b><hr>
-                  {{ directory.operatingHours }}
-               </div>
-               <br><br><br><br>
-               <div class="center">
-                  <a (click) ="openEdit(directory)" class="black hoverable btn small">EDIT</a>
-                  &nbsp;
-                  <a (click) = "onDeleteClick(directory.$key)" class="black hoverable btn small">DELETE</a>
-               </div>             
-              </div>
+                    {{ information.body }}                                            
+            <br><br>
+            <div class="center">
+               <a (click) ="onEditInformation(information)" class="black hoverable btn small">EDIT</a>
+               &nbsp;
+               <a (click) = "onDeleteInformation(information.$key)" class="black hoverable btn small">DELETE</a>
+               &nbsp;
+              
+               <!--<a class="black hoverable btn small">DISABLE</a>-->
+            </div> 
             </div>
+
           </li>
         </ul>
       </div>

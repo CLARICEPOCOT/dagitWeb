@@ -30,14 +30,23 @@ export class AddInformationComponent implements OnInit {
 
 
   onAdd(information) {
-    this.information = {
+
+    let complete = false;
+    if (this.title != null && this.body != null) {
+      complete = true;
+    } else {
+      console.log('Please fill in all the required fields.');
+    }
+    if (complete) {
+      this.information = {
       'title': this.title,
       'body': this.body
     };
     console.log('Information added');
     this.thisDialogRef.close('Add');
-
     this.firebaseService.addInformation(this.information);
+    }
+
 
   }
 

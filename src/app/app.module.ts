@@ -176,6 +176,7 @@ const appRoutes: Routes = [
     AddInformationComponent,
     AddTrafficComponent,
     AddParkingComponent,
+    EditInformationComponent
   ],
   providers: [FirebaseService, GeoService],
   bootstrap: [AppComponent]
