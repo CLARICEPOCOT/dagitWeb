@@ -3,6 +3,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import 'rxjs/add/operator/map';
 import { FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
+import 'firebase/storage';
+
 
 
 @Injectable()
@@ -12,6 +14,8 @@ export class FirebaseService {
   deskTMOfolder: any;
   onFieldTMOFolder: any;
   directory: any;
+
+
   constructor(public dagit: AngularFireDatabase) {
     this.deskTMOfolder = 'deskTMOImages';
     this.onFieldTMOFolder = 'onFieldTMOImages';
@@ -57,6 +61,43 @@ export class FirebaseService {
 
     }
 
+  }
+
+
+  addDeskImage(deskTMO) {
+        // create root ref
+        const storageRef = firebase.storage().ref();
+        for ( const selectedFile of
+          [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
+            const path = `/${this.deskTMOfolder}/${selectedFile.name}`;
+            const iRef = storageRef.child(path);
+            iRef.put(selectedFile).then((snapshot) => {
+              deskTMO.image = selectedFile.name;
+              deskTMO.path = path;
+              return this.dagit.list('/ACCOUNTS/DESK_TMO/' + deskTMO).push(deskTMO);
+            });
+        }
+
+      }
+
+
+  uploadDeskPhoto(image, key) {
+    const dlURL = null;
+    const metadata = {
+      contentType: 'image/jpeg'
+    };
+    const storageRef = firebase.storage().ref().child('DESK/' + key + '.jpg').put(image);
+    // storageRef.putString(image, 'base64', metadata);
+    // dlURL = storageRef.child('some text').getDownloadURL;
+    return storageRef;
+  }
+
+  uploadOnField(image, key) {
+    const dURL = null;
+    const metadata = {
+      contentType: 'image/jpg'
+    };
+    const storageRef = firebase.storage().ref().child('ONFIELD/' + key + '.jpg').put(image);
   }
 
   addDeskTMONoPhoto(deskTMO) {
@@ -169,6 +210,41 @@ export class FirebaseService {
   deleteInformation(key) {
     return this.dagit.list('/INFORMATION').remove(key);
   }
+
+  // ACCIDENT REPORTS
+
+  getAccidents() {
+    return this.dagit.list('/ACCIDENT');
+  }
+
+  // VIOLATION REPORTS
+
+  getViolations() {
+    return this.dagit.list('/VIOLATION');
+  }
+
+  // PEDICAB REPORTS
+
+  getPedicabReports() {
+    return this.dagit.list('/PEDICAB');
+  }
+
+  // MESSAGES
+
+  getMessages() {
+    return this.dagit.list('/CHAT');
+  }
+
+  getMessage(user) {
+    return this.dagit.list('/CHAT/' + user);
+  }
+
+  addMessage(message, user) {
+    this.dagit.list('/CHAT/' + user).push(message);
+  }
+
+
+  // TEMPORARY SESSIONS
   storeCurrent(user) {
     this.dagit.list('/CURRENTDESK').push(user);
   }
@@ -182,6 +258,8 @@ export class FirebaseService {
 
 
 }
+
+
 
 
 // not used
@@ -206,3 +284,5 @@ interface DeskTMO {
   accountPicture?: string;
 
 }
+
+
