@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+<body>
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+  <br><br>     
+  <div class="container">
+      <i class="medium material-icons left orange-text lighten-2">motorcycle</i>
+      <b style="font-size: 40px;">PEDICAB REPORTS</b><br>  
+    <div class="collection">
+        <a
+        class="collection-item black-text"
+        *ngFor="let report of reports | async"
+        (click) ="open(report)">
+        {{ report.reportSender }}      
+        </a>
+    </div>
+
+  </div>
+
+  <br>
+  <div class="center">
+      <a [routerLink] = "['/helpdesk']"><button class="black hoverable btn">BACK TO HELPDESK</button></a><br><br>
+  </div>
+</body>

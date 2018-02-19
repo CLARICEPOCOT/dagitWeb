@@ -19,6 +19,7 @@ export class NotificationsComponent implements OnInit {
   searchNotificationResult = '';
   parkingResult = '';
   trafficResult = '';
+  notification: any;
   notifications: any;
 
   constructor(
@@ -31,7 +32,7 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.firebaseService.getNotification().subscribe(notification => {
       console.log(notification);
-      this.notifications = notification;
+      this.notification = notification;
     });
   }
 

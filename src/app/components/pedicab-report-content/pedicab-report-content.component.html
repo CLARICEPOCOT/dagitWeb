@@ -1,0 +1,32 @@
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">                 
+</head>
+
+<body>
+    <span style="background-color: #ffb74d; padding: 12px; border-radius: 5px;">
+        <b style="color: white">PEDICAB REPORT CONTENT</b>
+    </span>
+      <br><br>
+  <hr>
+  <mat-dialog-content>
+
+    <div>
+        <p><b>Report Sender: </b>{{ this.violation.reportSender }}</p>
+        <p><b>Time Sent: </b>{{ this.violation.timeStamp }}</p>
+        <p><b>Pedicab Number: </b>{{ this.violation.pedicabNumber }}</p>
+        <p><b>Violation: </b>{{ this.violation.violationType }}</p>        
+    </div>
+  
+
+    <mat-dialog-actions>
+      <div>
+          <button mat-raised-button class="black hoverable btn small" (click) = "onClose()">CLOSE</button>
+      </div>
+      <br>
+      <br>
+      <br>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+  
+</body>
