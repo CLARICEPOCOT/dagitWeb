@@ -20,10 +20,11 @@ export class EditOnFieldComponent implements OnInit {
   password: string;
   location: string;
   image?: string;
-  account: any;
+  accountOF: any;
 
   newFName: string;
   newLName: string;
+  newUsername: string;
   newPassword: string;
   newLocation: string;
 
@@ -33,12 +34,12 @@ export class EditOnFieldComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private firebaseService: FirebaseService,
   ) {
-      this.account = data;
-      this.newFName = this.account.fName;
-      this.newLName = this.account.lName;
-      this.newPassword = this.account.password;
-      this.username = this.account.username;
-      this.newLocation = this.account.location;
+      this.accountOF = data;
+      this.newFName = this.accountOF.fName;
+      this.newLName = this.accountOF.lName;
+      this.newUsername = this.accountOF.username;
+      this.newPassword = this.accountOF.password;
+      this.newLocation = this.accountOF.location;
   }
 
   ngOnInit() {
@@ -47,31 +48,38 @@ export class EditOnFieldComponent implements OnInit {
   onEditOnfield(key, onFieldTMO) {
 
     // tslint:disable-next-line:triple-equals
-    if (this.newFName != this.account.fName) {
+    if (this.newFName != this.accountOF.fName) {
       this.fName = this.newFName;
     } else {
-      this.fName = this.account.fName;
+      this.fName = this.accountOF.fName;
     }
 
       // tslint:disable-next-line:triple-equals
-      if (this.newLName != this.account.lName) {
+      if (this.newLName != this.accountOF.lName) {
         this.lName = this.newLName;
       } else {
-        this.lName = this.account.lName;
+        this.lName = this.accountOF.lName;
       }
 
         // tslint:disable-next-line:triple-equals
-    if (this.newPassword != this.account.password) {
+    if (this.newPassword != this.accountOF.password) {
       this.password = this.newPassword;
     } else {
-      this.password = this.account.password;
+      this.password = this.accountOF.password;
+    }
+
+    // tslint:disable-next-line:triple-equals
+    if (this.newUsername != this.accountOF.username) {
+      this.username = this.newUsername;
+    } else {
+      this.username = this.accountOF.username;
     }
 
       // tslint:disable-next-line:triple-equals
-      if (this.newLocation != this.account.location) {
+      if (this.newLocation != this.accountOF.location) {
         this.location = this.newLocation;
       } else {
-        this.location = this.account.location;
+        this.location = this.accountOF.location;
       }
 
     this.onFieldTMO = {

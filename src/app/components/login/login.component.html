@@ -12,7 +12,7 @@
   
 
       <div class="container">
-        <br><br><br><br><br>
+        <br><br><br><br>
         <div class="center">
           <img src="https://firebasestorage.googleapis.com/v0/b/dagit-f9140.appspot.com/o/LogoDAGIT.png?alt=media&token=e7baee80-c6cb-41e1-9c9d-08d72d27b885" 
           alt="" class="responsive-img" width="290px">
@@ -20,23 +20,28 @@
      
           <br><br>
           <div class="center">
-            <form (submit)="checkUser()">
+            <form (submit)="login(email, password)">
                 <mat-form-field style="width: 400px;" >                
-                    <input
-                    matInput
-                    [(ngModel)] = "tempUser" 
-                    name="username"
-                    type="textt"
-                    placeholder="USERNAME"
-                    required>
-                    <mat-error>Username is required.</mat-error>
+                  <input
+                  matInput
+                  [(ngModel)] = "email" 
+                  name="email"
+                  type="emaill"
+                  placeholder="EMAIL"
+                  [formControl]="emailFormControl"
+                  [errorStateMatcher]="matcher"
+                  required>
+                  <mat-error *ngIf="emailFormControl.hasError('required')">Email is required.</mat-error>
+                  <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                      Please enter a valid email address.
+                  </mat-error>
                 </mat-form-field>
                 <br>
                 <br>
                 <mat-form-field style="width: 400px;" >
                     <input
                     matInput
-                    [(ngModel)] = "tempPass" 
+                    [(ngModel)] = "password" 
                     name="password"
                     type="passwordd"
                     placeholder="PASSWORD"
@@ -58,9 +63,17 @@
               value="LOGIN" >
              <br><br>
           </div>
-          <span *ngIf="check == false" style="font-size: small; color: red;">Invalid credentials.</span>
+     
         </form>
+
         
+      <span style="font-size: medium; color: red;" *ngIf="check == false">
+         <strong>{{ errorMessage }}</strong> 
+      </span><br><br>
+      <span style="font-size: medium;">
+        Forgot password? <strong class="hoverable"><a [routerLink] = "['/recover-account']" class="black-text text-black">Recover your account.</a></strong>
+      </span>
+            
       </div>
     </div> 
     </body>

@@ -30,7 +30,7 @@ export class InformationComponent implements OnInit {
   ngOnInit() {
     this.firebaseService.getInformation().subscribe(information => {
       console.log(information);
-      this.allInformation = information;
+      this.information = information;
     });
 
   }

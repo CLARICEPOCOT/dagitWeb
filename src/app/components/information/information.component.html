@@ -20,7 +20,7 @@
 
        <!--COLLAPSIBLE: loop data in database -->
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-          <li *ngFor = "let information of allInformation">
+          <li *ngFor = "let information of allInformation | async">
             <div class="collapsible-header">
               {{ information.title }}
             </div>

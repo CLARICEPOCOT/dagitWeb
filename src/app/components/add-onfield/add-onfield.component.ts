@@ -88,8 +88,7 @@ export class AddOnfieldComponent implements OnInit {
           'lName': this.lName,
           'username': this.username,
           'password': this.password,
-          'emailAddress': this.location,
-          'access': 'enabled'
+          'location': this.location
         };
 
         if (this.image != null) {
@@ -115,5 +114,7 @@ export class AddOnfieldComponent implements OnInit {
     this.thisDialogRef2.close('Cancel');
 
   }
+
+  
 
 }
