@@ -1,0 +1,38 @@
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+                   
+  </head>
+  
+  <body>
+      <span style="background-color:#ffeb3b; padding: 12px; border-radius: 5px;">
+          <b style="color: white">ACCIDENT REPORT CONTENT</b>
+      </span>
+        <br><br>
+    <hr>
+    <mat-dialog-content>
+
+      <div>
+          <p><b>Report Sender: </b>{{ this.accident.reportSender }}</p>
+          <p><b>Time Sent: </b>{{ this.accident.timeStamp }}</p>
+          <p><b>Accident Location: </b>{{ this.accident.location }}</p>
+          <p><b>Accident Details: </b></p>
+          <div style="background-color:#ebebeb; padding: 12px; border-radius: 5px;">
+              <p>{{ this.accident.accidentDescription }}</p>
+          </div>
+          
+      </div>
+    
+
+      <mat-dialog-actions>
+          <div>
+              <button mat-raised-button class="black hoverable btn small" (click) = "onClose()">CLOSE</button>
+          </div>
+          <br>
+          <br>
+          <br>
+        </mat-dialog-actions>
+    </mat-dialog-content>
+    
+  </body>
