@@ -8,6 +8,9 @@ import { SearchAccountsComponent } from '../search-accounts/search-accounts.comp
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 
+import { UploadService } from '../../uploads/shared/upload.service';
+import { Upload } from '../../uploads/shared/upload';
+
 
 @Component({
   selector: 'app-manage-accounts',
@@ -16,56 +19,46 @@ import * as firebase from 'firebase';
   encapsulation: ViewEncapsulation.None
 })
 export class ManageAccountsComponent implements OnInit {
+  selectedFiles: FileList | null;
+  currentUpload: Upload;
+
   dialogOneResult = '';
   dialogTwoResult = '';
   dialogSearchResult = '';
   dialogEditOnfield = '';
   dialogEditDesk = '';
+
+  accountOF: any;
+  accountD: any;
   onFieldTMO: any;
   deskTMO: any;
   imageURL: any;
   deskID: any;
   onFieldID: any;
 
+  image: any;
+
   constructor(
     public dialog: MatDialog,
     private firebaseService: FirebaseService,
+    private upSvc: UploadService
   ) {
-    this.onFieldTMO = this.firebaseService.getOnfieldTMO();
-    this.deskTMO = this.firebaseService.getDeskTMO();
+      this.onFieldTMO = this.firebaseService.getOnfieldTMO();
+      this.deskTMO = this.firebaseService.getDeskTMO();
   }
 
   ngOnInit() {
 
 
-    this.firebaseService.getOnfieldTMO().subscribe(onFieldTMO => {
-      
-      this.onFieldTMO = onFieldTMO;
-    
-      const storageRef = firebase.storage().ref();
-      const spaceRef = storageRef.child(this.onFieldTMO.path);
-      storageRef.child(this.onFieldTMO.path).getDownloadURL().then((url) => {
-        // Set image url
-        this.imageURL = url;
-      }).catch((error) => {
-        console.log(error);
-      });
+    this.firebaseService.getOnfieldTMO().subscribe(accountOF => {
+      this.accountOF = accountOF;
+      console.log(accountOF);
     });
 
-    this.firebaseService.getDeskTMO().subscribe(deskTMO => {
-
-      this.deskTMO = deskTMO;
-
-      const storageRef = firebase.storage().ref();
-      const spaceRef = storageRef.child(this.deskTMO.path);
-      storageRef.child(this.deskTMO.path).getDownloadURL().then((url) => {
-        // Set image url
-        this.imageURL = url;
-      }).catch((error) => {
-        console.log(error);
-      });
-
-    }); 
+    this.firebaseService.getDeskTMO().subscribe(accountD => {
+      this.accountD = accountD;
+      console.log(accountD);
+    });
   }
 
   openDialog1() {
@@ -107,10 +100,10 @@ export class ManageAccountsComponent implements OnInit {
   });
   }
 
-  onEditDesk(account) {
+  onEditDesk(accountD) {
     const dialogRef = this.dialog.open(EditDeskComponent, {
       width: '800px',
-      data: account
+      data: accountD
 
     });
 
@@ -120,10 +113,10 @@ export class ManageAccountsComponent implements OnInit {
   });
   }
 
-  onEditOnfield(account) {
+  onEditOnfield(accountOF) {
     const dialogRef = this.dialog.open(EditOnFieldComponent, {
       width: '800px',
-      data: account
+      data: accountOF
 
     });
 
@@ -139,6 +132,12 @@ export class ManageAccountsComponent implements OnInit {
 
   onDeleteDesk(key) {
     this.firebaseService.deleteDeskTMO(key);
+  }
+
+  // uploading images
+
+  uploadDesk(key) {
+    this.firebaseService.addDeskImage(key);
   }
 
   }

@@ -1,6 +1,6 @@
 #container {
     padding-top: 190px;
-    padding-left: 300px;
+    padding-left: 15%;
 }
 
 b {
@@ -13,9 +13,22 @@ b {
     width: 200px;
     height: 200px;
 
+
 }
 
 #messagesIcon {
+    padding-top: 28px;
+    padding-left: 48px;
+}
+
+#pedicab {
+    background: #ffb74d;
+    width: 200px;
+    height: 200px;
+
+}
+
+#pedicabIcon {
     padding-top: 28px;
     padding-left: 48px;
 }
@@ -24,6 +37,7 @@ b {
     background: rgba(246, 228, 60, 0.95);
     width: 200px;
     height: 200px;
+    padding-left:5%;
 }
 
 #areportsIcon
@@ -37,6 +51,7 @@ b {
     background: rgba(232, 40, 67, 0.95);
     width: 200px;
     height: 200px;
+    padding-left:5%;
 }
 
 #vreportsIcon

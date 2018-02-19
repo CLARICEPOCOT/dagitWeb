@@ -38,6 +38,13 @@ import { FirebaseService } from './services/firebase.service';
 import { environment } from './../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 
+// for upload
+import { UploadService } from './uploads/shared/upload.service';
+
+// imports for autoscroll
+import {NgxAutoScrollModule} from 'ngx-auto-scroll';
+
+
 
 // dagit modules
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -70,6 +77,16 @@ import { AddInformationComponent } from './components/add-information/add-inform
 import { EditInformationComponent } from './components/edit-information/edit-information.component';
 import { AddTrafficComponent } from './components/add-traffic/add-traffic.component';
 import { AddParkingComponent } from './components/add-parking/add-parking.component';
+import { AccidentContentComponent } from './components/accident-content/accident-content.component';
+import { ViolationContentComponent } from './components/violation-content/violation-content.component';
+
+// email verification
+import { AngularFireAuth } from 'angularfire2/auth';
+import { PedicabReportsComponent } from './components/pedicab-reports/pedicab-reports.component';
+import { PedicabReportContentComponent } from './components/pedicab-report-content/pedicab-report-content.component';
+import { RecoverAccountComponent } from './components/recover-account/recover-account.component';
+import { MessageContentComponent } from './components/message-content/message-content.component';
+
 
 
 
@@ -103,7 +120,13 @@ const appRoutes: Routes = [
   {path: 'publish-parking', component: PublishParkingComponent},
   {path: 'publish-traffic', component: PublishTrafficComponent},
   {path: 'information', component: InformationComponent},
-  {path: 'add-information', component: AddInformationComponent}
+  {path: 'add-information', component: AddInformationComponent},
+  {path: 'accident-content', component: AccidentContentComponent},
+  {path: 'violation-content', component: ViolationContentComponent},
+  {path: 'pedicab-reports', component: PedicabReportsComponent},
+  {path: 'pedicab-report-content', component: PedicabReportContentComponent},
+  {path: 'recover-account', component: RecoverAccountComponent},
+  {path: 'message-content', component: MessageContentComponent}
 ];
 
 
@@ -138,7 +161,13 @@ const appRoutes: Routes = [
     AddInformationComponent,
     EditInformationComponent,
     AddTrafficComponent,
-    AddParkingComponent
+    AddParkingComponent,
+    AccidentContentComponent,
+    ViolationContentComponent,
+    PedicabReportsComponent,
+    PedicabReportContentComponent,
+    RecoverAccountComponent,
+    MessageContentComponent
   ],
   imports: [
     BrowserModule,
@@ -160,7 +189,8 @@ const appRoutes: Routes = [
       apiKey: environment.googleMapsKey,
       libraries: ['places']
     }),
-    MatRadioModule
+    MatRadioModule,
+    NgxAutoScrollModule
   ],
   entryComponents: [
     AddDirectoryComponent,
@@ -176,9 +206,13 @@ const appRoutes: Routes = [
     AddInformationComponent,
     AddTrafficComponent,
     AddParkingComponent,
-    EditInformationComponent
+    EditInformationComponent,
+    AccidentContentComponent,
+    ViolationContentComponent,
+    PedicabReportContentComponent,
+    MessageContentComponent
   ],
-  providers: [FirebaseService, GeoService],
+  providers: [FirebaseService, GeoService, AngularFireAuth, UploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
