@@ -1,0 +1,34 @@
+<div class="container center">
+  <br><br>
+  <h5>Please input your email address:</h5><br>
+  <form (submit)="recover(email)">
+    <mat-form-field style="width: 400px;" >                
+        <input
+        matInput
+        [(ngModel)] = "email" 
+        name="email"
+        type="emaill"
+        placeholder="EMAIL"
+        [formControl]="emailFormControl"
+        [errorStateMatcher]="matcher"
+        required>
+        <mat-error *ngIf="emailFormControl.hasError('required')">Email is required.</mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="center">
+      <input
+      mat-raised-button
+      class="black hoverable btn small"
+      type="submit"
+      name="submit"
+      value="RECOVER" >
+      </div>
+      
+  </form>
+    
+
+</div>
+

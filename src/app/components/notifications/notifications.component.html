@@ -19,7 +19,7 @@
          <b style="font-size: 40px;">TRAFFIC ADVISORY</b><br>
          <!--loop data in database -->
          <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-            <li *ngFor = "let notification of notifications">
+            <li *ngFor = "let notification of notifications | async">
               <div class="collapsible-header" *ngIf = "notification.category == 'Traffic'">
                <span style="width: 300px;">{{ notification.notifDetail }} </span>
                <span style="width: 250px;">{{ notification.timeStamp }}</span>
@@ -35,7 +35,7 @@
         <!--loop data in database -->
 
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-          <li *ngFor = "let notification of notifications">
+          <li *ngFor = "let notification of notifications | async">
               <div class="collapsible-header" *ngIf = "notification.category == 'Parking'">
                   <span style="width: 300px;">{{ notification.notifDetail }} </span>
                   <span style="width: 250px;">{{ notification.timeStamp }}</span>
@@ -50,7 +50,7 @@
        <!--loop data in database -->
 
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-          <li *ngFor = "let notification of notifications">
+          <li *ngFor = "let notification of notifications | async">
               <div class="collapsible-header" *ngIf = "notification.category == 'Announcement'">
                   <span style="width: 300px;">{{ notification.title }} </span>
                   <span style="width: 250px;">{{ notification.timeStamp }}</span>

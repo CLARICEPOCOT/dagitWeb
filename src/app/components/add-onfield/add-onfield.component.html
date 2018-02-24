@@ -7,7 +7,7 @@
 
 <body>
   
-  <h2 mat-dialog-title><i class="material-icons red-text medium">recent_actors</i>ADD NEW DESK TMO</h2>
+  <h2 mat-dialog-title><i class="material-icons orange-text medium">person_pin_circle</i>ADD NEW ON-FIELD TMO</h2>
   <hr>
   <br>
   <mat-dialog-content>
@@ -74,6 +74,17 @@
             required>
             <mat-error>Location is required.</mat-error>
           </mat-form-field>
+
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "timeShift" 
+            name="timeShift"
+            type="textt"
+            placeholder="TIME OF SHIFT"
+            required>
+            <mat-error>Time of shift is required.</mat-error>
+          </mat-form-field>
           <!--
           <div style="width: 50%;" class="col">
             <br>
@@ -84,6 +95,7 @@
             type="file"
             >
           </div> -->
+      
         </div>
     
   

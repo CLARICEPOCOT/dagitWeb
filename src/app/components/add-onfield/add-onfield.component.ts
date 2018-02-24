@@ -20,6 +20,7 @@ export class AddOnfieldComponent implements OnInit {
   username: string;
   password: string;
   location: string;
+  timeShift: string;
   image: any;
 
   dbUser: any[] = [];
@@ -47,7 +48,7 @@ export class AddOnfieldComponent implements OnInit {
 
   onCheck() {
 
-    this.duplicateUser = true;
+    this.duplicateUser = false;
 
     for ( let j = 0; j < this.dbUser.length; j++ ) {
      // tslint:disable-next-line:triple-equals
@@ -75,7 +76,8 @@ export class AddOnfieldComponent implements OnInit {
       this.lName != null &&
       this.username != null &&
       this.password != null &&
-      this.location != null ) {
+      this.location != null &&
+      this.timeShift != null) {
         complete = true;
 
       } else {
@@ -88,8 +90,8 @@ export class AddOnfieldComponent implements OnInit {
           'lName': this.lName,
           'username': this.username,
           'password': this.password,
-          'emailAddress': this.location,
-          'access': 'enabled'
+          'location': this.location,
+          'timeShift': this.timeShift
         };
 
         if (this.image != null) {
@@ -115,5 +117,7 @@ export class AddOnfieldComponent implements OnInit {
     this.thisDialogRef2.close('Cancel');
 
   }
+
+  
 
 }

@@ -14,14 +14,19 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   
-    <br><br>
+    <br><br>     
     <div class="container">
+        <i class="medium material-icons left red-text">pan_tool</i>
+        <b style="font-size: 40px;">VIOLATION REPORTS</b><br>  
       <div class="collection">
-          <a href="" class="collection-item black-text"><span class="new badge black">1</span>User</a>
-          <a href="" class="collection-item black-text"><span class="new badge black">4</span>User</a>
-          <a href="" class="collection-item black-text">User</a>
-          <a href="" class="collection-item black-text">User</a>
+          <a
+          class="collection-item black-text"
+          *ngFor="let violation of violations | async"
+          (click) ="open(violation)">
+          {{ violation.reportSender }}      
+          </a>
       </div>
+
     </div>
 
     <br>

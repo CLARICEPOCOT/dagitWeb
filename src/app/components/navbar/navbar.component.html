@@ -4,14 +4,25 @@
 <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper yellow lighten-2">
-      
-      <a href="#!" class="brand-logo black-text ">&nbsp; <b>DAGIT</b></a>
+      <!--
+      <img 
+      style="padding-top: 5px;"
+      width="100px"
+      height="55px"
+      src="https://firebasestorage.googleapis.com/v0/b/dagit-f9140.appspot.com/o/logoWeb.png?alt=media&token=b3a59cfc-a110-46ea-b85d-9639fc942e27">
+      -->
+      <a class="brand-logo black-text ">&nbsp; <b>DAGIT</b></a>
     
       <ul class="right hide-on-med-and-down">
         <li>      
           <a [routerLink] = "['/map']" class="black-text text-black">
             <i class="medium material-icons left">map</i> MAP
           </a>
+        </li>
+
+        <li>
+            <a [routerLink] = "['/information']" class="black-text text-black">
+              <i class="medium material-icons left">info</i>INFORMATION</a>
         </li>
 
         <li>

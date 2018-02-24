@@ -3,6 +3,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import 'rxjs/add/operator/map';
 import { FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
+import 'firebase/storage';
+
 
 
 @Injectable()
@@ -12,6 +14,8 @@ export class FirebaseService {
   deskTMOfolder: any;
   onFieldTMOFolder: any;
   directory: any;
+
+
   constructor(public dagit: AngularFireDatabase) {
     this.deskTMOfolder = 'deskTMOImages';
     this.onFieldTMOFolder = 'onFieldTMOImages';
@@ -59,6 +63,26 @@ export class FirebaseService {
 
   }
 
+
+  addDeskImage(id, deskTMO) {
+        // create root ref
+        const storageRef = firebase.storage().ref();
+        for ( const selectedFile of
+          [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
+            const path = `/${this.deskTMOfolder}/${selectedFile.name}`;
+            const iRef = storageRef.child(path);
+            iRef.put(selectedFile).then((snapshot) => {
+             // deskTMO.image = selectedFile.name;
+              deskTMO.path = path;
+              return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
+              // return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
+            });
+        }
+
+  }
+
+
+
   addDeskTMONoPhoto(deskTMO) {
     this.dagit.list('/ACCOUNTS/DESK_TMO').push(deskTMO);
   }
@@ -87,6 +111,7 @@ export class FirebaseService {
 
 // ON-FIELD TMO
 
+
   addOnfieldTMO(onFieldTMO) {
     const storageRef = firebase.storage().ref();
     for ( const selectedFile of
@@ -104,6 +129,24 @@ export class FirebaseService {
 
   addOnFieldTMONoPhoto(onFieldTMO) {
     this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').push(onFieldTMO);
+  }
+
+
+  addOnFieldImage(id, onFieldTMO) {
+    // create root ref
+    const storageRef = firebase.storage().ref();
+    for ( const selectedFile of
+      [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
+        const path = `/${this.onFieldTMOFolder}/${selectedFile.name}`;
+        const iRef = storageRef.child(path);
+        iRef.put(selectedFile).then((snapshot) => {
+         // deskTMO.image = selectedFile.name;
+           onFieldTMO.path = path;
+          return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
+          // return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
+        });
+    }
+
   }
 
   getOnfieldTMO() {
@@ -152,6 +195,68 @@ export class FirebaseService {
   }
 
 
+// INFORMATION
+
+  addInformation(information) {
+    this.dagit.list('/INFORMATION').push(information);
+  }
+
+  getInformation() {
+    return this.dagit.list('/INFORMATION');
+  }
+
+  updateInformation(id, information) {
+    return this.dagit.list('/INFORMATION').update(id, information);
+  }
+
+  deleteInformation(key) {
+    return this.dagit.list('/INFORMATION').remove(key);
+  }
+
+  // ACCIDENT REPORTS
+
+  getAccidents() {
+    return this.dagit.list('/ACCIDENT');
+  }
+
+  // VIOLATION REPORTS
+
+  getViolations() {
+    return this.dagit.list('/VIOLATION');
+  }
+
+  // PEDICAB REPORTS
+
+  getPedicabReports() {
+    return this.dagit.list('/PEDICAB');
+  }
+
+  // MESSAGES
+
+  getMessages() {
+    return this.dagit.list('/CHAT');
+  }
+
+  getMessage(user) {
+    return this.dagit.list('/CHAT/' + user);
+  }
+
+  addMessage(message, user) {
+    this.dagit.list('/CHAT/' + user).push(message);
+  }
+
+   // MAP DATA
+  addMapLocations(coordinates) {
+    this.dagit.list('/MAP').push(coordinates);
+  }
+
+
+  getMapLocations() {
+  return this.dagit.list('/MAP');
+}
+
+
+  // TEMPORARY SESSIONS
   storeCurrent(user) {
     this.dagit.list('/CURRENTDESK').push(user);
   }
@@ -164,7 +269,11 @@ export class FirebaseService {
 
 
 
+
+
 }
+
+
 
 
 // not used
@@ -189,3 +298,5 @@ interface DeskTMO {
   accountPicture?: string;
 
 }
+
+

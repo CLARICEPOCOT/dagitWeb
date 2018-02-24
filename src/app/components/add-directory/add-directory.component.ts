@@ -6,6 +6,7 @@ import { toast } from 'angular2-materialize';
 import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 import { MatSnackBar } from '@angular/material';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 
@@ -25,6 +26,10 @@ export class AddDirectoryComponent implements OnInit {
   operatingHours: string;
   otherInformation?: string;
 
+  users: any;
+  currentUser: any;
+  currentEmail: any;
+
 
 
   categoryControl = new FormControl('', [Validators.required]);
@@ -33,18 +38,21 @@ export class AddDirectoryComponent implements OnInit {
       {name: 'Fire', value: 'Fire'},
       {name: 'Medical', value: 'Medical'},
       {name: 'Police', value: 'Police'},
-      {name: 'Terminal', value: 'Terminal'},
+      {name: 'Terminal', value: 'Terminal'}
     ];
 
   constructor(
     public thisDialogRef: MatDialogRef<DirectoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public angularFireAtuh: AngularFireAuth
     ) {
       // this.currentUser = this.firebaseService.getCurrent();
       // this.fName = this.currentUser.fName;
       // this.lName = this.currentUser.lName;
+     // this.users = this.firebaseService.getDeskTMO();
+      this.currentEmail = this.angularFireAtuh.auth.currentUser.email;
 
      }
 
@@ -81,6 +89,7 @@ export class AddDirectoryComponent implements OnInit {
             'otherInformation': null,
           };
 
+
           this.firebaseService.addDirectory(this.directory);
           console.log('Directory added');
           this.thisDialogRef.close('ADD');
@@ -108,6 +117,7 @@ export class AddDirectoryComponent implements OnInit {
 
 
     }
+
 
 
     onCancel() {
