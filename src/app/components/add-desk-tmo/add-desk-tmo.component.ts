@@ -34,7 +34,7 @@ export class AddDeskTmoComponent implements OnInit {
   username: string;
   password: string;
   emailAddress: string;
-  image?: string;
+
 
   dbEmail: any[] = [];
   dbUser: any[] = [];
@@ -52,7 +52,7 @@ export class AddDeskTmoComponent implements OnInit {
   invalidEmail: boolean;
   weakPassword: boolean;
 
-
+  image?: string;
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -130,7 +130,7 @@ export class AddDeskTmoComponent implements OnInit {
               'access': 'enabled'
             };
 
-            this.firebaseService.addDeskTMONoPhoto(this.deskTMO);
+            this.firebaseService.addDeskTMO(this.deskTMO);
             console.log('Desk TMO added with no image added');
             this.thisDialogRef1.close('ADD');
           })

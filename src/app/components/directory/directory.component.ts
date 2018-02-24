@@ -23,6 +23,8 @@ export class DirectoryComponent implements OnInit {
   directories: any;
   id: any;
 
+
+
   constructor(
     public dialog: MatDialog,
     private firebaseService: FirebaseService

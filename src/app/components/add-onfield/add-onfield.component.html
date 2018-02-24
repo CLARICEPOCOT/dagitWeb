@@ -74,7 +74,18 @@
             required>
             <mat-error>Location is required.</mat-error>
           </mat-form-field>
-          
+
+          <mat-form-field style="width: 50%;" class="col">
+            <input
+            matInput
+            [(ngModel)] = "timeShift" 
+            name="timeShift"
+            type="textt"
+            placeholder="TIME OF SHIFT"
+            required>
+            <mat-error>Time of shift is required.</mat-error>
+          </mat-form-field>
+          <!--
           <div style="width: 50%;" class="col">
             <br>
             <input
@@ -83,7 +94,7 @@
             name="image"
             type="file"
             >
-          </div> 
+          </div> -->
       
         </div>
     

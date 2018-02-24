@@ -64,7 +64,7 @@ export class FirebaseService {
   }
 
 
-  addDeskImage(deskTMO) {
+  addDeskImage(id, deskTMO) {
         // create root ref
         const storageRef = firebase.storage().ref();
         for ( const selectedFile of
@@ -72,33 +72,16 @@ export class FirebaseService {
             const path = `/${this.deskTMOfolder}/${selectedFile.name}`;
             const iRef = storageRef.child(path);
             iRef.put(selectedFile).then((snapshot) => {
-              deskTMO.image = selectedFile.name;
+             // deskTMO.image = selectedFile.name;
               deskTMO.path = path;
-              return this.dagit.list('/ACCOUNTS/DESK_TMO/' + deskTMO).push(deskTMO);
+              return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
+              // return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
             });
         }
 
-      }
-
-
-  uploadDeskPhoto(image, key) {
-    const dlURL = null;
-    const metadata = {
-      contentType: 'image/jpeg'
-    };
-    const storageRef = firebase.storage().ref().child('DESK/' + key + '.jpg').put(image);
-    // storageRef.putString(image, 'base64', metadata);
-    // dlURL = storageRef.child('some text').getDownloadURL;
-    return storageRef;
   }
 
-  uploadOnField(image, key) {
-    const dURL = null;
-    const metadata = {
-      contentType: 'image/jpg'
-    };
-    const storageRef = firebase.storage().ref().child('ONFIELD/' + key + '.jpg').put(image);
-  }
+
 
   addDeskTMONoPhoto(deskTMO) {
     this.dagit.list('/ACCOUNTS/DESK_TMO').push(deskTMO);
@@ -128,6 +111,7 @@ export class FirebaseService {
 
 // ON-FIELD TMO
 
+
   addOnfieldTMO(onFieldTMO) {
     const storageRef = firebase.storage().ref();
     for ( const selectedFile of
@@ -145,6 +129,24 @@ export class FirebaseService {
 
   addOnFieldTMONoPhoto(onFieldTMO) {
     this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').push(onFieldTMO);
+  }
+
+
+  addOnFieldImage(id, onFieldTMO) {
+    // create root ref
+    const storageRef = firebase.storage().ref();
+    for ( const selectedFile of
+      [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
+        const path = `/${this.onFieldTMOFolder}/${selectedFile.name}`;
+        const iRef = storageRef.child(path);
+        iRef.put(selectedFile).then((snapshot) => {
+         // deskTMO.image = selectedFile.name;
+           onFieldTMO.path = path;
+          return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
+          // return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
+        });
+    }
+
   }
 
   getOnfieldTMO() {
@@ -243,6 +245,16 @@ export class FirebaseService {
     this.dagit.list('/CHAT/' + user).push(message);
   }
 
+   // MAP DATA
+  addMapLocations(coordinates) {
+    this.dagit.list('/MAP').push(coordinates);
+  }
+
+
+  getMapLocations() {
+  return this.dagit.list('/MAP');
+}
+
 
   // TEMPORARY SESSIONS
   storeCurrent(user) {
@@ -254,6 +266,8 @@ export class FirebaseService {
       preserveSnapshot: true
   });
  }
+
+
 
 
 

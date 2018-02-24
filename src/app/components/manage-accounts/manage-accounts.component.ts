@@ -52,12 +52,21 @@ export class ManageAccountsComponent implements OnInit {
 
     this.firebaseService.getOnfieldTMO().subscribe(accountOF => {
       this.accountOF = accountOF;
+
       console.log(accountOF);
     });
 
     this.firebaseService.getDeskTMO().subscribe(accountD => {
       this.accountD = accountD;
       console.log(accountD);
+
+      const storageRef = firebase.storage().ref();
+      const spaceRef = storageRef.child(this.accountD.path).getDownloadURL().then((url) => {
+        // Set image url
+        this.imageURL = url;
+      }).catch((error) => {
+        console.log(error);
+      });
     });
   }
 
@@ -136,9 +145,46 @@ export class ManageAccountsComponent implements OnInit {
 
   // uploading images
 
-  uploadDesk(key) {
-    this.firebaseService.addDeskImage(key);
+  uploadDesk(deskTMO) {
+    this.firebaseService.addDeskImage(deskTMO.$key, deskTMO);
+    console.log('updating image');
   }
+
+
+  uploadOF(onFieldTMO) {
+    this.firebaseService.addOnFieldImage(onFieldTMO.$key, onFieldTMO);
+    console.log('updating image');
+  }
+
+
+  // getting images
+
+  getDeskPhoto(accountD) {
+
+          const path = accountD.path.toString();
+          console.log(path);
+          const storageRef = firebase.storage().ref();
+          const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
+            // Set image url
+            this.imageURL = url;
+          }).catch((error) => {
+            console.log(error);
+          });
+  }
+
+
+  getOnFieldPhoto(accountOF) {
+
+        // const path = accountOF.path.toString();
+        // console.log(path);
+        const storageRef = firebase.storage().ref();
+        const spaceRef = storageRef.child(accountOF.path).getDownloadURL().then((url) => {
+        // Set image url
+        this.imageURL = url;
+        }).catch((error) => {
+        console.log(error);
+        });
+}
 
   }
 

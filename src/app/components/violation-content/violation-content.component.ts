@@ -13,6 +13,7 @@ import * as firebase from 'firebase';
 export class ViolationContentComponent implements OnInit {
 
   violation: any;
+  imageURL: any;
 
   constructor(
     public thisDialogRef: MatDialogRef<ViolationReportsComponent>,
@@ -20,6 +21,7 @@ export class ViolationContentComponent implements OnInit {
     private firebaseService: FirebaseService
   ) {
     this.violation = data;
+    this.imageURL = this.violation.image;
    }
 
   ngOnInit() {

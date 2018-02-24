@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ElementRef, NgZone, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap, AgmMarker } from '@agm/core';
+import { FirebaseService } from '../../services/firebase.service';
+import * as firebase from 'firebase';
+
 
 
 
@@ -21,6 +24,8 @@ export class MapComponent implements OnInit {
   public searchControl: FormControl;
   public zoom: number;
   public place: any;
+  
+  location: any;
 
 
   @ViewChild('search')
@@ -28,12 +33,14 @@ export class MapComponent implements OnInit {
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private firebaseService: FirebaseService
   ) {
 
   }
 
   ngOnInit() {
+
 
    // create search FormControl
    this.searchControl = new FormControl();
@@ -44,11 +51,13 @@ export class MapComponent implements OnInit {
    // load places autocomplete
    this.mapsAPILoader.load().then(() => {
     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-      types: ['address']
+     // types: ['address', 'restaurant', 'establishments', 'food']
+ 
     });
     autocomplete.addListener('place_changed', () => {
       this.ngZone.run(() => {
         // get the place result
+
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
         // verify result
@@ -61,6 +70,7 @@ export class MapComponent implements OnInit {
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
         this.zoom = 17;
+
       });
     });
   });
@@ -76,9 +86,35 @@ export class MapComponent implements OnInit {
         this.zoom = 15;
       });
     }
+
+/*
+  private markerURL() {
+    return ('C:\Users\Calypso\CAPSTONE\db service\dagit\src\assets\heavy.png');
+  }*/
+/*
+    this.location = {
+      'coordinates': {
+         'lat': this.latitude,
+        'lng': this.longitude}
+    };
+
+    this.firebaseService.addMapLocations(this.location);
+*/
+  }
+
+  getTMOLocation () {
+    // insert codes from the other proj
   }
 
 
+  getParking () {
+    // insert codes from the other proj
+  }
+
+
+  getTraffic () {
+    // insert codes from the other proj
+  }
 
   login() {
    // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());

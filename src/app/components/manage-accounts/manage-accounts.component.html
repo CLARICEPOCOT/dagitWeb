@@ -19,7 +19,7 @@
           <b style="font-size: 40px;">DESK TMO ACCOUNTS</b><br>
         <!--loop data in database -->
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-          <li *ngFor = "let accountD of deskTMO | async">
+          <li *ngFor = "let accountD of deskTMO | async" (click)="getDeskPhoto(accountD)">
             <div class="collapsible-header" >
               {{accountD.fName + ' ' + accountD.lName }}
             </div>
@@ -27,19 +27,16 @@
               <div class="row">
                   <div class="col" style="width: 50%;">
                       <div style="width: 50%;" class="col">
-                         <!--<img style="width:100%;" class="thumbnail" src="{{imageURL}}"> -->
-                         IMAGE HERE
-                         <!--
-                        <br>
-                        <div style="width: 50%;" class="fileUpload btn black hoverable">
-                            <i class="medium material-icons">add_a_photo</i>
-                            <input
-                             type="file" 
-                             class="upload"
-                             id="image"
-                             [(ngModel)]="image"
-                             name="image" />
-                        </div>  -->               
+                         <img style="width:100%; border: 4px solid black;" class="thumbnail" src="{{imageURL}}">                    
+                        <input
+                        type="file" 
+                        id="image"
+                        [(ngModel)]="image"
+                        name="image" /><br><br>
+                        <div (click)="uploadDesk(accountD)" 
+                        class="fileUpload black hoverable btn small">EDIT IMAGE                       
+                        </div>
+                                      
                       </div>
                   </div>
                 <div class="col" style="width: 50%;">
@@ -62,13 +59,14 @@
                  &nbsp;
                  <a class="black hoverable btn small">DISABLE</a>
                  &nbsp;
+                 <!--
                  <div (click)="uploadDesk(accountD.$key)" class="fileUpload black hoverable btn small">EDIT IMAGE
                   <input
                   type="file" 
                   id="image"
                   [(ngModel)]="image"
                   name="image" />
-                 </div>
+                 </div>-->
               </div>       
 
             </div>
@@ -84,47 +82,39 @@
           <b style="font-size: 40px;">ON-FIELD TMO ACCOUNTS</b><br>
         <!--loop data in database -->
         <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-            <li *ngFor = "let accountOF of onFieldTMO | async">
+            <li *ngFor = "let accountOF of onFieldTMO | async" (click)="getOnFieldPhoto(accountOF)">
               <div class="collapsible-header" >
                 <span style="width: 590px;"class="col">{{accountOF.fName + ' ' + accountOF.lName }} </span>
               </div>
               <div class="collapsible-body">
                 <div class="row">
-                  <div class="col" style="width: 50%;">
-                      <div style="width: 50%; background-color:black; height: 50%;" class="col">
-                         <!--<img style="width:100%;" class="thumbnail" src="{{imageURL}}"> -->
-                         IMAGE HERE
-                        <br>
-                        <label>
-                          <input type="file" class="button" (change)="detectFiles($event)">
-                        </label>
-                        <button class="btn grey lighten-2 hoverable small"
-                          (click)="uploadSingle()">
-                          Upload Image
-                        </button>
-                        <!--
-                        <div style="width: 50%;" class="fileUpload btn black hoverable">
-                            <i class="medium material-icons">add_a_photo</i>
-                            <input
-                             type="file" 
-                             class="upload"
-                             id="image"
-                             [(ngModel)]="image"
-                             name="image" />
-                        </div>     -->            
-                      </div>
-                  </div>
+                    <div class="col" style="width: 50%;">
+                        <div style="width: 50%;" class="col">
+                          <!-- <img style="width:100%; border: 4px solid black;" class="thumbnail" src="{{imageURL}}"> -->                   
+                          <input
+                          type="file" 
+                          id="image"
+                          [(ngModel)]="image"
+                          name="image" /><br><br>
+                          <div (click)="uploadOF(accountOF)" 
+                          class="fileUpload black hoverable btn small">EDIT IMAGE                       
+                          </div>                                    
+                    </div>
+                  </div>  
                   <div class="col" style="width: 50%;">
                    <b>Username:</b> {{ accountOF.username }}<br>
                    <b>Password: </b> {{ accountOF.password }}<br>
-                   <b>Assigned Location: </b> {{ accountOF.location }}
+                   <b>Assigned Location: </b> {{ accountOF.location }}<br>
+                   <b>Time of Shift: </b> {{ accountOF.timeShift }}<br>
+                   <b>Located: </b> {{ accountOF.located }}<br>
+                   <b>Time of Login: </b> {{ accountOF.timeStamp }}<br>
                   </div>
-               
+                           
                 </div>
   
                 <br><br>
                 <div class="center">
-                   <a (click) ="onEditOnfield(accountOF)" class="black hoverable btn small">EDIT</a>
+                  <!-- <a (click) ="onEditOnfield(accountOF)" class="black hoverable btn small">EDIT</a>-->
                    &nbsp;
                    <a (click) = "onDeleteOnfield(accountOF.$key)" class="black hoverable btn small">DELETE</a>
                    &nbsp;
