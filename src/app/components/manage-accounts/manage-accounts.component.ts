@@ -36,6 +36,8 @@ export class ManageAccountsComponent implements OnInit {
   imageURL: any;
   deskID: any;
   onFieldID: any;
+  users: any = [];
+  currUser: any;
 
   image: any;
   currentUser: any;
@@ -49,6 +51,14 @@ export class ManageAccountsComponent implements OnInit {
       this.onFieldTMO = this.firebaseService.getOnfieldTMO();
       this.deskTMO = this.firebaseService.getDeskTMO();
       this.currentUser = angularFireAuth.auth.currentUser;
+      
+      this.deskTMO.subscribe(snapshot => {
+        var i = 0;
+        snapshot.forEach(snap => {
+          this.users[i] = snap;
+          i++;
+        })
+      });
   }
 
   ngOnInit() {
@@ -72,6 +82,13 @@ export class ManageAccountsComponent implements OnInit {
         console.log(error);
       });*/
     });
+
+    for(let i = 0; i < this.users.length; i++){
+      if(this.users[i].emailAddress == this.currentUser.email){
+        this.currUser = this.users[i];
+        break;
+      }
+    }
   }
 
   openDialog1() {
