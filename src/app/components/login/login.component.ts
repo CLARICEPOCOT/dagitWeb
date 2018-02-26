@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   password: string;
   check: boolean;
   errorMessage: string;
+  email: string;
 
 
   emailFormControl = new FormControl('', [

@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+
+<span class="form-group">
+    <input 
+    style="margin-bottom:2px; width: 48%; margin-left: 5px;"
+    placeholder="   Input origin" 
+    autocorrect="off" autocapitalize="off" 
+    spellcheck="off" type="text" class="form-control" 
+    #origin [formControl]="originControl">
+</span>
+<!--
+<mat-form-field style="width: 50%;" class="col">
+    <input
+    matInput
+    [(ngModel)] = "location" 
+    name="location"
+    type="textt"
+    placeholder="LOCATION"
+    required
+    class="form-control"
+    #search [formControl]="originControl">
+    <mat-error>Location is required.</mat-error>
+</mat-form-field>-->
+<span class="form-group">
+  <input 
+  style="margin-bottom:2px; width: 48%; margin-left: 5px; "
+  placeholder="  Input destination" 
+  autocorrect="off" autocapitalize="off" 
+  spellcheck="off" type="text" class="form-control" 
+  #destination [formControl]="destinationControl">
+</span>
+
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+</agm-map>
+ 
+<button type="button" (click)="getDirection()">Get</button>

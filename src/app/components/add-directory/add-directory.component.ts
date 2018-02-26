@@ -61,7 +61,7 @@ export class AddDirectoryComponent implements OnInit {
     }
 
 
-    onAdd(directory) {
+    onAdd() {
       let complete = false;
       if (this.category == null) {
         complete = false;

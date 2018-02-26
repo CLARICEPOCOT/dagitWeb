@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButton, MatSnackBar } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 // imports for database
@@ -37,6 +38,8 @@ import { FirebaseService } from './services/firebase.service';
 // imports for maps
 import { environment } from './../environments/environment';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+import { GeoService } from './geo.service';
 
 
 // for upload
@@ -72,7 +75,6 @@ import { SearchAccountsComponent } from './components/search-accounts/search-acc
 import { SearchNotificationsComponent } from './components/search-notifications/search-notifications.component';
 import { EditOnFieldComponent } from './components/edit-on-field/edit-on-field.component';
 import { EditDeskComponent } from './components/edit-desk/edit-desk.component';
-import { GeoService } from './geo.service';
 import { InformationComponent } from './components/information/information.component';
 import { AddInformationComponent } from './components/add-information/add-information.component';
 import { EditInformationComponent } from './components/edit-information/edit-information.component';
@@ -80,13 +82,17 @@ import { AddTrafficComponent } from './components/add-traffic/add-traffic.compon
 import { AddParkingComponent } from './components/add-parking/add-parking.component';
 import { AccidentContentComponent } from './components/accident-content/accident-content.component';
 import { ViolationContentComponent } from './components/violation-content/violation-content.component';
-
-// email verification
-import { AngularFireAuth } from 'angularfire2/auth';
 import { PedicabReportsComponent } from './components/pedicab-reports/pedicab-reports.component';
 import { PedicabReportContentComponent } from './components/pedicab-report-content/pedicab-report-content.component';
 import { RecoverAccountComponent } from './components/recover-account/recover-account.component';
 import { MessageContentComponent } from './components/message-content/message-content.component';
+import { DirectionComponent } from './components/direction/direction.component';
+import { SampleComponent } from './components/sample/sample.component';
+
+// email verification
+import { AngularFireAuth } from 'angularfire2/auth';
+
+
 
 
 
@@ -127,7 +133,9 @@ const appRoutes: Routes = [
   {path: 'pedicab-reports', component: PedicabReportsComponent},
   {path: 'pedicab-report-content', component: PedicabReportContentComponent},
   {path: 'recover-account', component: RecoverAccountComponent},
-  {path: 'message-content', component: MessageContentComponent}
+  {path: 'message-content', component: MessageContentComponent},
+  {path: 'direction', component: DirectionComponent},
+  {path: 'sample', component: SampleComponent}
 ];
 
 
@@ -168,7 +176,9 @@ const appRoutes: Routes = [
     PedicabReportsComponent,
     PedicabReportContentComponent,
     RecoverAccountComponent,
-    MessageContentComponent
+    MessageContentComponent,
+    DirectionComponent,
+    SampleComponent
   ],
   imports: [
     BrowserModule,
@@ -191,7 +201,8 @@ const appRoutes: Routes = [
       libraries: ['places']
     }),
     MatRadioModule,
-    NgxAutoScrollModule
+    NgxAutoScrollModule,
+    AgmDirectionModule
   ],
   entryComponents: [
     AddDirectoryComponent,

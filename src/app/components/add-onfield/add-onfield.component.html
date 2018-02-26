@@ -63,16 +63,18 @@
           </span>
         </div>
 
-        <div class="row">  
+        <div class="row"> 
           <mat-form-field style="width: 50%;" class="col">
-            <input
-            matInput
-            [(ngModel)] = "location" 
-            name="location"
-            type="textt"
-            placeholder="LOCATION"
-            required>
-            <mat-error>Location is required.</mat-error>
+                <input
+                matInput
+                [(ngModel)] = "location" 
+                name="location"
+                type="textt"
+                placeholder="LOCATION"
+                required
+                class="form-control"
+                #search [formControl]="locationControl">
+                <mat-error>Location is required.</mat-error>
           </mat-form-field>
 
           <mat-form-field style="width: 50%;" class="col">

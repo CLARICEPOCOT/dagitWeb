@@ -89,6 +89,8 @@ export class AddDeskTmoComponent implements OnInit {
         .then(() => {
           console.log('email sent');
           alert('A verification email has been sent to the email address.');
+          this.firebaseService.addDeskTMONoPhoto(this.deskTMO);
+          console.log('Desk TMO added with no image added');
           this.thisDialogRef1.close('Closed');
       });
     });
@@ -127,12 +129,12 @@ export class AddDeskTmoComponent implements OnInit {
               'lName': this.lName,
               'password': this.password,
               'emailAddress': this.email,
-              'access': 'enabled'
+              'access': 2,
+              'enabled': 'yes',
+              'path': null
             };
 
-            this.firebaseService.addDeskTMO(this.deskTMO);
-            console.log('Desk TMO added with no image added');
-            this.thisDialogRef1.close('ADD');
+
           })
           .catch((error) => {
             const errorCode = error.code;

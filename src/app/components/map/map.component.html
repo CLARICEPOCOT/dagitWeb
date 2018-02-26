@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<!--
 <div class="form-group">
     <input 
     style="margin-bottom:2px;"
@@ -6,18 +7,163 @@
     autocorrect="off" autocapitalize="off" 
     spellcheck="off" type="text" class="form-control" 
     #search [formControl]="searchControl">
+</div>-->
+<div class="row" style="position: fixed; top: 70px; z-index: 2; width: 100%; ">
+    <span class="form-group col" style="width: 50%; margin-top: 8px; padding-top: 2px;">
+        <input 
+        style="background-color: white; height: 50px; padding-top:2px; margin-left: 5px;"
+        placeholder="   Search for a location" 
+        autocorrect="off" autocapitalize="off" 
+        spellcheck="off" type="text" class="form-control" 
+        #search [formControl]="searchControl">
+    </span>
+
+      <span class="container col" style="width: 50%;">
+          <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" style="background-color: white;">
+            <li>
+              <div class="collapsible-header">Directions</div>
+              <div class="collapsible-body">
+                  <i class="material-icons green-text small">location_on</i>
+                  <span class="form-group">
+                      <input 
+                      style="margin-bottom:2px; margin-left: 5px;"
+                      placeholder="   Input origin" 
+                      autocorrect="off" autocapitalize="off" 
+                      spellcheck="off" type="text" class="form-control" 
+                      #origin [formControl]="originControl">
+                  </span>
+                  <br> <br>
+                  <span class="form-group">
+                      <i class="material-icons red-text small">location_on</i>
+                      <input 
+                      style="margin-bottom:2px; margin-left: 5px; "
+                      placeholder="  Input destination" 
+                      autocorrect="off" autocapitalize="off" 
+                      spellcheck="off" type="text" class="form-control" 
+                      #destination [formControl]="destinationControl">
+                  </span>
+                  <br><br>
+                  <span class="center">
+                      <button class="black hoverable btn small" type="button" (click)="getDirection()">Get</button>
+                  </span>       
+
+              </div>
+            </li>
+          </ul>
+           
+        </span>
+
 </div>
+
 <div *ngIf="latitude && longitude">
     
-    <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom"
+    style="position: fixed; top: 0px; z-index: 1;">
 
-        <agm-marker [latitude]="latitude" [longitude]="longitude">
-          <!--
+        <agm-marker [latitude]="latitude" [longitude]="longitude">     
+          <!--    
           <agm-info-window>
-            <h6> <strong>{{ this.place}}</strong> </h6>  
-          </agm-info-window>
-        -->
+            <b>Current</b>
+          </agm-info-window>-->
         </agm-marker>
+
+        <!-- TEST 
+        <agm-marker *ngFor="[const i=0; i < lightLat.length; i++]"      
+        [latitude]="lightLat[i]" 
+        [longitude]="lightLng[i]">
+        <agm-info-window>
+         <span>
+           <b>{{mapUpdate.notifDetail}}</b><br>
+           <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
+        </span>
+        </agm-info-window>
+      </agm-marker> -->
+
+        <!-- MARKERS FOR TRAFFIC -->
+        <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+          [latitude]="mapUpdate.locLat" 
+          [longitude]="mapUpdate.locLng"
+          [label]="{
+            color: '#000000',
+            fontWeight: 'bold',
+            text: mapUpdate.subcategory
+            }">
+          <agm-info-window>
+           <span>
+             <h6>{{mapUpdate.notifDetail}}</h6>
+             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b><br>
+             <b>Last Updated: {{mapUpdate.timeStamp}}</b>
+          </span>
+          </agm-info-window>
+        </agm-marker> 
+
+          <!-- MARKERS FOR MODERATE TRAFFIC 
+          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+          [latitude]="mapUpdate.locLat" 
+          [longitude]="mapUpdate.locLng">
+          <agm-info-window>
+           <span>
+             <b>{{mapUpdate.notifDetail}}</b><br>
+             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
+          </span>
+          </agm-info-window>
+        </agm-marker> -->
+
+          <!-- MARKERS FOR HEAVY TRAFFIC 
+          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+          [latitude]="mapUpdate.locLat" 
+          [longitude]="mapUpdate.locLng">
+          <agm-info-window>
+           <span>
+             <b>{{mapUpdate.notifDetail}}</b><br>
+             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
+          </span>
+          </agm-info-window>
+        </agm-marker>-->
+
+
+          <!-- MARKERS FOR AVAILABLE PARKING 
+          
+          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+          [latitude]="mapUpdate.locLat" 
+          [longitude]="mapUpdate.locLng">
+          <agm-info-window>
+           <span>
+             <b>{{mapUpdate.notifDetail}}</b><br>
+             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
+          </span>
+          </agm-info-window>
+        </agm-marker>-->
+
+          <!-- MARKERS FOR NO AVAILABLE PARKING 
+          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+          [latitude]="mapUpdate.locLat" 
+          [longitude]="mapUpdate.locLng">
+          <agm-info-window>
+           <span>
+             <b>{{mapUpdate.notifDetail}}</b><br>
+             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
+          </span>
+          </agm-info-window>
+        </agm-marker>-->
+
+        <!-- MARKERS FOR TRACKING TMO -->
+        <agm-marker *ngFor="let ofLocation of ofLocations | async"
+        class="shadow-text"
+        [latitude]="ofLocation.lat" 
+        [longitude]="ofLocation.lng"
+        [label]="{
+          color: '#000000',
+          fontWeight: 'bold',
+          text: ofLocation.$key
+          }" 
+        >
+        <agm-info-window>
+         <b>Last Login: {{ ofLocation.timeStamp }}</b>
+        </agm-info-window>
+        </agm-marker>
+
+        <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
     
      
       </agm-map>

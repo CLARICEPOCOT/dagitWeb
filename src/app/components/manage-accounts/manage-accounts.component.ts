@@ -7,6 +7,7 @@ import { EditOnFieldComponent } from '../edit-on-field/edit-on-field.component';
 import { SearchAccountsComponent } from '../search-accounts/search-accounts.component';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { UploadService } from '../../uploads/shared/upload.service';
 import { Upload } from '../../uploads/shared/upload';
@@ -37,14 +38,17 @@ export class ManageAccountsComponent implements OnInit {
   onFieldID: any;
 
   image: any;
+  currentUser: any;
 
   constructor(
     public dialog: MatDialog,
     private firebaseService: FirebaseService,
-    private upSvc: UploadService
+    private upSvc: UploadService,
+    public angularFireAuth: AngularFireAuth
   ) {
       this.onFieldTMO = this.firebaseService.getOnfieldTMO();
       this.deskTMO = this.firebaseService.getDeskTMO();
+      this.currentUser = angularFireAuth.auth.currentUser;
   }
 
   ngOnInit() {
@@ -59,14 +63,14 @@ export class ManageAccountsComponent implements OnInit {
     this.firebaseService.getDeskTMO().subscribe(accountD => {
       this.accountD = accountD;
       console.log(accountD);
-
+/*
       const storageRef = firebase.storage().ref();
       const spaceRef = storageRef.child(this.accountD.path).getDownloadURL().then((url) => {
         // Set image url
         this.imageURL = url;
       }).catch((error) => {
         console.log(error);
-      });
+      });*/
     });
   }
 

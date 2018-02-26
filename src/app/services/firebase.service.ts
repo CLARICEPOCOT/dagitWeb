@@ -142,9 +142,20 @@ export class FirebaseService {
         iRef.put(selectedFile).then((snapshot) => {
          // deskTMO.image = selectedFile.name;
            onFieldTMO.path = path;
-          return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
           // return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
         });
+
+       // const path = accountD.path.toString();
+       // console.log(path);
+       // const storageRef = firebase.storage().ref();
+        const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
+          // Set image url
+          onFieldTMO.url = url;
+        }).catch((error) => {
+          console.log(error);
+        });
+
+        return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
     }
 
   }
@@ -251,9 +262,14 @@ export class FirebaseService {
   }
 
 
-  getMapLocations() {
+  getMapUpdates() {
   return this.dagit.list('/MAP');
 }
+
+  trackLocation() {
+    return this.dagit.list('/LOCATION');
+  }
+
 
 
   // TEMPORARY SESSIONS
@@ -266,8 +282,6 @@ export class FirebaseService {
       preserveSnapshot: true
   });
  }
-
-
 
 
 
