@@ -8,6 +8,7 @@ import { FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FirebaseApp } from 'angularfire2';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -33,6 +34,10 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   email: string;
 
+  userDb: any;
+  users: any = [];
+  currUserDb: any;
+
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -45,10 +50,21 @@ export class LoginComponent implements OnInit {
   constructor(
     private firebaseService: FirebaseService,
     private router: Router,
-    public angularFireAuth: AngularFireAuth
+    public angularFireAuth: AngularFireAuth,
+    public firebaseApp: FirebaseApp
 
   ) {
+    this.firebaseApp.database().ref("ACCOUNTS/ON_FIELD_TMO").on('value', snapshot => {
+      this.userDb = this.firebaseService.getDeskTMO();
 
+      this.userDb.subscribe(snapshot => {
+        var i = 0;
+        snapshot.forEach(snap => {
+          this.users[i] = snap;
+          i++;
+        })
+      });
+    });
   }
 
   ngOnInit() {
@@ -64,11 +80,24 @@ export class LoginComponent implements OnInit {
       this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         if (user.emailVerified) {
-          console.log('logged in');
           this.user = this.angularFireAuth.auth.currentUser;
-          this.user.password = password;
-          console.log(user);
-          this.router.navigate(['/map']);
+          for(var j =0; j < this.users.length; j++){
+            if(this.user.email == this.users[j].emailAddress){
+              this.currUserDb = this.users[j];
+            }
+          }
+          if(this.currUserDb.enabled == 'yes'){
+            this.user.password = password;
+            if(this.currUserDb.password != this.user.password){
+              this.firebaseService.editPassword(this.currUserDb.$key, this.user.password);
+            }
+            console.log(user);
+            this.router.navigate(['/map']);
+          }
+          else{
+            alert("Account disabled");
+            this.angularFireAuth.auth.signOut();
+          }
         } else {
           this.sendemailVerification();
         }

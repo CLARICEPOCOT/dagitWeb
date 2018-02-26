@@ -14,14 +14,12 @@ import { FirebaseService } from '../../services/firebase.service';
 export class SearchAccountsComponent implements OnInit {
   category: string;
   searchValue: string;
-  onField: any;
-  desk: any;
-  allFName: any = [];
-  allLName: any = [];
-  onFieldFName: any = [];
-  onFieldLName: any = [];
-  deskFName: any = [];
-  deskLName: any = [];
+
+  usersDeskDb: any;
+  usersOfDb: any;
+  usersDesk: any = [];
+  usersOf: any = [];
+  result: any = [];
   found: boolean;
 
 
@@ -29,8 +27,8 @@ export class SearchAccountsComponent implements OnInit {
 
     categories = [
       {name: 'All', value: 'All'},
-      {name: 'On-field TMO', value: 'On-field TMO'},
-      {name: 'Desk TMO', value: 'Desk TMO'}
+      {name: 'On-field TMO', value: 'onField'},
+      {name: 'Desk TMO', value: 'desk'}
     ];
 
   constructor(
@@ -38,19 +36,85 @@ export class SearchAccountsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
     ) {
-        this.onField = this.firebaseService.getOnfieldTMO();
-        this.desk = this.firebaseService.getDeskTMO() ;
+        this.usersOfDb = this.firebaseService.getOnfieldTMO();
+        this.usersDeskDb = this.firebaseService.getDeskTMO() ;
 
-
-
+        this.usersDeskDb.subscribe(snapshot => {
+          var i = 0;
+        snapshot.forEach(snap => {
+            this.usersDesk[i] = snap;
+          i++;
+          })
+        });
+         
+        this.usersOfDb.subscribe(snapshot => {
+         var j = 0;
+        snapshot.forEach(snap => {
+            this.usersOf[j] = snap;
+           j++;
+          })
+        });
       } // end of constructor
 
     ngOnInit() {
     }
 
-    
+    onSearch(){
+      this.result.length = 0;
+      this.found = false;
+      console.log(this.category);
+      if(this.category == 'desk'){
+        this.searchDesk();
+      }
+      else if(this.category == 'onField'){
+        this.searchOf();
+      }
+      else{
+        this.searchDesk();
+        this.searchOf();
+      }
+  
+      this.show();
+    }
 
+    searchDesk(){
+      for(let i = 0; i < this.usersDesk.length; i++){
+        if(this.usersDesk[i].lName.search(this.searchValue) != -1){
+          this.result[this.result.length] = this.usersDesk[i];
+          this.found = true;
+        }
+      }
+    }
+  
+    searchOf(){
+      for(let i = 0; i < this.usersOf.length; i++){
+        if(this.usersOf[i].lName.search(this.searchValue) != -1){
+          this.result[this.result.length] = this.usersOf[i];
+          this.found = true;
+        }
+      }
+    }
 
+    searchAll(){
+      let j = 0;
+      for(let i = 0; i < this.usersOf.length; i++){
+        if(this.usersOf[i].lName.search(this.searchValue) != -1){
+          this.result[this.result.length] = this.usersOf[i];
+          this.found = true;
+        }
+      }
+    }
+  
+    show(){
+      if(this.found){
+        for(let i = 0; i < this.result.length; i++){
+        console.log(this.result[i]);
+        }
+      }
+      else{
+        console.log("no user found");
+      }
+    }
 
     onCancel() {
       this.thisDialogRef.close('Cancel');

@@ -120,7 +120,8 @@
                  &nbsp;
                  <a (click) = "onDeleteDesk(accountD.$key)" class="black hoverable btn small">DELETE</a>
                  &nbsp;
-                 <a class="black hoverable btn small">DISABLE</a>
+                 <span *ngIf = " accountD.enabled == 'yes' "><a (click) = "disableD('no', accountD.$key)"class="black hoverable btn small">DISABLE</a></span>
+                   <span *ngIf = " accountD.enabled == 'no' "><a (click) = "enableD('yes', accountD.$key)"class="black hoverable btn small">ENABLE</a></span>
                  &nbsp;
                  <!--
                  <div (click)="uploadDesk(accountD.$key)" class="fileUpload black hoverable btn small">EDIT IMAGE
@@ -181,8 +182,9 @@
                    &nbsp;
                    <a (click) = "onDeleteOnfield(accountOF.$key)" class="black hoverable btn small">DELETE</a>
                    &nbsp;
-                  
-                   <!--<a class="black hoverable btn small">DISABLE</a>-->
+                   
+                   <span *ngIf = " accountOF.enabled == 'yes' "><a (click) = "disableOF('no', accountOF.$key)"class="black hoverable btn small">DISABLE</a></span>
+                   <span *ngIf = " accountOF.enabled == 'no' "><a (click) = "enableOF('yes', accountOF.$key)"class="black hoverable btn small">ENABLE</a></span>
                 </div>       
   
               </div>

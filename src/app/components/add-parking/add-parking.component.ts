@@ -81,7 +81,8 @@ export class AddParkingComponent implements OnInit {
         'timeStamp': this.timeStamp,
         'notifDetail': this.rating + ': ' + this.location,
         'fName': this.fName,
-        'lName': this.lName
+        'lName': this.lName,
+        "sort": 0 - Date.now()
       };
       console.log(this.fName);
       console.log(this.lName);
