@@ -37,6 +37,9 @@
 
           <div *ngIf = "found == true">
             <span>Account Found</span>
+            <div *ngFor = "let users of result">
+              <div><b>{{ users.fName + ' ' + users.lName }}</b></div>
+            </div>
           </div>
           <div *ngIf = "found == false">
             <span>Account Not Found</span>

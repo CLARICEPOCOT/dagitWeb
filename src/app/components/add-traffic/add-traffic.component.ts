@@ -80,7 +80,8 @@ export class AddTrafficComponent implements OnInit {
         'timeStamp': this.timeStamp,
         'notifDetail': this.rating + ': ' + this.location,
         'fName': this.fName,
-        'lName': this.lName
+        'lName': this.lName,
+        "sort": 0 - Date.now()
       };
 
       this.firebaseService.addNotification(this.notification);
