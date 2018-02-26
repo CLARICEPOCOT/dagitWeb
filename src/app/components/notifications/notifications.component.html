@@ -54,7 +54,7 @@
               <div class="collapsible-header" *ngIf = "notification.category == 'Announcement'">
                   <span style="width: 300px;">{{ notification.title }} </span>
                   <span style="width: 250px;">{{ notification.timeStamp }}</span>
-                  <span>Published by: {{notification.fName + ' ' + notification.lName}}</span>
+                  <span>Published by: {{ notification.deskTMO }}</span>
                  </div>
             <div class="collapsible-body">
               <span>ANNOUNCEMENT DETAILS: </span> <br>

@@ -5,6 +5,8 @@ import { NotificationsComponent } from '../notifications/notifications.component
 import { toast } from 'angular2-materialize';
 import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-parking',

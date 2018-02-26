@@ -22,8 +22,8 @@
           <div style="background-color:#ebebeb; padding: 12px; border-radius: 5px;">
               <p>{{ this.violation.reportContent }}</p>
           </div>
-          <br>   
-          <div class="center">
+          <br>
+          <div class="center" *ngIf="imageURL != null">
                 <img style="width:80%;  height: 80%;border: 4px solid black;" class="thumbnail" src="{{this.imageURL}}">
           </div>
                

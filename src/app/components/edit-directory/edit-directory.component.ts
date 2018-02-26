@@ -5,6 +5,7 @@ import { DirectoryComponent } from '../directory/directory.component';
 import { toast } from 'angular2-materialize';
 import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
@@ -29,6 +30,8 @@ export class EditDirectoryComponent implements OnInit {
   newOperatingHours: string;
   newOtherInformation?: string;
 
+  currentUser: any;
+
 
   categoryControl = new FormControl('', [Validators.required]);
 
@@ -43,6 +46,7 @@ export class EditDirectoryComponent implements OnInit {
     public thisDialogRef: MatDialogRef<DirectoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private firebaseService: FirebaseService,
+    public angularFireAuth: AngularFireAuth
     ) {
       this.directory = data;
       this.newCategory = this.directory.category;
@@ -51,6 +55,7 @@ export class EditDirectoryComponent implements OnInit {
       this.newContactNumber = this.directory.contactNumber;
       this.newOperatingHours = this.directory.operatingHours;
       this.newOtherInformation = this.directory.otherInformation;
+      this.currentUser = this.angularFireAuth.auth.currentUser.displayName;
      }
 
     ngOnInit() {
@@ -118,6 +123,7 @@ export class EditDirectoryComponent implements OnInit {
         'contactNumber': this.contactNumber,
         'operatingHours': this.operatingHours,
         'otherInformation': this.otherInformation,
+        'deskTMO': this.currentUser
       };
 
 

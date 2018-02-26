@@ -6,6 +6,7 @@ import { toast } from 'angular2-materialize';
 import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 import { MatSnackBar } from '@angular/material';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-add-information',
@@ -18,12 +19,17 @@ export class AddInformationComponent implements OnInit {
   title: string;
   body: string;
 
+  currentUser: any;
+
   constructor(
     public thisDialogRef: MatDialogRef<InformationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
-    public snackBar: MatSnackBar
-  ) { }
+    public snackBar: MatSnackBar,
+    public angularFireAuth: AngularFireAuth
+  ) {
+      this.currentUser = this.angularFireAuth.auth.currentUser.displayName;
+  }
 
   ngOnInit() {
   }
@@ -40,7 +46,8 @@ export class AddInformationComponent implements OnInit {
     if (complete) {
       this.information = {
       'title': this.title,
-      'body': this.body
+      'body': this.body,
+      'deskTMO': this.currentUser
     };
     console.log('Information added');
     this.thisDialogRef.close('Add');
