@@ -93,6 +93,10 @@ export class FirebaseService {
     });
   }
 
+  editPassword(key, newPass){
+    this.dagit.object('/ACCOUNTS/DESK_TMO/' + key + '/password').set(newPass);
+  }
+
   getDeskTMO() {
     return this.dagit.list('/ACCOUNTS/DESK_TMO');
   }
@@ -109,7 +113,15 @@ export class FirebaseService {
     return this.dagit.list('/ACCOUNTS/DESK_TMO').remove(key);
   }
 
+  editEnabledD(val , key){
+    this.dagit.object('/ACCOUNTS/DESK_TMO/' + key + '/enabled').set(val);
+  }
+
 // ON-FIELD TMO
+
+  editEnabledOF(val, key){
+    this.dagit.object('/ACCOUNTS/ON_FIELD_TMO/' + key + '/enabled').set(val);
+  }
 
 
   addOnfieldTMO(onFieldTMO) {

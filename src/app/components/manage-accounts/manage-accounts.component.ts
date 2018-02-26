@@ -156,35 +156,49 @@ export class ManageAccountsComponent implements OnInit {
     console.log('updating image');
   }
 
+  //updating enabled
+
+  disableOF(val, key){
+    this.firebaseService.editEnabledOF(val, key);
+  }
+
+  enableOF(val, key){
+    this.firebaseService.editEnabledOF(val, key);
+  }
+
+  enableD(val, key){
+    this.firebaseService.editEnabledD(val, key);
+  }
+
+  disableD(val, key){
+    this.firebaseService.editEnabledD(val, key);
+  }
 
   // getting images
 
   getDeskPhoto(accountD) {
-
-          const path = accountD.path.toString();
-          console.log(path);
-          const storageRef = firebase.storage().ref();
-          const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
-            // Set image url
-            this.imageURL = url;
-          }).catch((error) => {
-            console.log(error);
-          });
+    const path = accountD.path.toString();
+    console.log(path);
+    const storageRef = firebase.storage().ref();
+    const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
+    // Set image url
+    this.imageURL = url;
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
 
   getOnFieldPhoto(accountOF) {
-
-        // const path = accountOF.path.toString();
-        // console.log(path);
-        const storageRef = firebase.storage().ref();
-        const spaceRef = storageRef.child(accountOF.path).getDownloadURL().then((url) => {
-        // Set image url
-        this.imageURL = url;
-        }).catch((error) => {
-        console.log(error);
-        });
-}
-
+    // const path = accountOF.path.toString();
+    // console.log(path);
+    const storageRef = firebase.storage().ref();
+    const spaceRef = storageRef.child(accountOF.path).getDownloadURL().then((url) => {
+    // Set image url
+    this.imageURL = url;
+    }).catch((error) => {
+      console.log(error);
+    });
   }
+}
 

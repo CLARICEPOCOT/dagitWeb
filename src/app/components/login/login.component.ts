@@ -32,6 +32,10 @@ export class LoginComponent implements OnInit {
   check: boolean;
   errorMessage: string;
 
+  userDb: any;
+  users: any = [];
+  currUserDb: any;
+
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -47,6 +51,15 @@ export class LoginComponent implements OnInit {
     public angularFireAuth: AngularFireAuth
 
   ) {
+    this.userDb = this.firebaseService.getDeskTMO();
+
+    this.userDb.subscribe(snapshot => {
+			var i = 0;
+		  snapshot.forEach(snap => {
+			 	this.users[i] = snap;
+				i++;
+		 	})
+	 	});
 
   }
 
@@ -65,7 +78,15 @@ export class LoginComponent implements OnInit {
         if (user.emailVerified) {
           console.log('logged in');
           this.user = this.angularFireAuth.auth.currentUser;
+          for(var j =0; j < this.users.length; j++){
+            if(this.user.email == this.users[j].emailAddress){
+              this.currUserDb = this.users[j];
+            }
+          }
           this.user.password = password;
+          if(this.currUserDb.password != this.user.password){
+            this.firebaseService.editPassword(this.currUserDb.$key, this.user.password);
+          }
           console.log(user);
           this.router.navigate(['/map']);
         } else {
