@@ -78,9 +78,8 @@ export class AddNotificationComponent implements OnInit {
         'timeStamp': this.timeStamp,
         'title': this.title,
         'notifDetail': this.description,
-        // 'fName': this.fName,
-        // 'lName': this.lName,
-        'deskTMO': this.currentUser,
+        'fName': this.currentUser,
+        'lName': '',
         'sort': 0 - Date.now()
       };
 

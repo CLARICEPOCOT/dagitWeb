@@ -5,6 +5,8 @@ import { AddTrafficComponent } from '../add-traffic/add-traffic.component';
 import { AddParkingComponent } from '../add-parking/add-parking.component';
 import { SearchNotificationsComponent } from '../search-notifications/search-notifications.component';
 import { FirebaseService } from '../../services/firebase.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
@@ -21,11 +23,20 @@ export class NotificationsComponent implements OnInit {
   trafficResult = '';
   notification: any;
   notifications: any;
+  current: any;
+
 
   constructor(
     public dialog: MatDialog,
     private firebaseService: FirebaseService,
+    public router: Router,
+    public angularFireAuth: AngularFireAuth
   ) {
+    this.current = this.angularFireAuth.auth.currentUser;
+    if (this.current == null)
+    {
+      this.router.navigate(['/']);
+    }
     this.notifications = this.firebaseService.getNotification();
   }
 

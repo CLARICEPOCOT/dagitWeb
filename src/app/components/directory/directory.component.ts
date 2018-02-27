@@ -6,6 +6,8 @@ import { EditDirectoryComponent} from '../edit-directory/edit-directory.componen
 import { FirebaseService } from '../../services/firebase.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Route } from '@angular/compiler/src/core';
 
 
 @Component({
@@ -22,13 +24,21 @@ export class DirectoryComponent implements OnInit {
   directory: any;
   directories: any;
   id: any;
+  current: any;
 
 
 
   constructor(
     public dialog: MatDialog,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    public angularFireAuth: AngularFireAuth,
+    public router: Router
     ) {
+      this.current = this.angularFireAuth.auth.currentUser;
+      if (this.current == null)
+      {
+        this.router.navigate(['/']);
+      }
       this.directories = this.firebaseService.getDirectory();
    }
 

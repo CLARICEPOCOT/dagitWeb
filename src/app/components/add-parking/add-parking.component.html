@@ -26,17 +26,16 @@
   
           <div class="row">
             <mat-form-field style="width: 100%;" class="col">
-              <textarea 
-              matInput 
-              [(ngModel)] = "location" 
-              name="location"
-              placeholder="LOCATION"
-              matTextareaAutosize 
-              matAutosizeMinRows="1"
-              matAutosizeMaxRows="5"
-              required>
-            </textarea>
-            <mat-error>Location is required.</mat-error>
+                <input
+                matInput
+                [(ngModel)] = "loc" 
+                name="loc"
+                type="textt"
+                placeholder="LOCATION"
+                required
+                class="form-control"
+                #location [formControl]="locationControl">
+                <mat-error>Location is required.</mat-error>
             </mat-form-field>
           </div>
         

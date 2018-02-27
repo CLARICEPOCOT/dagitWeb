@@ -8,7 +8,7 @@ import { SearchAccountsComponent } from '../search-accounts/search-accounts.comp
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UploadService } from '../../uploads/shared/upload.service';
 import { Upload } from '../../uploads/shared/upload';
 
@@ -46,12 +46,17 @@ export class ManageAccountsComponent implements OnInit {
     public dialog: MatDialog,
     private firebaseService: FirebaseService,
     private upSvc: UploadService,
-    public angularFireAuth: AngularFireAuth
+    public angularFireAuth: AngularFireAuth,
+    public router: Router
   ) {
       this.onFieldTMO = this.firebaseService.getOnfieldTMO();
       this.deskTMO = this.firebaseService.getDeskTMO();
       this.currentUser = angularFireAuth.auth.currentUser;
-      
+      if (this.currentUser == null)
+      {
+        this.router.navigate(['/']);
+      }
+
       this.deskTMO.subscribe(snapshot => {
         var i = 0;
         snapshot.forEach(snap => {
@@ -177,21 +182,21 @@ export class ManageAccountsComponent implements OnInit {
     console.log('updating image');
   }
 
-  //updating enabled
+  // updating enabled
 
-  disableOF(val, key){
+  disableOF(val, key) {
     this.firebaseService.editEnabledOF(val, key);
   }
 
-  enableOF(val, key){
+  enableOF(val, key) {
     this.firebaseService.editEnabledOF(val, key);
   }
 
-  enableD(val, key){
+  enableD(val, key) {
     this.firebaseService.editEnabledD(val, key);
   }
 
-  disableD(val, key){
+  disableD(val, key) {
     this.firebaseService.editEnabledD(val, key);
   }
 

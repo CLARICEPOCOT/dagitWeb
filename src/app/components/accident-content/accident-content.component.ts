@@ -20,8 +20,8 @@ export class AccidentContentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private firebaseService: FirebaseService
   ) {
-    this.accident = data;
-    this.imageURL = this.accident.image;
+      this.accident = data;
+      this.imageURL = this.accident.image;
      }
 
   ngOnInit() {

@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-helpdesk',
@@ -8,7 +10,18 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class HelpdeskComponent implements OnInit {
 
-  constructor() { }
+  current: any;
+
+  constructor(
+    public router: Router,
+    public angularFireAuth: AngularFireAuth
+  ) {
+    this.current = this.angularFireAuth.auth.currentUser;
+    if (this.current == null)
+    {
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
   }
