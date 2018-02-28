@@ -269,20 +269,20 @@ export class FirebaseService {
   }
 
   // MAP
-  getMap() {
-    return this.dagit.list('/MAP');
-  }
-
-  getMapData(location) {
+  getMap(location) {
     return this.dagit.list('/MAP/' + location);
   }
 
+  getMapData(location) {
+    return this.dagit.list('/MAP' + location);
+  }
+
   updateMapData(location, update) {
-    this.dagit.list('/MAP').update(location, update);
+    this.dagit.object('/MAP/' + location).update(update);
   }
 
   addMapData(location, update) {
-    this.dagit.list('/MAP' + location).push(update);
+    this.dagit.list('/MAP/' + location).push(update);
   }
 
    // MAP DATA

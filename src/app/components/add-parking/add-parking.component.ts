@@ -154,13 +154,15 @@ export class AddParkingComponent implements OnInit {
         'tLName': this.mapData.tLName
       };
 
+     this.firebaseService.updateMapData(this.loc, this.mapUpdate);
+/*
       if (this.add === true) {
        this.firebaseService.addMapData(this.loc, this.mapUpdate);
         console.log('adding data');
       } else {
         this.firebaseService.updateMapData(this.loc, this.mapUpdate);
         console.log('updating data');
-      }
+      }*/
 
 
 
