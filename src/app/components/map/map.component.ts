@@ -67,6 +67,9 @@ export class MapComponent implements OnInit {
    notifLng: number;
    current: any;
 
+   sampleLat = 9.319988799999999;
+   sampleLng = 123.30722629999994;
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -83,6 +86,8 @@ export class MapComponent implements OnInit {
     public angularFireAuth: AngularFireAuth,
     private router: Router
   ) {
+
+
     this.current = this.angularFireAuth.auth.currentUser;
     if (this.current == null)
     {

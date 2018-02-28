@@ -14,7 +14,8 @@
         style="background-color: white; height: 50px; padding-top:2px; margin-left: 5px;"
         placeholder="   Search for a location" 
         autocorrect="off" autocapitalize="off" 
-        spellcheck="off" type="text" class="form-control" 
+        spellcheck="off" type="text" 
+        class="form-control" 
         #search [formControl]="searchControl">
     </span>
 
@@ -29,7 +30,8 @@
                       style="margin-bottom:2px; margin-left: 5px;"
                       placeholder="   Input origin" 
                       autocorrect="off" autocapitalize="off" 
-                      spellcheck="off" type="text" class="form-control" 
+                      spellcheck="off" type="text" 
+                      class="form-control" 
                       #origin [formControl]="originControl">
                   </span>
                   <br> <br>
@@ -81,22 +83,35 @@
 
         <!-- MARKERS FOR TRAFFIC -->
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
-          [latitude]="mapUpdate.locLat" 
-          [longitude]="mapUpdate.locLng"
-          [label]="{
-            color: '#000000',
-            fontWeight: 'bold',
-            text: mapUpdate.subcategory
-            }">
-          <agm-info-window>
-           <span>
-             <h6>{{mapUpdate.notifDetail}}</h6>
-             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b><br>
-             <b>Last Updated: {{mapUpdate.timeStamp}}</b>
-          </span>
-          </agm-info-window>
+          >
+            <agm-marker *ngIf="false"
+            [latitude]="mapUpdate.locLat" 
+            [longitude]="mapUpdate.locLng"
+            [label]="{
+              color: '#000000',
+              fontWeight: 'bold',
+              text: mapUpdate.subcategory
+              }">
+              <agm-info-window>
+                  <span>
+                    <h6>{{mapUpdate.notifDetail}}</h6>
+                    <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b><br>
+                    <b>Last Updated: {{mapUpdate.timeStamp}}</b>
+                 </span>
+                 </agm-info-window>
+
+            </agm-marker>
+          
         </agm-marker> 
 
+        <agm-marker
+        [latitude]="sampleLat"
+        [longitude]="sampleLng"
+        >
+            <agm-info-window>
+              <b>sample</b>
+            </agm-info-window>
+        </agm-marker>
           <!-- MARKERS FOR MODERATE TRAFFIC 
           <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
           [latitude]="mapUpdate.locLat" 
@@ -146,6 +161,11 @@
           </span>
           </agm-info-window>
         </agm-marker>-->
+      
+
+
+
+
 
         <!-- MARKERS FOR TRACKING TMO -->
         <agm-marker *ngFor="let ofLocation of ofLocations | async"

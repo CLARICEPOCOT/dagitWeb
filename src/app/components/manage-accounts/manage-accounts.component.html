@@ -207,7 +207,34 @@
                 class="btn-floating green modal-trigger tooltipped" 
                 data-position="left"
                 data-delay="30"
-                data-tooltip="Search account"
+                data-tooltip="Search by email"
+                (click) = "openSearchEmail()">
+                <i class="material-icons">email</i></a>
+              </li>
+            <li>
+                <a materialize="tooltip"
+                class="btn-floating green modal-trigger tooltipped" 
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Search by username"
+                (click) = "openSearchUsername()">
+                <i class="material-icons">verified_user</i></a>
+              </li>
+            <li>
+                <a materialize="tooltip"
+                class="btn-floating green modal-trigger tooltipped" 
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Search by location"
+                (click) = "openSearchLocation()">
+                <i class="material-icons">location_searching</i></a>
+              </li>
+            <li>
+                <a materialize="tooltip"
+                class="btn-floating green modal-trigger tooltipped" 
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Search by last name"
                 (click) = "openSearch()">
                 <i class="material-icons">search</i></a>
               </li>

@@ -5,6 +5,9 @@ import { AddDeskTmoComponent } from '../add-desk-tmo/add-desk-tmo.component';
 import { EditDeskComponent } from '../edit-desk/edit-desk.component';
 import { EditOnFieldComponent } from '../edit-on-field/edit-on-field.component';
 import { SearchAccountsComponent } from '../search-accounts/search-accounts.component';
+import { SearchEmailComponent } from '../search-email/search-email.component';
+import { SearchLocationComponent } from '../search-location/search-location.component';
+import { SearchUsernameComponent } from '../search-username/search-username.component';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -28,6 +31,9 @@ export class ManageAccountsComponent implements OnInit {
   dialogSearchResult = '';
   dialogEditOnfield = '';
   dialogEditDesk = '';
+  dialogSearchLocation = '';
+  dialogSearchEmail = '';
+  dialogSearchUsername = '';
 
   accountOF: any;
   accountD: any;
@@ -133,6 +139,43 @@ export class ManageAccountsComponent implements OnInit {
     console.log('Dialog closed');
     this.dialogSearchResult = result;
   });
+  }
+
+  openSearchLocation() {
+    const dialogRef = this.dialog.open(SearchLocationComponent, {
+      width: '800px',
+      data: 'SEARCH LOCATIONS'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchLocation = result;
+    });
+  }
+
+  openSearchEmail() {
+    const dialogRef = this.dialog.open(SearchEmailComponent, {
+      width: '800px',
+      data: 'SEARCH EMAILS'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchEmail = result;
+    });
+  }
+
+
+  openSearchUsername() {
+    const dialogRef = this.dialog.open(SearchUsernameComponent, {
+      width: '800px',
+      data: 'SEARCH USERNAMES'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchUsername = result;
+    });
   }
 
   onEditDesk(accountD) {
