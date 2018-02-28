@@ -17,7 +17,6 @@ import { MapsAPILoader, AgmMap, AgmMarker } from '@agm/core';
 })
 export class AddParkingComponent implements OnInit {
 
-
    // for location
    public locationControl: FormControl;
    latitude: number;
@@ -26,6 +25,11 @@ export class AddParkingComponent implements OnInit {
    loc: any;
    locLat: number;
    locLng: number;
+
+   mapUpdate: any;
+
+   mapData: any;
+   add: boolean;
 
 
    @ViewChild('location')
@@ -36,25 +40,12 @@ export class AddParkingComponent implements OnInit {
   category: string;
   notifDetail: string;
 
-  /*
-  current: any;
-  dbFName: any[] = [];
-  dbLName: any[] = [];*/
+
   current: any;
   fName: string;
   lName: string;
 
-  /*
-  today = new Date();
 
-  date = (this.today.getMonth() + 1) + '/' + this.today.getDate() + '/' + this.today.getFullYear();
-  hours = this.today.getHours() <= 12 ? this.today.getHours() : this.today.getHours() - 12;
-  am_pm = this.today.getHours() >= 12 ? 'PM' : 'AM';
-  hoursFormatted = this.hours < 10 ? '0' + this.hours : this.hours;
-  minutes = this.today.getMinutes() < 10 ? '0' + this.today.getMinutes() : this.today.getMinutes();
-
-  time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;
-  timeStamp = this.date + ' ' + this.time;*/
   timeStamp = moment().format('MMMM Do YYYY, h:mm a');
 
   categoryControl = new FormControl('', [Validators.required]);
@@ -72,20 +63,18 @@ export class AddParkingComponent implements OnInit {
     private ngZone: NgZone,
     public angularFireAuth: AngularFireAuth
   ) {
-    /*
-    this.current = this.firebaseService.getCurrent();
-
-        let j = 0;
-        this.current.subscribe(snapshots => {
-          snapshots.forEach(snapshot => {
-            this.dbFName[j] = snapshot.val().fName;
-            this.dbLName[j] = snapshot.val().lName;
-            j++;
-          });
-        });
-        this.getUser();
-        */
         this.current = this.angularFireAuth.auth.currentUser.displayName;
+        this.fName = this.current;
+        this.mapData = this.firebaseService.getMapData(this.loc);
+        console.log('MAP DATA: ' + this.mapData.trafficRating);
+        if (this.mapData.trafficRating === undefined) {
+          console.log('null');
+          this.add = true;
+          this.mapData.trafficRating = '';
+          this.mapData.trafficTimeStamp = '';
+          this.mapData.tFName = '';
+          this.mapData.tLName = '';
+        }
   }
 
   ngOnInit() {
@@ -145,9 +134,36 @@ export class AddParkingComponent implements OnInit {
         'lName': '',
         'sort': 0 - Date.now()
       };
-      
+      // updating NOTIFICATIONS
       this.firebaseService.addNotification(this.notification);
       console.log('Notification added');
+      // const location = this.loc.split(' ');
+      // this.loc = location[0];
+      console.log(location);
+      // updating MAPS
+      this.mapUpdate = {
+        'latitude': this.latitude,
+        'longitude': this.longitude,
+        'parkingAvailability': this.rating,
+        'parkingTimeStamp': this.timeStamp,
+        'pFName': this.current,
+        'pLName': '',
+        'trafficRating': this.mapData.trafficRating,
+        'trafficTimeStamp': this.mapData.trafficTimeStamp,
+        'tFName': this.mapData.tFName,
+        'tLName': this.mapData.tLName
+      };
+
+      if (this.add === true) {
+       this.firebaseService.addMapData(this.loc, this.mapUpdate);
+        console.log('adding data');
+      } else {
+        this.firebaseService.updateMapData(this.loc, this.mapUpdate);
+        console.log('updating data');
+      }
+
+
+
       this.thisDialogRef.close('Add');
     }
 
@@ -159,15 +175,6 @@ export class AddParkingComponent implements OnInit {
 
   }
 
-  /*
-  getUser() {
-    for ( let i = 0; i < this.dbFName.length; i++) {
-       this.fName = this.dbFName[i];
-    }
 
-    for ( let j = 0; j < this.dbLName.length; j++) {
-       this.lName = this.dbLName[j];
-    }
-  }*/
 
 }

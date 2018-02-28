@@ -60,7 +60,7 @@ export class SearchLocationComponent implements OnInit {
           // set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.zoom = 17;
+
   
         });
       });
