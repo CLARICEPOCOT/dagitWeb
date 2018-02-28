@@ -45,6 +45,11 @@
                </div>
                <br><br>
                <div class="center">
+                 <i class="material-icons">info_outline</i> Created By <hr>
+                 {{ directory.deskTMO }}
+               </div>
+               <br><br>
+               <div class="center">
                   <a (click) ="openEdit(directory)" class="black hoverable btn small">EDIT</a>
                   &nbsp;
                   <a (click) = "onDeleteClick(directory.$key)" class="black hoverable btn small">DELETE</a>
@@ -86,6 +91,11 @@
                      <div class="center" *ngIf="directory.otherInformation != null">
                        <i class="material-icons">info_outline</i> Other Information <hr>
                        {{ directory.otherInformation }}
+                     </div>
+                     <br><br>
+                     <div class="center">
+                       <i class="material-icons">info_outline</i> Created By <hr>
+                       {{ directory.deskTMO }}
                      </div>
                      <br><br>
                      <div class="center">
@@ -134,6 +144,11 @@
                  </div>
                  <br><br>
                  <div class="center">
+                   <i class="material-icons">info_outline</i> Created By <hr>
+                   {{ directory.deskTMO }}
+                 </div>
+                 <br><br>
+                 <div class="center">
                     <a (click) ="openEdit(directory)" class="black hoverable btn small">EDIT</a>
                     &nbsp;
                     <a (click) = "onDeleteClick(directory.$key)" class="black hoverable btn small">DELETE</a>
@@ -176,6 +191,11 @@
                  <div class="center" *ngIf="directory.otherInformation != null">
                    <i class="material-icons">info_outline</i> Other Information <hr>
                    {{ directory.otherInformation }}
+                 </div>
+                 <br><br>
+                 <div class="center">
+                   <i class="material-icons">info_outline</i> Created By <hr>
+                   {{ directory.deskTMO }}
                  </div>
                  <br><br>
                  <div class="center">

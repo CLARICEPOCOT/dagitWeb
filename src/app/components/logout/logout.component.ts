@@ -10,10 +10,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class LogoutComponent implements OnInit {
 
+  current: any;
+
   constructor(
     private router: Router,
     public angularFireAuth: AngularFireAuth
   ) {
+    this.current = this.angularFireAuth.auth.currentUser;
+    if (this.current == null)
+    {
+      this.router.navigate(['/']);
+    }
     this.angularFireAuth.auth.signOut();
     console.log(this.angularFireAuth.auth.currentUser);
     this.router.navigate(['/']);

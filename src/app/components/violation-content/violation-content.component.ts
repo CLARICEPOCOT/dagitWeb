@@ -13,7 +13,7 @@ import * as firebase from 'firebase';
 export class ViolationContentComponent implements OnInit {
 
   violation: any;
-  imageURL: any;
+  imageURL: any = null;
 
   constructor(
     public thisDialogRef: MatDialogRef<ViolationReportsComponent>,

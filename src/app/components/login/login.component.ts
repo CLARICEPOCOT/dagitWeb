@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   email: string;
 
+  current: any;
+
   userDb: any;
   users: any = [];
   currUserDb: any;
@@ -54,20 +56,23 @@ export class LoginComponent implements OnInit {
     public firebaseApp: FirebaseApp
 
   ) {
-    this.firebaseApp.database().ref("ACCOUNTS/ON_FIELD_TMO").on('value', snapshot => {
+    this.current = this.angularFireAuth.auth.currentUser;
+    console.log(this.current);
+    this.firebaseApp.database().ref('ACCOUNTS/ON_FIELD_TMO').on('value', snapshot => {
       this.userDb = this.firebaseService.getDeskTMO();
 
-      this.userDb.subscribe(snapshot => {
-        var i = 0;
+      this.userDb.subscribe( snapshot => {
+        let i = 0;
         snapshot.forEach(snap => {
           this.users[i] = snap;
           i++;
-        })
+        });
       });
     });
   }
 
   ngOnInit() {
+  
 
   }
 
@@ -81,14 +86,14 @@ export class LoginComponent implements OnInit {
       .then((user) => {
         if (user.emailVerified) {
           this.user = this.angularFireAuth.auth.currentUser;
-          for(var j =0; j < this.users.length; j++){
-            if(this.user.email == this.users[j].emailAddress){
+          for( let j = 0; j < this.users.length; j++) {
+            if( this.user.email == this.users[j].emailAddress) {
               this.currUserDb = this.users[j];
             }
           }
-          if(this.currUserDb.enabled == 'yes'){
+          if(this.currUserDb.enabled == 'yes') {
             this.user.password = password;
-            if(this.currUserDb.password != this.user.password){
+            if(this.currUserDb.password != this.user.password) {
               this.firebaseService.editPassword(this.currUserDb.$key, this.user.password);
             }
             console.log(user);

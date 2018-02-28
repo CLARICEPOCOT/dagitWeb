@@ -7,29 +7,23 @@
   
   <body>
     
-    <h2 mat-dialog-title><i class="material-icons red-text medium">search</i>SEARCH ACCOUNTS</h2>
+    <h2 mat-dialog-title><i class="material-icons red-text medium">location_searching</i>SEARCH ON-FIELD LOCATIONS</h2>
     <hr>
     <br>
     <mat-dialog-content>
       <div></div>
       <form>
           <div class="row">
-            <mat-form-field style="width: 50%;" class="col">
-              <mat-select placeholder="CATEGORY" [(ngModel)]="category" name = "category"[formControl]="categoryControl" required>
-                <mat-option *ngFor="let category of categories" [value]="category.value">
-                  {{category.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
-            </mat-form-field>
-      
-            <mat-form-field style="width: 50%;" class="col">
+              
+            <mat-form-field style="width: 100%;" class="col">
               <input
               matInput
               [(ngModel)] = "searchValue" 
               name="searchValue"
               type="textt"
               placeholder="SEARCH"
+              class="form-control" 
+              #search [formControl]="searchControl"
               required>
               <mat-error>Please input a search value.</mat-error>
             </mat-form-field>

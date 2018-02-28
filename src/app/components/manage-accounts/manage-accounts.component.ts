@@ -5,10 +5,13 @@ import { AddDeskTmoComponent } from '../add-desk-tmo/add-desk-tmo.component';
 import { EditDeskComponent } from '../edit-desk/edit-desk.component';
 import { EditOnFieldComponent } from '../edit-on-field/edit-on-field.component';
 import { SearchAccountsComponent } from '../search-accounts/search-accounts.component';
+import { SearchEmailComponent } from '../search-email/search-email.component';
+import { SearchLocationComponent } from '../search-location/search-location.component';
+import { SearchUsernameComponent } from '../search-username/search-username.component';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UploadService } from '../../uploads/shared/upload.service';
 import { Upload } from '../../uploads/shared/upload';
 
@@ -30,6 +33,9 @@ export class ManageAccountsComponent implements OnInit {
   dialogSearchResult = '';
   dialogEditOnfield = '';
   dialogEditDesk = '';
+  dialogSearchLocation = '';
+  dialogSearchEmail = '';
+  dialogSearchUsername = '';
 
   accountOF: any;
   accountD: any;
@@ -49,12 +55,17 @@ export class ManageAccountsComponent implements OnInit {
     private firebaseService: FirebaseService,
     private upSvc: UploadService,
     public angularFireAuth: AngularFireAuth,
-    public firebaseApp: FirebaseApp
+    public firebaseApp: FirebaseApp,
+    public router: Router
   ) {
       this.onFieldTMO = this.firebaseService.getOnfieldTMO();
       this.deskTMO = this.firebaseService.getDeskTMO();
       this.currentUser = angularFireAuth.auth.currentUser;
-      
+      if (this.currentUser == null)
+      {
+        this.router.navigate(['/']);
+      }
+
       this.deskTMO.subscribe(snapshot => {
         var i = 0;
         snapshot.forEach(snap => {
@@ -133,6 +144,43 @@ export class ManageAccountsComponent implements OnInit {
   });
   }
 
+  openSearchLocation() {
+    const dialogRef = this.dialog.open(SearchLocationComponent, {
+      width: '800px',
+      data: 'SEARCH LOCATIONS'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchLocation = result;
+    });
+  }
+
+  openSearchEmail() {
+    const dialogRef = this.dialog.open(SearchEmailComponent, {
+      width: '800px',
+      data: 'SEARCH EMAILS'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchEmail = result;
+    });
+  }
+
+
+  openSearchUsername() {
+    const dialogRef = this.dialog.open(SearchUsernameComponent, {
+      width: '800px',
+      data: 'SEARCH USERNAMES'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchUsername = result;
+    });
+  }
+
   onEditDesk(accountD) {
     const dialogRef = this.dialog.open(EditDeskComponent, {
       width: '800px',
@@ -194,21 +242,21 @@ export class ManageAccountsComponent implements OnInit {
     this.firebaseService.addOnFieldImage(onFieldTMO, file);
   }
 
-  //updating enabled
+  // updating enabled
 
-  disableOF(val, key){
+  disableOF(val, key) {
     this.firebaseService.editEnabledOF(val, key);
   }
 
-  enableOF(val, key){
+  enableOF(val, key) {
     this.firebaseService.editEnabledOF(val, key);
   }
 
-  enableD(val, key){
+  enableD(val, key) {
     this.firebaseService.editEnabledD(val, key);
   }
 
-  disableD(val, key){
+  disableD(val, key) {
     this.firebaseService.editEnabledD(val, key);
   }
 

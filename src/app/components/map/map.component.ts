@@ -6,6 +6,8 @@ import { MapsAPILoader, AgmMap, AgmMarker } from '@agm/core';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
 
@@ -63,6 +65,10 @@ export class MapComponent implements OnInit {
 
    notifLat: number;
    notifLng: number;
+   current: any;
+
+   sampleLat = 9.319988799999999;
+   sampleLng = 123.30722629999994;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -76,8 +82,17 @@ export class MapComponent implements OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    public angularFireAuth: AngularFireAuth,
+    private router: Router
   ) {
+
+
+    this.current = this.angularFireAuth.auth.currentUser;
+    if (this.current == null)
+    {
+      this.router.navigate(['/']);
+    }
     this.mapUpdates = this.firebaseService.getMapUpdates();
     this.ofLocations = this.firebaseService.trackLocation();
 

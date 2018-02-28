@@ -91,6 +91,9 @@ import { SampleComponent } from './components/sample/sample.component';
 
 // email verification
 import { AngularFireAuth } from 'angularfire2/auth';
+import { SearchLocationComponent } from './components/search-location/search-location.component';
+import { SearchUsernameComponent } from './components/search-username/search-username.component';
+import { SearchEmailComponent } from './components/search-email/search-email.component';
 
 
 
@@ -178,7 +181,10 @@ const appRoutes: Routes = [
     RecoverAccountComponent,
     MessageContentComponent,
     DirectionComponent,
-    SampleComponent
+    SampleComponent,
+    SearchLocationComponent,
+    SearchUsernameComponent,
+    SearchEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -222,7 +228,10 @@ const appRoutes: Routes = [
     AccidentContentComponent,
     ViolationContentComponent,
     PedicabReportContentComponent,
-    MessageContentComponent
+    MessageContentComponent,
+    SearchEmailComponent,
+    SearchLocationComponent,
+    SearchUsernameComponent
   ],
   providers: [FirebaseService, GeoService, AngularFireAuth, UploadService],
   bootstrap: [AppComponent]

@@ -13,12 +13,16 @@ import * as firebase from 'firebase';
 export class AccidentContentComponent implements OnInit {
 
   accident: any;
+  imageURL: any = null;
 
   constructor(
     public thisDialogRef: MatDialogRef<AccidentReportsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private firebaseService: FirebaseService
-  ) { this.accident = data; }
+  ) {
+      this.accident = data;
+      this.imageURL = this.accident.image;
+     }
 
   ngOnInit() {
   }
