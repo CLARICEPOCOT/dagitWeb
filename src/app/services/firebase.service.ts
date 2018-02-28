@@ -12,13 +12,13 @@ export class FirebaseService {
 
   currentUser: any;
   deskTMOfolder: any;
-  onFieldTMOFolder: any;
+  onFieldTMOfolder: any;
   directory: any;
 
 
   constructor(public dagit: AngularFireDatabase) {
     this.deskTMOfolder = 'deskTMOImages';
-    this.onFieldTMOFolder = 'onFieldTMOImages';
+    this.onFieldTMOfolder = 'onFieldTMOImages';
   }
 
 // DIRECTORY
@@ -64,21 +64,17 @@ export class FirebaseService {
   }
 
 
-  addDeskImage(id, deskTMO) {
-        // create root ref
-        const storageRef = firebase.storage().ref();
-        for ( const selectedFile of
-          [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
-            const path = `/${this.deskTMOfolder}/${selectedFile.name}`;
-            const iRef = storageRef.child(path);
-            iRef.put(selectedFile).then((snapshot) => {
-             // deskTMO.image = selectedFile.name;
-              deskTMO.path = path;
-              return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
-              // return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
-            });
-        }
-
+  addDeskImage(deskTMO, file) {
+    // create root ref
+    console.log("add desk image");
+    const storageRef = firebase.storage().ref();
+    const path = `/${this.deskTMOfolder}/${file.name}`;
+    const uploadTask = storageRef.child(path).put(file)
+    .then((snapshot) => {
+      const url = snapshot.downloadURL;
+      console.log(url);
+      this.dagit.object('/ACCOUNTS/DESK_TMO/' + deskTMO.$key + '/path/').set(url);
+    });
   }
 
 
@@ -128,7 +124,7 @@ export class FirebaseService {
     const storageRef = firebase.storage().ref();
     for ( const selectedFile of
       [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
-        const path = `/${this.onFieldTMOFolder}/${selectedFile.name}`;
+        const path = `/${this.onFieldTMOfolder}/${selectedFile.name}`;
         const iRef = storageRef.child(path);
         iRef.put(selectedFile).then((snapshot) => {
           onFieldTMO.image = selectedFile.name;
@@ -144,32 +140,15 @@ export class FirebaseService {
   }
 
 
-  addOnFieldImage(id, onFieldTMO) {
+  addOnFieldImage(onFieldTMO, file) {
     // create root ref
     const storageRef = firebase.storage().ref();
-    for ( const selectedFile of
-      [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
-        const path = `/${this.onFieldTMOFolder}/${selectedFile.name}`;
-        const iRef = storageRef.child(path);
-        iRef.put(selectedFile).then((snapshot) => {
-         // deskTMO.image = selectedFile.name;
-           onFieldTMO.path = path;
-          // return this.dagit.list('/ACCOUNTS/DESK_TMO').update(id, deskTMO);
-        });
-
-       // const path = accountD.path.toString();
-       // console.log(path);
-       // const storageRef = firebase.storage().ref();
-        const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
-          // Set image url
-          onFieldTMO.url = url;
-        }).catch((error) => {
-          console.log(error);
-        });
-
-        return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
-    }
-
+    const path = `/${this.onFieldTMOfolder}/${file.name}`;
+    const uploadTask = storageRef.child(path).put(file)
+    .then((snapshot) => {
+      const url = snapshot.downloadURL;
+      this.dagit.object('/ACCOUNTS/ON_FIELD_TMO/' + onFieldTMO.$key + '/path/').set(url);
+    });
   }
 
   getOnfieldTMO() {

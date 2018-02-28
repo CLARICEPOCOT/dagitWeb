@@ -12,6 +12,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { UploadService } from '../../uploads/shared/upload.service';
 import { Upload } from '../../uploads/shared/upload';
 
+import { FirebaseApp } from 'angularfire2';
+
 
 @Component({
   selector: 'app-manage-accounts',
@@ -46,7 +48,8 @@ export class ManageAccountsComponent implements OnInit {
     public dialog: MatDialog,
     private firebaseService: FirebaseService,
     private upSvc: UploadService,
-    public angularFireAuth: AngularFireAuth
+    public angularFireAuth: AngularFireAuth,
+    public firebaseApp: FirebaseApp
   ) {
       this.onFieldTMO = this.firebaseService.getOnfieldTMO();
       this.deskTMO = this.firebaseService.getDeskTMO();
@@ -62,7 +65,7 @@ export class ManageAccountsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
 
     this.firebaseService.getOnfieldTMO().subscribe(accountOF => {
       this.accountOF = accountOF;
@@ -166,15 +169,29 @@ export class ManageAccountsComponent implements OnInit {
 
   // uploading images
 
+  selectFile(event){
+    const file = event.target.files.item(0);
+
+    if(file.type.match('image.*')){
+      this.selectedFiles = event.target.files;
+    }
+  }
+
   uploadDesk(deskTMO) {
-    this.firebaseService.addDeskImage(deskTMO.$key, deskTMO);
-    console.log('updating image');
+    console.log("uploaddesk");
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.firebaseService.addDeskImage(deskTMO, file);
   }
 
 
   uploadOF(onFieldTMO) {
-    this.firebaseService.addOnFieldImage(onFieldTMO.$key, onFieldTMO);
-    console.log('updating image');
+    console.log("uploadOF")
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.firebaseService.addOnFieldImage(onFieldTMO, file);
   }
 
   //updating enabled
@@ -199,6 +216,18 @@ export class ManageAccountsComponent implements OnInit {
 
   getDeskPhoto(accountD) {
     const path = accountD.path.toString();
+    console.log(path);
+    const storageRef = firebase.storage().ref();
+    const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
+    // Set image url
+    this.imageURL = url;
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  getUserPhoto(current){
+    const path = current.path.toString();
     console.log(path);
     const storageRef = firebase.storage().ref();
     const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
