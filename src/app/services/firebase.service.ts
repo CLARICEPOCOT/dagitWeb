@@ -268,6 +268,23 @@ export class FirebaseService {
     this.dagit.list('/CHAT/' + user).push(message);
   }
 
+  // MAP
+  getMap() {
+    return this.dagit.list('/MAP');
+  }
+
+  getMapData(location) {
+    return this.dagit.list('/MAP/' + location);
+  }
+
+  updateMapData(location, update) {
+    this.dagit.list('/MAP').update(location, update);
+  }
+
+  addMapData(location, update) {
+    this.dagit.list('/MAP' + location).push(update);
+  }
+
    // MAP DATA
   addMapLocations(coordinates) {
     this.dagit.list('/MAP').push(coordinates);
