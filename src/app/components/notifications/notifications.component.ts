@@ -7,6 +7,7 @@ import { SearchNotificationsComponent } from '../search-notifications/search-not
 import { FirebaseService } from '../../services/firebase.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
+import * as moment from 'moment';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class NotificationsComponent implements OnInit {
   notifications: any;
   current: any;
 
+  date = moment().format('MMMM D YYYY');
+
 
   constructor(
     public dialog: MatDialog,
@@ -37,11 +40,12 @@ export class NotificationsComponent implements OnInit {
     {
       this.router.navigate(['/']);
     }
-    this.notifications = this.firebaseService.getNotification();
+    this.notifications = this.firebaseService.getNotifLog(this.date);
   }
 
   ngOnInit() {
-    this.firebaseService.getNotification().subscribe(notification => {
+
+    this.firebaseService.getNotifLog(this.date).subscribe(notification => {
       console.log(notification);
       this.notification = notification;
     });

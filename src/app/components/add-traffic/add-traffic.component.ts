@@ -44,7 +44,7 @@ export class AddTrafficComponent implements OnInit {
   mapUpdate: any;
 
 
-  timeStamp = moment().format('MMMM Do YYYY, h:mm a');
+  timeStamp = moment().format('MMMM Do YYYY, h:mm A');
 
   categoryControl = new FormControl('', [Validators.required]);
 
@@ -122,9 +122,13 @@ export class AddTrafficComponent implements OnInit {
         'sort' : 0 - Date.now()
       };
 
+
       // updating NOTIFICATIONS
       this.firebaseService.addNotification(this.notification);
       console.log('Notification added');
+      // updating LOGS
+      const date = moment().format('MMMM D YYYY');
+      this.firebaseService.addNotifLog(date, this.notification);
 
 
       console.log(location);

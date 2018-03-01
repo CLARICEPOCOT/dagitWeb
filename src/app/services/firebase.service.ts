@@ -198,6 +198,20 @@ export class FirebaseService {
   }
 
 
+// NOTIFICATION LOGS
+  addNotifLog(date, notification) {
+    this.dagit.list('/LOGS/' + date).push(notification);
+  }
+
+  getNotifLog(date) {
+    return this.dagit.list('/LOGS/' + date, {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
+  }
+
+
 // INFORMATION
 
   addInformation(information) {

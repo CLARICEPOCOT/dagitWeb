@@ -35,7 +35,7 @@ export class AddNotificationComponent implements OnInit {
   minutes = this.today.getMinutes() < 10 ? '0' + this.today.getMinutes() : this.today.getMinutes();
 
   time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;*/
-  timeStamp = moment().format('MMMM Do YYYY, h:mm a');
+  timeStamp = moment().format('MMMM Do YYYY, h:mm A');
 
 
 
@@ -83,7 +83,10 @@ export class AddNotificationComponent implements OnInit {
         'sort': 0 - Date.now()
       };
 
+      const date = moment().format('MMMM D YYYY');
+
       this.firebaseService.addNotification(this.notification);
+      this.firebaseService.addNotifLog(date, this.notification);
       console.log('Notification added');
       this.thisDialogRef.close('Add');
     }

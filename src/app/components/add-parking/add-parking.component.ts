@@ -45,7 +45,7 @@ export class AddParkingComponent implements OnInit {
   lName: string;
 
 
-  timeStamp = moment().format('MMMM Do YYYY, h:mm a');
+  timeStamp = moment().format('MMMM Do YYYY, h:mm A');
 
   categoryControl = new FormControl('', [Validators.required]);
 
@@ -132,9 +132,14 @@ export class AddParkingComponent implements OnInit {
         'lName': '',
         'sort': 0 - Date.now()
       };
+
       // updating NOTIFICATIONS
       this.firebaseService.addNotification(this.notification);
       console.log('Notification added');
+      // updating LOGS
+      const date = moment().format('MMMM D YYYY');
+      this.firebaseService.addNotifLog(date, this.notification);
+
 
       console.log(location);
       // updating MAPS

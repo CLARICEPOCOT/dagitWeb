@@ -50,7 +50,7 @@ export class MessageContentComponent implements OnInit {
       'timeStamp': moment().format('MMMM Do YYYY, h:mm a'),
       message: this.message
     };
-    if (this.message != '')
+    if (this.message !== ' ')
     {
       this.firebaseService.addMessage(this.messageObject, this.content.$key);
     }
