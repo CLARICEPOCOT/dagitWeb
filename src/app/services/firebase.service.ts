@@ -274,7 +274,7 @@ export class FirebaseService {
   }
 
   getMapData(location) {
-    return this.dagit.list('/MAP' + location);
+    return this.dagit.list('/MAP/' + location);
   }
 
   updateMapData(location, update) {
