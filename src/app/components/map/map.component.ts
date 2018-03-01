@@ -33,35 +33,18 @@ export class MapComponent implements OnInit {
   location: any;
   originLat: number;
   originLng: number;
+  originAddress: any;
   destinationLat: number;
   destinationLng: number;
-   dir = undefined;
+  destinationAddress: any;
+  dir = undefined;
+  distance: any = 0;
 
    mapUpdate: any;
    mapUpdates: any;
    ofLocation: any;
    ofLocations: any;
    mapData: any;
-   mapLat: any[] = [];
-   mapLng: any[] = [];
-   mapInfo: any[] = [];
-   mapCat: any[] = [];
-   mapSubCat: any[] = [];
-   mapTimeStamp: any[] = [];
-
-   lightLat: any[] = [];
-   lightLng: any[] = [];
-   moderateLat: any[] = [];
-   moderateLng: any[] = [];
-   heavyLat: any[] = [];
-   heavyLng: any[] = [];
-   moderateTraffic: any[] = [];
-   heavyTraffic: any[] = [];
-
-   apLat: any[] = [];
-   apLng: any[] = [];
-   noLat: any[] = [];
-   noLng: any[] = [];
 
 
    notifLat: number;
@@ -70,6 +53,8 @@ export class MapComponent implements OnInit {
 
    sampleLat = 9.319988799999999 + 0.0001;
    sampleLng = 123.30712629999994 + 0.0001;
+
+
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -160,6 +145,7 @@ export class MapComponent implements OnInit {
         }
 
         // set latitude, longitude for origin
+        this.originAddress =  place.formatted_address;
         this.originLat = place.geometry.location.lat();
         this.originLng = place.geometry.location.lng();
         // this.zoom = 17;
@@ -188,7 +174,8 @@ export class MapComponent implements OnInit {
           return;
         }
 
-        // set latitude, longitude for origin
+        // set latitude, longitude for destination
+        this.destinationAddress =  place.formatted_address;
         this.destinationLat = place.geometry.location.lat();
         this.destinationLng = place.geometry.location.lng();
         // this.zoom = 17;
@@ -223,6 +210,17 @@ export class MapComponent implements OnInit {
    // const destination = new google.maps.LatLng(this.destinationLat, this.destinationLng);
     // const distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
     // console.log(distance);
+    const _eQuatorialEarthRadius = 6378.1370;
+    const _d2r = (Math.PI / 180.0);
+
+    const dlong = (this.destinationLng - this.originLng) * _d2r;
+    const dlat = (this.destinationLat - this.originLat) * _d2r;
+    const a = Math.pow(Math.sin(dlat / 2.0), 2.0) + Math.cos(this.originLat * _d2r) * Math.cos(this.destinationLat
+           * _d2r) * Math.pow(Math.sin(dlong / 2.0), 2.0);
+    const c = 2.0 * Math.atan2(Math.sqrt(a), Math.sqrt(1.0 - a));
+    const d = _eQuatorialEarthRadius * c;
+    console.log(d);
+    this.distance = d;
 
   }
 
