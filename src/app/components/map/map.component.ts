@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ElementRef, NgZone, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
-import { MapsAPILoader, AgmMap, AgmMarker } from '@agm/core';
+import { MapsAPILoader, AgmMap, AgmMarker, AgmCoreModule } from '@agm/core';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {} from '@types/googlemaps';
 
 
 
@@ -218,6 +219,11 @@ export class MapComponent implements OnInit {
       origin: { lat: this.originLat, lng: this.originLng },
       destination: { lat: this.destinationLat, lng: this.destinationLng }
     };
+    const origin = new google.maps.LatLng(this.originLat, this.originLng);
+    const destination = new google.maps.LatLng(this.destinationLat, this.destinationLng);
+    // const distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+    // console.log(distance);
+
   }
 
 
