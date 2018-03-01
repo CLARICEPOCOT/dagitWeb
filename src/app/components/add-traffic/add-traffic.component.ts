@@ -64,16 +64,6 @@ export class AddTrafficComponent implements OnInit {
   ) {
 
         this.current = this.angularFireAuth.auth.currentUser.displayName;
-      /*this.mapData = this.firebaseService.getMapData(this.loc);
-        console.log('MAP DATA: ' + this.mapData.parkingAvailability);
-
-        if (this.mapData.parkingAvailability === undefined) {
-          console.log('null');
-          this.mapData.parkingAvailability = '';
-          this.mapData.parkingTimeStamp = '';
-          this.mapData.pFName = '';
-          this.mapData.pLName = '';
-        }*/
 
   }
 
@@ -142,10 +132,6 @@ export class AddTrafficComponent implements OnInit {
       this.mapUpdate = {
         'tlatitude': this.latitude,
         'tlongitude': this.longitude,
-        // 'parkingAvailability': this.mapData.parkingAvailability,
-        // 'parkingTimeStamp': this.mapData.parkingTimeStamp,
-        // 'pFName': this.mapData.pFName,
-        // 'pLName': '',
         'trafficRating': this.rating,
         'trafficTimeStamp': this.timeStamp,
         'tFName': this.current,

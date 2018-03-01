@@ -95,25 +95,8 @@ export class MapComponent implements OnInit {
     }
     this.mapUpdates = this.firebaseService.getMapUpdates();
     this.ofLocations = this.firebaseService.trackLocation();
-
-
     this.mapData = this.firebaseService.getMapUpdates();
 
-        this.mapData.subscribe(snapshot => {
-          this.mapLat.length = 0;
-          this.mapLng.length = 0;
-          let x = 0;
-
-          snapshot.forEach(snap => {
-            this.mapLat[x] = snap.locLat;
-            this.mapLng[x] = snap.locLng;
-            this.mapTimeStamp[x] = snap.timeStamp;
-            this.mapInfo[x] = snap.notifDetail;
-            this.mapCat[x] = snap.category;
-            this.mapSubCat[x] = snap.subcategory;
-            x++;
-          });
-        });
   }
 
   ngOnInit() {
@@ -225,31 +208,6 @@ export class MapComponent implements OnInit {
     this.ofLocation = ofLocation;
   });
 
- // categorizing map data
- for ( let i = 0; i < this.mapLat.length; i++ ) {
-   // check if to display
-   const now = moment().format('MMMM Do YYYY, h:mm:ss a');
-   const stamp = moment(this.mapTimeStamp[i]);
-  // const duration = moment.duration(now.diff(stamp, 'minutes'));
-  // const minutes = duration.asMinutes();
-  /*
-   if ()
-   {
-
-   }*/
-   // check category
-   if (this.mapSubCat[i] === 'Light') {
-      this.lightLat[i] = this.mapLat[i];
-      this.lightLng[i] = this.mapLng[i];
-   } else if (this.mapSubCat[i] === 'Moderate') {
-      this.moderateLat[i] = this.mapLat[i];
-      this.moderateLng[i] = this.mapLng[i];
-   } else if (this.mapSubCat[i] === 'Heavy') {
-     this.heavyLat[i] = this.mapLat[i];
-     this.heavyLng[i] = this.mapLng[i];
-   }
-
- }
 
 }
 

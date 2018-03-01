@@ -62,41 +62,31 @@
     <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom"
     style="position: fixed; top: 0px; z-index: 1;">
 
-        <agm-marker [latitude]="latitude" [longitude]="longitude">     
-          <!--    
+        <agm-marker [latitude]="latitude" [longitude]="longitude">        
           <agm-info-window>
             <b>Current</b>
-          </agm-info-window>-->
+          </agm-info-window>
         </agm-marker>
 
-        <!-- TEST 
-        <agm-marker *ngFor="[const i=0; i < lightLat.length; i++]"      
-        [latitude]="lightLat[i]" 
-        [longitude]="lightLng[i]">
-        <agm-info-window>
-         <span>
-           <b>{{mapUpdate.notifDetail}}</b><br>
-           <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
-        </span>
-        </agm-info-window>
-      </agm-marker> -->
+        
 
         <!-- MARKERS FOR TRAFFIC -->
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
           >
-            <agm-marker *ngIf="true"
-            [latitude]="mapUpdate.locLat" 
-            [longitude]="mapUpdate.locLng"
+            <agm-marker 
+            [latitude]="mapUpdate.tlatitude" 
+            [longitude]="mapUpdate.tlongitude"
             [label]="{
               color: '#000000',
               fontWeight: 'bold',
-              text: mapUpdate.subcategory
-              }">
+              text: mapUpdate.trafficRating
+              }"
+            >
               <agm-info-window>
                   <span>
-                    <h6>{{mapUpdate.notifDetail}}</h6>
-                    <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b><br>
-                    <b>Last Updated: {{mapUpdate.timeStamp}}</b>
+                    <h6>{{mapUpdate.$key}}</h6>
+                    <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
+                    <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
                  </span>
                  </agm-info-window>
 
@@ -112,60 +102,39 @@
               <b>sample</b>
             </agm-info-window>
         </agm-marker>
-          <!-- MARKERS FOR MODERATE TRAFFIC 
-          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
-          [latitude]="mapUpdate.locLat" 
-          [longitude]="mapUpdate.locLng">
-          <agm-info-window>
-           <span>
-             <b>{{mapUpdate.notifDetail}}</b><br>
-             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
-          </span>
-          </agm-info-window>
-        </agm-marker> -->
+        
+        <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+        >
+          <agm-marker 
+          [latitude]="mapUpdate.platitude" 
+          [longitude]="mapUpdate.plongitude"
+          [label]="{
+            color: '#000000',
+            fontWeight: 'bold',
+            text: mapUpdate.parkingAvailability
+            }"
+          >
+            <agm-info-window>
+                <span>
+                  <h6>{{mapUpdate.$key}}</h6>
+                  <b>Updated by: {{mapUpdate.pFName}} {{mapUpdate.pLName}}</b><br>
+                  <b>Last Updated: {{mapUpdate.parkingTimeStamp}}</b>
+               </span>
+               </agm-info-window>
 
-          <!-- MARKERS FOR HEAVY TRAFFIC 
-          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
-          [latitude]="mapUpdate.locLat" 
-          [longitude]="mapUpdate.locLng">
-          <agm-info-window>
-           <span>
-             <b>{{mapUpdate.notifDetail}}</b><br>
-             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
-          </span>
-          </agm-info-window>
-        </agm-marker>-->
+          </agm-marker>
+        
+      </agm-marker> 
 
-
-          <!-- MARKERS FOR AVAILABLE PARKING 
-          
-          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
-          [latitude]="mapUpdate.locLat" 
-          [longitude]="mapUpdate.locLng">
+      <agm-marker
+      [latitude]="sampleLat"
+      [longitude]="sampleLng"
+      >
           <agm-info-window>
-           <span>
-             <b>{{mapUpdate.notifDetail}}</b><br>
-             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
-          </span>
+            <b>sample</b>
           </agm-info-window>
-        </agm-marker>-->
-
-          <!-- MARKERS FOR NO AVAILABLE PARKING 
-          <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
-          [latitude]="mapUpdate.locLat" 
-          [longitude]="mapUpdate.locLng">
-          <agm-info-window>
-           <span>
-             <b>{{mapUpdate.notifDetail}}</b><br>
-             <b>Updated by: {{mapUpdate.fName}} {{mapUpdate.lName}}</b>
-          </span>
-          </agm-info-window>
-        </agm-marker>-->
+      </agm-marker>
       
-
-
-
-
 
         <!-- MARKERS FOR TRACKING TMO -->
         <agm-marker *ngFor="let ofLocation of ofLocations | async"
