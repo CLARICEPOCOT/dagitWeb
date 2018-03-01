@@ -145,7 +145,8 @@ export class AddOnfieldComponent implements OnInit {
           'locLat': this.locLat,
           'locLng': this.locLng,
           'enabled': 'yes',
-          'path': ''
+          'path': '',
+          'isTrackable': false
         };
 
         if (this.image != null) {
