@@ -23,7 +23,7 @@
           class="collection-item black-text"
           *ngFor="let accident of accidents | async"
           (click) ="open(accident)">
-          {{ accident.reportSender }}      
+          {{ accident.reportSender }} <span class="new badge black" *ngIf="accident.status == 'unread'"></span>      
           </a>
       </div>
 

@@ -66,7 +66,6 @@ export class FirebaseService {
 
   addDeskImage(deskTMO, file) {
     // create root ref
-    console.log("add desk image");
     const storageRef = firebase.storage().ref();
     const path = `/${this.deskTMOfolder}/${file.name}`;
     const uploadTask = storageRef.child(path).put(file)
@@ -77,7 +76,9 @@ export class FirebaseService {
     });
   }
 
-
+  uploadGetDeskPhoto(user){
+    return this.dagit.object('ACCOUNTS/DESK_TMO/' + user.$key);
+  }
 
   addDeskTMONoPhoto(deskTMO) {
     this.dagit.list('/ACCOUNTS/DESK_TMO').push(deskTMO);
@@ -221,10 +222,18 @@ export class FirebaseService {
     return this.dagit.list('/ACCIDENT');
   }
 
+  readAccidents(user){
+    this.dagit.object('/ACCIDENT/' + user.$key + '/status').set('read');
+  }
+
   // VIOLATION REPORTS
 
   getViolations() {
     return this.dagit.list('/VIOLATION');
+  }
+
+  readViolations(user){
+    this.dagit.object('/VIOLATION/' + user.$key + '/status').set('read');
   }
 
   // PEDICAB REPORTS
@@ -233,7 +242,15 @@ export class FirebaseService {
     return this.dagit.list('/PEDICAB');
   }
 
+  readPedicab(user){
+    this.dagit.object('/PEDICAB/' + user.$key + '/status').set('read');
+  }
+
   // MESSAGES
+
+  readMessage(user){
+    this.dagit.object('/CHAT/' + user.$key + '/status').set('read');
+  }
 
   getMessages() {
     return this.dagit.list('/CHAT');

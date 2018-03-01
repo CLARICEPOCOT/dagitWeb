@@ -24,13 +24,28 @@ export class SearchLocationComponent implements OnInit {
 
   location: any; // searched location
 
+  usersOfDb: any;
+  usersOf: any = [];
+  result: any;
+  found: boolean;
+
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private firebaseService: FirebaseService,
     public thisDialogRef: MatDialogRef<ManageAccountsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
-  ) { }
+  ) { 
+    this.usersOfDb = this.firebaseService.getOnfieldTMO();
+
+      this.usersOfDb.subscribe(snapshot => {
+        var j = 0;
+        snapshot.forEach(snap => {
+          this.usersOf[j] = snap;
+          j++;
+        })
+      });
+  }
 
   ngOnInit() {
     this.searchControl = new FormControl();
@@ -60,13 +75,26 @@ export class SearchLocationComponent implements OnInit {
           // set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.zoom = 17;
   
         });
       });
     });
   }
 
+  onSearch(){
+    this.found = false;
+    this.searchLocation();
+  }
+
+  searchLocation(){
+    for(let i = 0; i < this.usersOf.length; i++){
+      if(this.usersOf[i].location == this.location){
+        this.result = this.usersOf[i];
+        this.found = true;
+        break;
+      }
+    }
+  }
 
   onCancel() {
     this.thisDialogRef.close('Cancel');

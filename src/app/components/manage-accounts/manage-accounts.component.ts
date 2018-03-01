@@ -17,6 +17,8 @@ import { Upload } from '../../uploads/shared/upload';
 
 import { FirebaseApp } from 'angularfire2';
 
+//import * as admin from 'firebase-admin';
+
 
 @Component({
   selector: 'app-manage-accounts',
@@ -25,6 +27,9 @@ import { FirebaseApp } from 'angularfire2';
   encapsulation: ViewEncapsulation.None
 })
 export class ManageAccountsComponent implements OnInit {
+  //admin = require('firebase-admin');
+  //serviceAccount = require('../../../../dagit-7cbac-firebase-adminsdk-jv296-bdc9b332c9.json');
+
   selectedFiles: FileList | null;
   currentUpload: Upload;
 
@@ -46,9 +51,12 @@ export class ManageAccountsComponent implements OnInit {
   onFieldID: any;
   users: any = [];
   currUser: any;
+  currUserUid: any;
 
   image: any;
   currentUser: any;
+
+  
 
   constructor(
     public dialog: MatDialog,
@@ -58,6 +66,11 @@ export class ManageAccountsComponent implements OnInit {
     public firebaseApp: FirebaseApp,
     public router: Router
   ) {
+    /*admin.initializeApp({
+      credential: admin.credential.cert(this.serviceAccount),
+      databaseURL: 'https://dagit-7cbac.firebaseio.com'
+    });*/
+
       this.onFieldTMO = this.firebaseService.getOnfieldTMO();
       this.deskTMO = this.firebaseService.getDeskTMO();
       this.currentUser = angularFireAuth.auth.currentUser;
@@ -100,6 +113,7 @@ export class ManageAccountsComponent implements OnInit {
     for(let i = 0; i < this.users.length; i++){
       if(this.users[i].emailAddress == this.currentUser.email){
         this.currUser = this.users[i];
+        this.currUserUid = this.users[i].uid;
         break;
       }
     }
@@ -212,7 +226,7 @@ export class ManageAccountsComponent implements OnInit {
   }
 
   onDeleteDesk(key) {
-    this.firebaseService.deleteDeskTMO(key);
+    this.firebaseService.deleteDeskTMO(key.$key);
   }
 
   // uploading images
@@ -225,17 +239,27 @@ export class ManageAccountsComponent implements OnInit {
     }
   }
 
-  uploadDesk(deskTMO) {
-    console.log("uploaddesk");
+  uploadMyAccount(deskTMO) {
     const file = this.selectedFiles.item(0);
     this.selectedFiles = undefined;
 
     this.firebaseService.addDeskImage(deskTMO, file);
   }
 
+  uploadDesk(deskTMO) {
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.firebaseService.addDeskImage(deskTMO, file);
+  }
+
+  getPhoto(){
+    this.currUser =  this.firebaseService.uploadGetDeskPhoto(this.currUser);
+    return this.currUser.path;
+  }
+
 
   uploadOF(onFieldTMO) {
-    console.log("uploadOF")
     const file = this.selectedFiles.item(0);
     this.selectedFiles = undefined;
 
