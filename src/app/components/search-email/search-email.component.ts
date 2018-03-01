@@ -15,13 +15,43 @@ export class SearchEmailComponent implements OnInit {
 
   searchValue: string;
 
+  usersDeskDb: any;
+  usersDesk: any = [];
+  result: any;
+  found: boolean;
+
   constructor(
     public thisDialogRef: MatDialogRef<ManageAccountsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService
-  ) { }
+  ) { 
+    this.usersDeskDb = this.firebaseService.getDeskTMO();
+
+      this.usersDeskDb.subscribe(snapshot => {
+        var j = 0;
+        snapshot.forEach(snap => {
+          this.usersDesk[j] = snap;
+          j++;
+        })
+      });
+  }
 
   ngOnInit() {
+  }
+
+  onSearch(){
+    this.found = false;
+    this.searchEmail();
+  }
+
+  searchEmail(){
+    for(let i = 0; i < this.usersDesk.length; i++){
+      if(this.usersDesk[i].emailAddress.toLowerCase() == this.searchValue.toLowerCase()){
+        this.result = this.usersDesk[i];
+        this.found = true;
+        break;
+      }
+    }
   }
 
   onCancel() {

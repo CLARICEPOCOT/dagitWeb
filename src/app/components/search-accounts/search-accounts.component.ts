@@ -73,13 +73,11 @@ export class SearchAccountsComponent implements OnInit {
         this.searchDesk();
         this.searchOf();
       }
-  
-      this.show();
     }
 
     searchDesk(){
       for(let i = 0; i < this.usersDesk.length; i++){
-        if(this.usersDesk[i].lName.search(this.searchValue) != -1){
+        if(this.usersDesk[i].lName.toLowerCase().search(this.searchValue.toLowerCase()) != -1){
           this.result[this.result.length] = this.usersDesk[i];
           this.found = true;
         }
@@ -88,7 +86,7 @@ export class SearchAccountsComponent implements OnInit {
   
     searchOf(){
       for(let i = 0; i < this.usersOf.length; i++){
-        if(this.usersOf[i].lName.search(this.searchValue) != -1){
+        if(this.usersOf[i].lName.toLowerCase().search(this.searchValue.toLowerCase()) != -1){
           this.result[this.result.length] = this.usersOf[i];
           this.found = true;
         }
@@ -98,21 +96,10 @@ export class SearchAccountsComponent implements OnInit {
     searchAll(){
       let j = 0;
       for(let i = 0; i < this.usersOf.length; i++){
-        if(this.usersOf[i].lName.search(this.searchValue) != -1){
+        if(this.usersOf[i].lName.toLowerCase().search(this.searchValue.toLowerCase()) != -1){
           this.result[this.result.length] = this.usersOf[i];
           this.found = true;
         }
-      }
-    }
-  
-    show(){
-      if(this.found){
-        for(let i = 0; i < this.result.length; i++){
-        console.log(this.result[i]);
-        }
-      }
-      else{
-        console.log("no user found");
       }
     }
 

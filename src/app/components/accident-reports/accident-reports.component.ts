@@ -32,6 +32,7 @@ export class AccidentReportsComponent implements OnInit {
   }
 
   open(content) {
+    this.firebaseService.readAccidents(content);
     const dialogRef = this.dialog.open(AccidentContentComponent, {
       width: '800px',
       data: content

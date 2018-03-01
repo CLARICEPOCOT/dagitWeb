@@ -131,7 +131,7 @@ export class AddDeskTmoComponent implements OnInit {
               'emailAddress': this.email,
               'access': 2,
               'enabled': 'yes',
-              'path': null
+              'path': ""
             };
 
 

@@ -35,6 +35,7 @@ export class MessagesComponent implements OnInit {
 
 
   open(message) {
+    this.firebaseService.readMessage(message);
     const dialogRef = this.dialog.open(MessageContentComponent, {
       width: '800px',
       data: message

@@ -17,7 +17,7 @@
         <div class="col hoverable" id="messages">
             <i class="large material-icons" id="messagesIcon">question_answer</i>
             <b style="padding-left: 30px;"> USER MESSAGES</b>
-            <span style="margin-top: 10px; margin-right:34%;" class="new badge black">12</span>
+            <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadM == true"></span>
         </div>
         </a>
       </div>
@@ -28,7 +28,7 @@
           <div class="col hoverable" id="areports">
             <i class="large material-icons" id="areportsIcon">report</i>
             <b  style="padding-left: 20px;"> ACCIDENT REPORTS </b><br>
-            <span style="margin-top: 10px; margin-right:34%;" class="new badge black">1</span>
+            <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadA == true"></span>
           </div>
         </a>  
       </div>
@@ -38,7 +38,7 @@
           <div class="col hoverable" id="pedicab">
             <i class="large material-icons" id="pedicabIcon">motorcycle</i>
             <b  style="padding-left: 20px;"> PEDICAB REPORTS </b><br>
-            <span style="margin-top: 10px; margin-right:34%;" class="new badge black">1</span>
+            <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadP == true"></span>
           </div>
         </a>  
       </div>
@@ -48,7 +48,7 @@
           <div class="col hoverable" id="vreports">
             <i class="large material-icons" id="vreportsIcon">pan_tool</i>
             <b style="padding-left: 20px;"> VIOLATION REPORTS </b>
-            <span style="margin-top: 10px; margin-right:34%;" class="new badge black">1</span>
+            <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadV == true"></span>
           </div>
         </a>
       </div>

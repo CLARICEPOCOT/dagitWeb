@@ -23,7 +23,7 @@
         class="collection-item black-text"
         *ngFor="let report of reports | async"
         (click) ="open(report)">
-        {{ report.reportSender }}      
+        {{ report.reportSender }} <span class="new badge black" *ngIf="report.status == 'unread'"></span>      
         </a>
     </div>
 

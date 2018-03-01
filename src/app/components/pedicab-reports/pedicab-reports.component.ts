@@ -32,6 +32,7 @@ export class PedicabReportsComponent implements OnInit {
 
 
   open(content) {
+    this.firebaseService.readPedicab(content);
     const dialogRef = this.dialog.open(PedicabReportContentComponent, {
       width: '800px',
       data: content
