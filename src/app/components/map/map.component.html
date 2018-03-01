@@ -84,7 +84,7 @@
         <!-- MARKERS FOR TRAFFIC -->
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
           >
-            <agm-marker *ngIf="false"
+            <agm-marker *ngIf="true"
             [latitude]="mapUpdate.locLat" 
             [longitude]="mapUpdate.locLng"
             [label]="{

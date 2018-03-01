@@ -67,8 +67,8 @@ export class MapComponent implements OnInit {
    notifLng: number;
    current: any;
 
-   sampleLat = 9.319988799999999;
-   sampleLng = 123.30722629999994;
+   sampleLat = 9.319988799999999 + 0.0001;
+   sampleLng = 123.30712629999994 + 0.0001;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;

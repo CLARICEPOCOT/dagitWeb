@@ -22,7 +22,7 @@ export class AddTrafficComponent implements OnInit {
   location: string;
   category: string;
   notifDetail: string;
-  // today = new Date();
+
 
   // for location
   public locationControl: FormControl;
@@ -37,19 +37,13 @@ export class AddTrafficComponent implements OnInit {
   public searchElementRef: ElementRef;
 
   current: any;
-  dbFName: any[] = [];
-  dbLName: any[] = [];
   fName: string;
   lName: string;
 
-  /*
-  date = (this.today.getMonth() + 1) + '/' + this.today.getDate() + '/' + this.today.getFullYear();
-  hours = this.today.getHours() <= 12 ? this.today.getHours() : this.today.getHours() - 12;
-  am_pm = this.today.getHours() >= 12 ? 'PM' : 'AM';
-  hoursFormatted = this.hours < 10 ? '0' + this.hours : this.hours;
-  minutes = this.today.getMinutes() < 10 ? '0' + this.today.getMinutes() : this.today.getMinutes();
+  mapData: any;
+  mapUpdate: any;
 
-  time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;*/
+
   timeStamp = moment().format('MMMM Do YYYY, h:mm a');
 
   categoryControl = new FormControl('', [Validators.required]);
@@ -68,20 +62,19 @@ export class AddTrafficComponent implements OnInit {
     private ngZone: NgZone,
     public angularFireAuth: AngularFireAuth
   ) {
-    /*
-    this.current = this.firebaseService.getCurrent();
 
-            let j = 0;
-            this.current.subscribe(snapshots => {
-              snapshots.forEach(snapshot => {
-                this.dbFName[j] = snapshot.val().fName;
-                this.dbLName[j] = snapshot.val().lName;
-                j++;
-              });
-            });
-            this.getUser();
-            */
-            this.current = this.angularFireAuth.auth.currentUser.displayName;
+        this.current = this.angularFireAuth.auth.currentUser.displayName;
+      /*this.mapData = this.firebaseService.getMapData(this.loc);
+        console.log('MAP DATA: ' + this.mapData.parkingAvailability);
+
+        if (this.mapData.parkingAvailability === undefined) {
+          console.log('null');
+          this.mapData.parkingAvailability = '';
+          this.mapData.parkingTimeStamp = '';
+          this.mapData.pFName = '';
+          this.mapData.pLName = '';
+        }*/
+
   }
 
   ngOnInit() {
@@ -139,9 +132,29 @@ export class AddTrafficComponent implements OnInit {
         'sort' : 0 - Date.now()
       };
 
+      // updating NOTIFICATIONS
       this.firebaseService.addNotification(this.notification);
       console.log('Notification added');
-      this.thisDialogRef.close('Add');
+
+
+      console.log(location);
+      // updating MAPS
+      this.mapUpdate = {
+        'tlatitude': this.latitude,
+        'tlongitude': this.longitude,
+        // 'parkingAvailability': this.mapData.parkingAvailability,
+        // 'parkingTimeStamp': this.mapData.parkingTimeStamp,
+        // 'pFName': this.mapData.pFName,
+        // 'pLName': '',
+        'trafficRating': this.rating,
+        'trafficTimeStamp': this.timeStamp,
+        'tFName': this.current,
+        'tLName': ''
+      };
+
+
+     this.firebaseService.updateMapData(this.loc, this.mapUpdate);
+     this.thisDialogRef.close('Add');
     }
 
   }
@@ -150,16 +163,6 @@ export class AddTrafficComponent implements OnInit {
   onCancel() {
     this.thisDialogRef.close('Cancel');
 
-  }
-
-  getUser() {
-    for ( let i = 0; i < this.dbFName.length; i++) {
-       this.fName = this.dbFName[i];
-    }
-
-    for ( let j = 0; j < this.dbLName.length; j++) {
-       this.lName = this.dbLName[j];
-    }
   }
 
 }

@@ -29,7 +29,6 @@ export class AddParkingComponent implements OnInit {
    mapUpdate: any;
 
    mapData: any;
-   add: boolean;
 
 
    @ViewChild('location')
@@ -65,16 +64,15 @@ export class AddParkingComponent implements OnInit {
   ) {
         this.current = this.angularFireAuth.auth.currentUser.displayName;
         this.fName = this.current;
-        this.mapData = this.firebaseService.getMapData(this.loc);
+        /*this.mapData = this.firebaseService.getMapData(this.loc);
         console.log('MAP DATA: ' + this.mapData.trafficRating);
         if (this.mapData.trafficRating === undefined) {
           console.log('null');
-          this.add = true;
           this.mapData.trafficRating = '';
           this.mapData.trafficTimeStamp = '';
           this.mapData.tFName = '';
           this.mapData.tLName = '';
-        }
+        }*/
   }
 
   ngOnInit() {
@@ -137,33 +135,23 @@ export class AddParkingComponent implements OnInit {
       // updating NOTIFICATIONS
       this.firebaseService.addNotification(this.notification);
       console.log('Notification added');
-      // const location = this.loc.split(' ');
-      // this.loc = location[0];
+
       console.log(location);
       // updating MAPS
       this.mapUpdate = {
-        'latitude': this.latitude,
-        'longitude': this.longitude,
+        'platitude': this.latitude + 0.0001,
+        'plongitude': this.longitude + 0.0001,
         'parkingAvailability': this.rating,
         'parkingTimeStamp': this.timeStamp,
         'pFName': this.current,
         'pLName': '',
-        'trafficRating': this.mapData.trafficRating,
-        'trafficTimeStamp': this.mapData.trafficTimeStamp,
-        'tFName': this.mapData.tFName,
-        'tLName': this.mapData.tLName
+        // 'trafficRating': this.mapData.trafficRating,
+        // 'trafficTimeStamp': this.mapData.trafficTimeStamp,
+        // 'tFName': this.mapData.tFName,
+        // 'tLName': this.mapData.tLName
       };
 
      this.firebaseService.updateMapData(this.loc, this.mapUpdate);
-/*
-      if (this.add === true) {
-       this.firebaseService.addMapData(this.loc, this.mapUpdate);
-        console.log('adding data');
-      } else {
-        this.firebaseService.updateMapData(this.loc, this.mapUpdate);
-        console.log('updating data');
-      }*/
-
 
 
       this.thisDialogRef.close('Add');
