@@ -25,6 +25,7 @@ import { MatButton, MatSnackBar } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 // imports for database
@@ -89,13 +90,14 @@ import { MessageContentComponent } from './components/message-content/message-co
 import { DirectionComponent } from './components/direction/direction.component';
 import { SampleComponent } from './components/sample/sample.component';
 
-// email verification
-import { AngularFireAuth } from 'angularfire2/auth';
 import { SearchLocationComponent } from './components/search-location/search-location.component';
 import { SearchUsernameComponent } from './components/search-username/search-username.component';
 import { SearchEmailComponent } from './components/search-email/search-email.component';
 
-//import * as admin from 'firebase-admin';
+// email verification
+import { AngularFireAuth } from 'angularfire2/auth';
+
+// import * as admin from 'firebase-admin';
 
 
 

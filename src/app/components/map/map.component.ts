@@ -234,19 +234,7 @@ export class MapComponent implements OnInit {
       });
     }
 
-/*
-  private markerURL() {
-    return ('C:\Users\Calypso\CAPSTONE\db service\dagit\src\assets\heavy.png');
-  }*/
-/*
-    this.location = {
-      'coordinates': {
-         'lat': this.latitude,
-        'lng': this.longitude}
-    };
 
-    this.firebaseService.addMapLocations(this.location);
-*/
   }
 
   getTMOLocation () {
