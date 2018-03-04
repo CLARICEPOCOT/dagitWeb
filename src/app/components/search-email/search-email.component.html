@@ -7,7 +7,7 @@
   
   <body>
     
-    <h2 mat-dialog-title><i class="material-icons red-text medium">email</i>SEARCH BY DESK TMO EMAIL</h2>
+    <h2 mat-dialog-title><i class="material-icons green-text medium">email</i>SEARCH BY DESK TMO EMAIL</h2>
     <hr>
     <br>
     <mat-dialog-content>
@@ -20,22 +20,29 @@
               matInput
               [(ngModel)] = "searchValue" 
               name="searchValue"
-              type="textt"
+              type="emaill"
               placeholder="SEARCH FOR AN EMAIL"
+              [formControl]="emailFormControl"
+              [errorStateMatcher]="matcher"
               required>
-              <mat-error>Please input a search value.</mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">Email is required.</mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address.
+              </mat-error>
             </mat-form-field>
           </div>
 
-          <div *ngIf = "found == true">
-            <span>Account Found</span>
-            <div><b>Email:</b> {{ result.emailAddress }}</div>
-            <div><b>Name:</b> {{ result.fName + ' ' + result.lName }}</div>
+          <div *ngIf="found == true" style="font-size: large; margin: 10px;">
+              <h5 style="color: green;">Account Found</h5>
+                <div><b>Email:</b> {{ result.emailAddress }}</div>
+                <div><b>Name:</b> {{ result.fName + ' ' + result.lName }}</div>
+              <br>
           </div>
+
           <div *ngIf = "found == false">
-            <span>Account Not Found</span>
+              <h5 style="color: red;">Account Not Found</h5>
           </div>
-          
+                
         <mat-dialog-actions>
           <span style="margin-left: 65%;">
               <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>

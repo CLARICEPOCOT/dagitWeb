@@ -7,7 +7,7 @@
   
   <body>
     
-    <h2 mat-dialog-title><i class="material-icons red-text medium">verified_user</i>SEARCH ACCOUNTS</h2>
+    <h2 mat-dialog-title><i class="material-icons green-text medium">verified_user</i>SEARCH ACCOUNTS</h2>
     <hr>
     <br>
     <mat-dialog-content>
@@ -27,13 +27,13 @@
             </mat-form-field>
           </div>
 
-          <div *ngIf = "found == true">
-            <span>Account Found</span>
+          <div *ngIf = "found == true" style="font-size: large; margin: 10px;">
+            <h5 style="color: green;">Account Found</h5>
             <div><b>Username:</b> {{ result.username }}</div>
             <div><b>Name:</b> {{ result.fName + ' ' + result.lName }}</div>
           </div>
           <div *ngIf = "found == false">
-            <span>Account Not Found</span>
+            <h5 style="color: red;">Account Not Found</h5>
           </div>
           
         <mat-dialog-actions>

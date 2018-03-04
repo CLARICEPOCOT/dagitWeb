@@ -82,8 +82,15 @@ export class SearchLocationComponent implements OnInit {
   }
 
   onSearch(){
-    this.found = false;
-    this.searchLocation();
+    let complete = false;
+    if (this.location != null) {
+      complete = true;
+    }
+    if (complete) {
+      this.found = false;
+      this.searchLocation();
+    }
+
   }
 
   searchLocation(){

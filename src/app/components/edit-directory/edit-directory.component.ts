@@ -63,7 +63,24 @@ export class EditDirectoryComponent implements OnInit {
 
 
     onEdit(key, directory) {
-      // tslint:disable-next-line:triple-equals
+      let complete = false;
+      const newCategoryLength = this.newCategory.trim().length;
+      const newDirectoryNameLength = this.newDirectoryName.trim().length;
+      const newAddressLegnth = this.newAddress.trim().length;
+      const newContactNumberLength = this.newContactNumber.trim().length;
+      const newOperatingHoursLength = this.newOperatingHours.trim().length;
+
+      // checking if fields do not have empty strings
+      if ( (newCategoryLength !== 0)
+         && (newDirectoryNameLength !== 0)
+         && (newAddressLegnth !== 0)
+         && (newContactNumberLength !== 0)
+         && (newOperatingHoursLength !== 0)) {
+           complete = true;
+         }
+
+      if (complete) {
+        // tslint:disable-next-line:triple-equals
       if (this.newCategory != this.directory.category) {
         this.category = this.newCategory;
       } else {
@@ -130,6 +147,8 @@ export class EditDirectoryComponent implements OnInit {
       this.firebaseService.updateDirectory(key, this.directory);
       console.log('Directory edited');
       this.thisDialogRef.close('Add');
+      }
+
 
     }
 

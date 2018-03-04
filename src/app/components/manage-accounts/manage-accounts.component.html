@@ -73,33 +73,20 @@
                   </div>
                 <div class="col" style="width: 50%;">
                  <b>Email Address: </b> {{ accountD.emailAddress }}<br>
-                 <b>Password: </b> {{ accountD.password }}
+                <!-- <b>Password: </b> {{ accountD.password }} -->
                 </div>
               </div>
 
               <br><br>
               <div class="center" *ngIf="accountD.emailAddress != currUser.emailAddress">
-                <!--
-                  <i class="small material-icons">create</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <i class="small material-icons">delete</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <i class="small material-icons">add_a_photo</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                -->
-                
-                 <a (click) ="onEditDesk(accountD)" class="black hoverable btn small">EDIT</a>
+                <!-- <a (click) ="onEditDesk(accountD)" class="black hoverable btn small">EDIT</a>-->
                  &nbsp;
                  <a (click) = "onDeleteDesk(accountD)" class="black hoverable btn small">DELETE</a>
                  &nbsp;
                  <span *ngIf = " accountD.enabled == 'yes' "><a (click) = "disableD('no', accountD.$key)"class="black hoverable btn small">DISABLE</a></span>
                    <span *ngIf = " accountD.enabled == 'no' "><a (click) = "enableD('yes', accountD.$key)"class="black hoverable btn small">ENABLE</a></span>
                  &nbsp;
-                 <!--
-                 <div (click)="uploadDesk(accountD.$key)" class="fileUpload black hoverable btn small">EDIT IMAGE
-                  <input
-                  type="file" 
-                  id="image"
-                  [(ngModel)]="image"
-                  name="image" />
-                 </div>-->
+
               </div>       
 
             </div>
@@ -140,15 +127,13 @@
                    <b>Password: </b> {{ accountOF.password }}<br>
                    <b>Assigned Location: </b> {{ accountOF.location }}<br>
                    <b>Time of Shift: </b> {{ accountOF.timeShift }}<br>
-                  <!-- <b>Located: </b> {{ accountOF.located }}<br>
-                   <b>Time of Login: </b> {{ accountOF.timeStamp }}<br>-->
                   </div>
                            
                 </div>
   
                 <br><br>
                 <div class="center">
-                  <!-- <a (click) ="onEditOnfield(accountOF)" class="black hoverable btn small">EDIT</a>-->
+                   <a (click) ="onEditOnfield(accountOF)" class="black hoverable btn small">EDIT</a>
                    &nbsp;
                    <a (click) = "onDeleteOnfield(accountOF.$key)" class="black hoverable btn small">DELETE</a>
                    &nbsp;
