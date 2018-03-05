@@ -14,7 +14,9 @@
       ngx-auto-scroll lock-y-offset="10" observe-attributes>
           
             <div
-                *ngIf="chatMessage.messageSender == this.content.$key"
+                *ngIf="chatMessage.messageSender == this.content.$key 
+                && this.content.$key != 'read'
+                && this.content.$key != 'unread' "
                 id="sender">
                 {{ chatMessage.message }}
                 <br>
@@ -23,7 +25,9 @@
             
             <div
                 id="user"
-                *ngIf="chatMessage.messageSender != this.content.$key">
+                *ngIf="chatMessage.messageSender != this.content.$key
+                && this.content.$key != 'read'
+                && this.content.$key != 'unread'">
                 {{ chatMessage.message }}
                 <br>
                 <span style="font-size: small">{{ chatMessage.timeStamp }}</span>

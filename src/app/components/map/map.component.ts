@@ -51,8 +51,9 @@ export class MapComponent implements OnInit {
    notifLng: number;
    current: any;
 
-   sampleLat = 9.319988799999999 + 0.0001;
-   sampleLng = 123.30712629999994 + 0.0001;
+  now = Date.now();
+  duration: any;
+  durationMin: any;
 
 
 
@@ -82,6 +83,7 @@ export class MapComponent implements OnInit {
     this.mapUpdates = this.firebaseService.getMapUpdates();
     this.ofLocations = this.firebaseService.trackLocation();
     this.mapData = this.firebaseService.getMapUpdates();
+
 
   }
 
@@ -186,18 +188,26 @@ export class MapComponent implements OnInit {
 
   // getting map updates
   this.firebaseService.getMapUpdates().subscribe(mapUpdate => {
-    console.log(mapUpdate);
+    // console.log(mapUpdate);
     this.mapUpdate = mapUpdate;
+   // this.getDuration();
   });
 
   // tracking locations
   this.firebaseService.trackLocation().subscribe(ofLocation => {
-    console.log(ofLocation);
+    // console.log(ofLocation);
     this.ofLocation = ofLocation;
   });
 
 
 }
+
+
+  public getDuration() {
+    this.duration = this.now - this.mapUpdate.timeUpdated;
+    this.durationMin = moment.duration( this.duration, 'milliseconds').asMinutes;
+    console.log(this.durationMin);
+  }
 
 
   // getting direction

@@ -123,7 +123,7 @@ export class EditDirectoryComponent implements OnInit {
           this.otherInformation = null;
         } else {
           // tslint:disable-next-line:triple-equals
-          if (this.newOtherInformation.length == 0) {
+          if (this.newOtherInformation.trim().length === 0) {
             this.otherInformation = null;
           } else {
             this.otherInformation = this.directory.otherInformation;

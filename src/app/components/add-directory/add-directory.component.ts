@@ -148,6 +148,9 @@ export class AddDirectoryComponent implements OnInit {
           console.log('Directory added');
           this.thisDialogRef.close('ADD');
         } else { // if with otherInformation
+          if (this.otherInformation.trim().length === 0) {
+            this.otherInformation = null;
+          }
           this.directory = {
             'category': this.category,
             'directoryName': this.directoryName,

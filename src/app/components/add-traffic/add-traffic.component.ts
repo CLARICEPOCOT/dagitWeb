@@ -138,6 +138,7 @@ export class AddTrafficComponent implements OnInit {
         'tlongitude': this.longitude,
         'trafficRating': this.rating,
         'trafficTimeStamp': this.timeStamp,
+        'timeUpdated': Date.now(),
         'tFName': this.current,
         'tLName': ''
       };

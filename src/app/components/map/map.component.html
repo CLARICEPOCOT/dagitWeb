@@ -77,7 +77,8 @@
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
           >
             <agm-marker 
-            *ngIf="mapUpdate.trafficRating == 'Light Traffic'"
+            *ngIf="mapUpdate.trafficRating == 'Light Traffic'
+            && (now - mapUpdate.timeUpdated) < 5400000"
             [iconUrl]="'assets/light.png'"
             [latitude]="mapUpdate.tlatitude" 
             [longitude]="mapUpdate.tlongitude"
@@ -101,7 +102,8 @@
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
         >
           <agm-marker 
-          *ngIf="mapUpdate.trafficRating == 'Moderate Traffic'"
+          *ngIf="mapUpdate.trafficRating == 'Moderate Traffic'
+          && (now - mapUpdate.timeUpdated) < 5400000"
           [iconUrl]="'assets/moderate.png'"
           [latitude]="mapUpdate.tlatitude" 
           [longitude]="mapUpdate.tlongitude"
@@ -122,10 +124,10 @@
       </agm-marker> 
 
       <!-- MARKERS FOR HEAVY TRAFFIC -->
-      <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
-      >
+      <agm-marker *ngFor="let mapUpdate of mapUpdates | async">
         <agm-marker 
-        *ngIf="mapUpdate.trafficRating == 'Heavy Traffic'"
+        *ngIf="mapUpdate.trafficRating == 'Heavy Traffic'
+        && (now - mapUpdate.timeUpdated) < 5400000"
         [iconUrl]="'assets/heavy.png'"
         [latitude]="mapUpdate.tlatitude" 
         [longitude]="mapUpdate.tlongitude"
@@ -197,22 +199,26 @@
      
 
         <!-- MARKERS FOR TRACKING TMO -->
-        <agm-marker *ngFor="let ofLocation of ofLocations | async"
-        [iconUrl]="'assets/tmo.png'"
-        class="shadow-text"
-        [latitude]="ofLocation.lat" 
-        [longitude]="ofLocation.lng"
-        [label]="{
-          color: '#000000',
-          fontWeight: 'bold',
-          text: ofLocation.lName
-          }" 
-        >
-        <agm-info-window>
-        <b>{{ofLocation.fName}} {{ofLocation.lName}}</b>
-         <p>Last Login: {{ ofLocation.timeStamp }}</p>
-        </agm-info-window>
+        <agm-marker *ngFor="let ofLocation of ofLocations | async">
+            <agm-marker 
+            *ngIf = "ofLocation.status == 'login'"
+            [iconUrl]="'assets/tmo.png'"
+            class="shadow-text"
+            [latitude]="ofLocation.lat" 
+            [longitude]="ofLocation.lng"
+            [label]="{
+              color: '#000000',
+              fontWeight: 'bold',
+              text: ofLocation.lName
+              }" 
+            >
+            <agm-info-window>
+            <b>{{ofLocation.fName}} {{ofLocation.lName}}</b>
+             <p>Last Login: {{ ofLocation.timeStamp }}</p>
+            </agm-info-window>
+            </agm-marker>
         </agm-marker>
+       
 
         <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
     
