@@ -216,10 +216,7 @@ export class MapComponent implements OnInit {
       origin: { lat: this.originLat, lng: this.originLng },
       destination: { lat: this.destinationLat, lng: this.destinationLng }
     };
-   // const origin = new google.maps.LatLng(this.originLat, this.originLng);
-   // const destination = new google.maps.LatLng(this.destinationLat, this.destinationLng);
-    // const distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
-    // console.log(distance);
+
     const _eQuatorialEarthRadius = 6378.1370;
     const _d2r = (Math.PI / 180.0);
 

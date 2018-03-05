@@ -53,34 +53,14 @@ export class RecoverAccountComponent implements OnInit {
       if (errorCode === 'auth/invalid-email') {
         console.log('invalid email');
         noError = false;
-        /*
-        const alert = this.alertCtrl.create({
-          title: 'Invalid Email',
-          subTitle: 'The email you entered is invalid. Please enter a valid email address and try again.',
-          buttons: ['OK']
-        });
-        alert.present();*/
       } else if (errorCode === 'auth/user-not-found') {
         console.log('user not found');
         noError = false;
-        /*
-        const alert = this.alertCtrl.create({
-          title: 'User Not Found',
-          subTitle: 'The user does not exist. Please retype your email and try again.',
-          buttons: ['OK']
-        });
-        alert.present();*/
       }
     })
     .then(() => {
+      alert('Please check your email.');
       console.log('email sent');
-      /*
-      const alert = this.alertCtrl.create({
-        title: 'Email sent!',
-        subTitle: 'A reset password link has been sent to your email. Please check your email and click the link to reset your password.',
-        buttons: ['OK']
-      });
-      alert.present();*/
       this.router.navigate(['/']);
     });
   }

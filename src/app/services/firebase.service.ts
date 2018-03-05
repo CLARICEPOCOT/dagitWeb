@@ -76,7 +76,7 @@ export class FirebaseService {
     });
   }
 
-  uploadGetDeskPhoto(user){
+  uploadGetDeskPhoto(user) {
     return this.dagit.object('ACCOUNTS/DESK_TMO/' + user.$key);
   }
 
@@ -90,7 +90,7 @@ export class FirebaseService {
     });
   }
 
-  editPassword(key, newPass){
+  editPassword(key, newPass) {
     this.dagit.object('/ACCOUNTS/DESK_TMO/' + key + '/password').set(newPass);
   }
 
@@ -116,7 +116,7 @@ export class FirebaseService {
 
 // ON-FIELD TMO
 
-  editEnabledOF(val, key){
+  editEnabledOF(val, key) {
     this.dagit.object('/ACCOUNTS/ON_FIELD_TMO/' + key + '/enabled').set(val);
   }
 
@@ -167,7 +167,7 @@ export class FirebaseService {
   }
 
   updateOnfieldTMO(id, onFieldTMO) {
-    return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
+    return this.dagit.object('/ACCOUNTS/ON_FIELD_TMO/' + id).update(onFieldTMO);
   }
 
   deleteOnfieldTMO(key) {
@@ -236,7 +236,7 @@ export class FirebaseService {
     return this.dagit.list('/ACCIDENT');
   }
 
-  readAccidents(user){
+  readAccidents(user) {
     this.dagit.object('/ACCIDENT/' + user.$key + '/status').set('read');
   }
 
@@ -246,7 +246,7 @@ export class FirebaseService {
     return this.dagit.list('/VIOLATION');
   }
 
-  readViolations(user){
+  readViolations(user) {
     this.dagit.object('/VIOLATION/' + user.$key + '/status').set('read');
   }
 
@@ -256,13 +256,13 @@ export class FirebaseService {
     return this.dagit.list('/PEDICAB');
   }
 
-  readPedicab(user){
+  readPedicab(user) {
     this.dagit.object('/PEDICAB/' + user.$key + '/status').set('read');
   }
 
   // MESSAGES
 
-  readMessage(user){
+  readMessage(user) {
     this.dagit.object('/CHAT/' + user.$key + '/status').set('read');
   }
 

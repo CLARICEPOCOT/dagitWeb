@@ -56,19 +56,32 @@
               </mat-form-field>
 
               <mat-form-field style="width: 50%;" class="col">
-                  <input
-                  matInput
-                  [(ngModel)] = "newLocation" 
-                  name="newLocation"
-                  type="textt"
-                  placeholder="LOCATION"
-                  value = "{{ this.newLocation }}"
-                  required
-                  class="form-control"
-                  #search [formControl]="locationControl">
-                  <mat-error>Location is required.</mat-error>
-                </mat-form-field>
+                <input
+                matInput
+                [(ngModel)] = "newtimeShift" 
+                name="newtimeShift"
+                type="textt"
+                placeholder="TIME SHIFT"
+                value = "{{ this.newtimeShift }}"
+                required>
+                <mat-error>Timeshift is required.</mat-error>
+              </mat-form-field>
+
             </div>
+
+            <mat-form-field style="width: 100%;">
+              <input
+              matInput
+              [(ngModel)] = "newLocation" 
+              name="newLocation"
+              type="textt"
+              placeholder="LOCATION"
+              value = "{{ this.newLocation }}"
+              required
+              class="form-control"
+              #search [formControl]="locationControl">
+              <mat-error>Location is required.</mat-error>
+            </mat-form-field>
         
         
       

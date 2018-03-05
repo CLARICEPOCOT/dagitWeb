@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   password: string;
   check: boolean;
   errorMessage: string;
+  errorDisabled: string;
   email: string;
 
   current: any;
@@ -100,7 +101,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/map']);
           }
           else{
-            alert("Account disabled");
+            // alert("Account disabled");
+            console.log('account disabled.');
+            this.errorDisabled = 'Account is disabled.';
             this.angularFireAuth.auth.signOut();
           }
         } else {
