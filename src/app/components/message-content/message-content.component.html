@@ -15,8 +15,8 @@
           
             <div
                 *ngIf="chatMessage.messageSender == this.content.$key 
-                && this.content.$key != 'read'
-                && this.content.$key != 'unread' "
+                && chatMessage.$key != 'status'
+                 "
                 id="sender">
                 {{ chatMessage.message }}
                 <br>
@@ -26,8 +26,7 @@
             <div
                 id="user"
                 *ngIf="chatMessage.messageSender != this.content.$key
-                && this.content.$key != 'read'
-                && this.content.$key != 'unread'">
+                && chatMessage.$key != 'status'">
                 {{ chatMessage.message }}
                 <br>
                 <span style="font-size: small">{{ chatMessage.timeStamp }}</span>
