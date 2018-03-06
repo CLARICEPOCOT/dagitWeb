@@ -8,12 +8,11 @@
   <h6 style="background-color: #9DE69D; padding: 15px;">
       <b style="color: black">{{ this.content.$key }}</b>
   </h6>
-  <mat-dialog-content style="max-height: 300px; overflow: auto;">
+  <mat-dialog-content style="max-height: 300px; overflow: scroll; height: y;" #scroll>
       <div 
-      *ngFor="let chatMessage of chatMessages | async"
-      ngx-auto-scroll lock-y-offset="10" observe-attributes>
+      *ngFor="let chatMessage of chatMessages | async" >
           
-            <div
+            <div              
                 *ngIf="chatMessage.messageSender == this.content.$key 
                 && chatMessage.$key != 'status'
                  "

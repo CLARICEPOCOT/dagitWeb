@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MessagesComponent } from '../messages/messages.component';
 import { FirebaseService } from '../../services/firebase.service';
@@ -15,6 +15,9 @@ import { NgxAutoScroll } from 'ngx-auto-scroll';
 })
 export class MessageContentComponent implements OnInit {
 
+  @ViewChild('scroll')
+  public scrollElementRef: ElementRef;
+
 
   content: any;
   chatMessages: any;
@@ -22,6 +25,25 @@ export class MessageContentComponent implements OnInit {
   user: any;
   message: any;
   messageObject: any;
+
+  ngOnInit() {
+    this.firebaseService.getMessage(this.content.$key).subscribe(message => {
+      console.log(message);
+      this.chatMessage = message;
+    });
+    this.scrollToBottom();
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+        this.scrollElementRef.nativeElement.scrollTop = this.scrollElementRef.nativeElement.scrollHeight;
+    } catch (err) { }
+}
 
   constructor(
     public thisDialogRef: MatDialogRef<MessagesComponent>,
@@ -36,12 +58,7 @@ export class MessageContentComponent implements OnInit {
     console.log(this.chatMessages);
   }
 
-  ngOnInit() {
-    this.firebaseService.getMessage(this.content.$key).subscribe(message => {
-      console.log(message);
-      this.chatMessage = message;
-    });
-  }
+
 
   sendMessage() {
     console.log(this.message);
@@ -50,7 +67,7 @@ export class MessageContentComponent implements OnInit {
       'timeStamp': moment().format('MMMM Do YYYY, h:mm a'),
       message: this.message
     };
-    if (this.message !== ' ')
+    if (this.message.trim().length !== 0)
     {
       this.firebaseService.addMessage(this.messageObject, this.content.$key);
     }

@@ -46,7 +46,7 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
 
     this.firebaseService.getNotifLog(this.date).subscribe(notification => {
-      console.log(notification);
+      // console.log(notification);
       this.notification = notification;
     });
   }

@@ -13,35 +13,95 @@
     <mat-dialog-content>
       <form>
           <div class="row">
-            <mat-form-field style="width: 50%;" class="col">
-              <mat-select placeholder="CATEGORY" [(ngModel)]="category" name = "category"[formControl]="categoryControl" required>
-                <mat-option *ngFor="let category of categories" [value]="category.value">
-                  {{category.name}}
+            <mat-form-field style="width: 40%;" class="col">
+              <mat-select placeholder="MONTH" [(ngModel)]="month" name = "month"[formControl]="monthControl" required>
+                <mat-option *ngFor="let month of months" [value]="month.value">
+                  {{month.name}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="categoryControl.hasError('required')">Category is required.</mat-error>
+              <mat-error *ngIf="monthControl.hasError('required')">Category is required.</mat-error>
             </mat-form-field>
       
-            <mat-form-field style="width: 50%;" class="col">
+            <mat-form-field style="width: 30%;" class="col">
               <input
               matInput
-              [(ngModel)] = "searchValue" 
-              name="searchValue"
+              [(ngModel)] = "day" 
+              name="day"
               type="textt"
-              placeholder="SEARCH DIRECTORY"
+              placeholder="DAY"
               required>
-              <mat-error>Please input a notification to search.</mat-error>
+              <mat-error>Day is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="width: 30%;" class="col">
+              <input
+              matInput
+              [(ngModel)] = "year" 
+              name="year"
+              type="textt"
+              placeholder="YEAR"
+              required>
+              <mat-error>Year is required. </mat-error>
             </mat-form-field>
           </div>
 
-          <div>
+          <div class= "container" *ngIf="date != null">
             
-          </div>
+             <!-- Traffic Advisory -->
+                <i class="medium material-icons left red-text text-darken-2">traffic</i>
+                <b style="font-size: 40px;">TRAFFIC ADVISORY</b><br>
+                <!--loop data in database -->
+                <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+                   <li *ngFor = "let notification of notifications | async">
+                     <div class="collapsible-header" *ngIf = "notification.category == 'Traffic'">
+                      <span style="width: 300px;">{{ notification.notifDetail }} </span>
+                      <span style="width: 250px;">{{ notification.timeStamp }}</span>
+                      <span>Published by: {{notification.fName + ' ' + notification.lName}}</span>
+                     </div>
+                   </li>       
+                 </ul><br>
+               
+       
+             <!-- Parking Advisory -->
+               <i class="medium material-icons left orange-text text-darken-2">local_taxi</i>
+               <b style="font-size: 40px;">PARKING ADVISORY</b><br>
+               <!--loop data in database -->
+       
+              <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+                 <li *ngFor = "let notification of notifications | async">
+                     <div class="collapsible-header" *ngIf = "notification.category == 'Parking'">
+                         <span style="width: 300px;">{{ notification.notifDetail }} </span>
+                         <span style="width: 250px;">{{ notification.timeStamp }}</span>
+                         <span>Published by: {{notification.fName + ' ' + notification.lName}}</span>
+                     </div>
+                 </li>       
+               </ul><br>
+       
+             <!--Announcements -->
+               <i class="medium material-icons left light-blue-text">description</i>
+               <b style="font-size: 40px;">ANNOUNCEMENTS</b><br>
+              <!--loop data in database -->
+       
+              <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+                 <li *ngFor = "let notification of notifications | async">
+                     <div class="collapsible-header" *ngIf = "notification.category == 'Announcement'">
+                         <span style="width: 300px;">{{ notification.title }} </span>
+                         <span style="width: 250px;">{{ notification.timeStamp }}</span>
+                         <span>Published by: {{notification.fName + ' ' + notification.lName}}</span>
+                        </div>
+                   <div class="collapsible-body">
+                     <span>ANNOUNCEMENT DETAILS: </span> <br>
+                     <span>{{ notification.notifDetail }}</span>
+                   </div>
+                 </li>       
+               </ul><br>
+         
+           </div>
           
         <mat-dialog-actions>
           <span style="margin-left: 65%;">
               <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>
-              <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
+              <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CLOSE</button>
           </span>
           <br>
           <br>

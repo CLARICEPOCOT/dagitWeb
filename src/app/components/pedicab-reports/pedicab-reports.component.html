@@ -17,13 +17,15 @@
   <br><br>     
   <div class="container">
       <i class="medium material-icons left orange-text lighten-2">motorcycle</i>
-      <b style="font-size: 40px;">PEDICAB REPORTS</b><br>  
+      <b style="font-size: 40px;">MCH REPORTS</b><br>  
     <div class="collection">
         <a
         class="collection-item black-text"
         *ngFor="let report of reports | async"
         (click) ="open(report)">
-        {{ report.reportSender }} <span class="new badge black" *ngIf="report.status == 'unread'"></span>      
+        <span style="margin-right: 550px;">{{ report.reportSender }} </span> 
+        <span>{{ report.timeStamp }}</span>      
+        <span class="new badge black" *ngIf="report.status == 'unread'"></span>      
         </a>
     </div>
 
