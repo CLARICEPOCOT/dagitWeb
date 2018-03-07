@@ -31,7 +31,7 @@ export class MessageContentComponent implements OnInit {
       console.log(message);
       this.chatMessage = message;
     });
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
