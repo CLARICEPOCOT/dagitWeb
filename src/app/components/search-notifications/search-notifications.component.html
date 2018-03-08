@@ -7,45 +7,53 @@
   
   <body>
     
-    <h2 mat-dialog-title><i class="material-icons red-text medium">search</i>SEARCH NOTIFICATIONS</h2>
+    <h2 mat-dialog-title>
+      <i class="material-icons red-text medium">search</i>SEARCH NOTIFICATIONS
+    </h2>
     <hr>
     <br>
     <mat-dialog-content>
       <form>
           <div class="row">
-            <mat-form-field style="width: 40%;" class="col">
-              <mat-select placeholder="MONTH" [(ngModel)]="month" name = "month"[formControl]="monthControl" required>
-                <mat-option *ngFor="let month of months" [value]="month.value">
-                  {{month.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="monthControl.hasError('required')">Category is required.</mat-error>
-            </mat-form-field>
-      
-            <mat-form-field style="width: 30%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "day" 
-              name="day"
-              type="textt"
-              placeholder="DAY"
-              required>
-              <mat-error>Day is required.</mat-error>
-            </mat-form-field>
-
-            <mat-form-field style="width: 30%;" class="col">
-              <input
-              matInput
-              [(ngModel)] = "year" 
-              name="year"
-              type="textt"
-              placeholder="YEAR"
-              required>
-              <mat-error>Year is required. </mat-error>
-            </mat-form-field>
+              <mat-form-field style="width: 40%;" class="col">
+                <mat-select placeholder="MONTH" [(ngModel)]="month" name = "month"[formControl]="monthControl" required>
+                  <mat-option *ngFor="let month of months" [value]="month.value">
+                    {{month.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="monthControl.hasError('required')">Category is required.</mat-error>
+              </mat-form-field>
+        
+              <mat-form-field style="width: 30%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "day" 
+                name="day"
+                type="textt"
+                placeholder="DAY"
+                required>
+                <mat-error>Day is required.</mat-error>
+              </mat-form-field>
+    
+              <mat-form-field style="width: 30%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "year" 
+                name="year"
+                type="textt"
+                placeholder="YEAR"
+                required>
+                <mat-error>Year is required. </mat-error>
+              </mat-form-field>
+            </div>
+         
+          <div
+          *ngIf="notFound == true"
+           style="font-size: large; color: red; margin-left: 20px;">
+           NO NOTIFICATIONS FOR THIS DATE
           </div>
 
-          <div class= "container" *ngIf="date != null">
+          <div *ngIf="found == true;">
             
              <!-- Traffic Advisory -->
                 <i class="medium material-icons left red-text text-darken-2">traffic</i>

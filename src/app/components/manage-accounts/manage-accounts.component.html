@@ -51,7 +51,8 @@
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
           <li *ngFor = "let accountD of deskTMO | async">
             <div class="collapsible-header">
-              <span style="width: 590px;"class="col">{{accountD.fName + ' ' + accountD.lName }} </span> <span class="badge black" *ngIf="accountD.emailAddress == currUser.emailAddress">My Account</span>
+              <span style="width: 590px;"class="col">{{accountD.fName + ' ' + accountD.lName }} </span> 
+              <span class="badge black" *ngIf="accountD.emailAddress == currUser.emailAddress">My Account</span>
             </div>
             <div class="collapsible-body">
               <div class="row">

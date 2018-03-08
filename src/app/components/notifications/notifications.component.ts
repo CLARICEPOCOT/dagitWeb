@@ -53,7 +53,7 @@ export class NotificationsComponent implements OnInit {
 
   openSearch() {
     const dialogRef = this.dialog.open(SearchNotificationsComponent,{
-      width: '800px',
+      width: '900px',
       data: 'SEARCH NOTIFICATION'
     });
 

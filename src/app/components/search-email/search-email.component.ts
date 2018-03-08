@@ -46,7 +46,7 @@ export class SearchEmailComponent implements OnInit {
         snapshot.forEach(snap => {
           this.usersDesk[j] = snap;
           j++;
-        })
+        });
       });
   }
 

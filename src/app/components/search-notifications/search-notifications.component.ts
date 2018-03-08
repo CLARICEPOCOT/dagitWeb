@@ -18,9 +18,12 @@ export class SearchNotificationsComponent implements OnInit {
   day: any;
   year: any;
   date: any;
+  found: boolean;
+  notFound: boolean;
 
   notifications: any;
   notification: any;
+  notifArray: any = [];
 
 
   monthControl = new FormControl('', [Validators.required]);
@@ -63,15 +66,21 @@ export class SearchNotificationsComponent implements OnInit {
       if ( (monthLength !== 0)
          && (dayLength !== 0)
          && (yearLength !== 0)) {
-          this.date = this.month + '' + this.data + '' + this.day;
+          // setting the date to query
+          this.date = this.month + ' ' + this.day + ' ' + this.year;
+          console.log(this.date);
+
           this.notifications = this.firebaseService.getNotifLog(this.date);
-          // console.log(this.notifications);
           this.firebaseService.getNotifLog(this.date).subscribe(notification => {
-            console.log(notification);
+            // console.log(notification);
             this.notification = notification;
+            if (this.notification != null) {
+              this.found = true;
+            } else {
+              this.notFound = true;
+            }
           });
 
-          // this.thisDialogRef.close('Add');
         }
 
     }
