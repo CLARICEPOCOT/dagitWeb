@@ -233,7 +233,11 @@ export class FirebaseService {
   // ACCIDENT REPORTS
 
   getAccidents() {
-    return this.dagit.list('/ACCIDENT');
+    return this.dagit.list('/ACCIDENT', {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
   }
 
   readAccidents(user){
