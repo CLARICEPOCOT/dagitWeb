@@ -1,0 +1,58 @@
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+                   
+  </head>
+  
+  <body>
+    
+    <h2 mat-dialog-title><i class="material-icons green-text medium">email</i>SEARCH BY DESK TMO EMAIL</h2>
+    <hr>
+    <br>
+    <mat-dialog-content>
+      <div></div>
+      <form>
+          <div class="row">
+            
+            <mat-form-field style="width: 100%;" class="col">
+              <input
+              matInput
+              [(ngModel)] = "searchValue" 
+              name="searchValue"
+              type="emaill"
+              placeholder="SEARCH FOR AN EMAIL"
+              [formControl]="emailFormControl"
+              [errorStateMatcher]="matcher"
+              required>
+              <mat-error *ngIf="emailFormControl.hasError('required')">Email is required.</mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="found == true" style="font-size: large; margin: 10px;">
+              <h5 style="color: green;">Account Found</h5>
+                <div><b>Email:</b> {{ result.emailAddress }}</div>
+                <div><b>Name:</b> {{ result.fName + ' ' + result.lName }}</div>
+              <br>
+          </div>
+
+          <div *ngIf = "found == false" style="margin: 10px;">
+              <h5 style="color: red;">Account Not Found</h5>
+          </div>
+                
+        <mat-dialog-actions>
+          <span style="margin-left: 65%;">
+              <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>
+              <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
+          </span>
+          <br>
+          <br>
+          <br>
+        </mat-dialog-actions>
+      </form>  
+    </mat-dialog-content>
+    
+  </body>

@@ -7,11 +7,11 @@
   
   <body>
     
-    <h2 mat-dialog-title><i class="material-icons red-text medium">search</i>SEARCH ACCOUNTS</h2>
+    <h2 mat-dialog-title><i class="material-icons green-text medium">search</i>SEARCH ACCOUNTS</h2>
     <hr>
     <br>
     <mat-dialog-content>
-      <div>{{display()}}</div>
+      <div></div>
       <form>
           <div class="row">
             <mat-form-field style="width: 50%;" class="col">
@@ -29,22 +29,42 @@
               [(ngModel)] = "searchValue" 
               name="searchValue"
               type="textt"
-              placeholder="SEARCH ACCOUNTS"
+              placeholder="SEARCH LAST NAME"
               required>
-              <mat-error>Please input an account to search.</mat-error>
+              <mat-error>Please input a search value.</mat-error>
             </mat-form-field>
           </div>
 
-          <div *ngIf = "found == true">
-            <span>Account Found</span>
-            
+          <div *ngIf = "found == true" style="margin: 10px;">
+            <h5 style="color: green;">Account Found</h5>
+            <div *ngFor = "let users of result" style="font-size: large;">
+              <div>
+                <b>Name:</b> {{ users.fName + ' ' + users.lName }}
+              </div>
+              <div *ngIf="users.username != null">
+                <b>Username:</b> {{ users.username }}
+              </div>
+              <div *ngIf="users.emailAddress != null">
+              <b>Email Address:</b> {{ users.emailAddress }}
+              </div>
+              <div *ngIf="users.location != null">
+                <b>Location:</b> {{ users.location }}
+              </div>
+              <div *ngIf="users.timeShift != null">
+                <b>Timeshift:</b> {{ users.timeShift }}
+              </div>
+              <br>
+          </div>         
+        </div>
+          <div *ngIf = "found == false">
+            <h5 style="color: red;">Account Not Found</h5>
           </div>
           
         <mat-dialog-actions>
-          <div>
+          <span style="margin-left: 65%;">
               <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>
               <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
-          </div>
+          </span>
           <br>
           <br>
           <br>

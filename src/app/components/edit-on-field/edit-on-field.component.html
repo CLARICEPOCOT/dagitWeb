@@ -8,12 +8,13 @@
   <body>
       <span style="background-color:#FFF176; padding: 12px; border-radius: 5px;">
           <b style="color: black;">CURRENT ACCOUNT DETAILS</b>
-        </span>
-        <br><br>
+        </span><br><br>
+          <h5>{{ accountOF.fName }} {{ accountOF.lName }}</h5>
     <hr>
     <br>
     <mat-dialog-content>
-      <form (submit) = "onEditOnfield(account.$key)">
+      <form (submit) = "onEditOnfield(accountOF.$key, accountOF)">
+        <!--
           <div class="row">  
               <mat-form-field style="width: 50%;" class="col">
                 <input
@@ -39,7 +40,7 @@
                 <mat-error>Last name is required.</mat-error>
               </mat-form-field>
             </div>
-    
+          -->
             <div class="row">  
                         
               <mat-form-field style="width: 50%;" class="col">
@@ -55,30 +56,45 @@
               </mat-form-field>
 
               <mat-form-field style="width: 50%;" class="col">
-                  <input
-                  matInput
-                  [(ngModel)] = "newLocation" 
-                  name="newLocation"
-                  type="textt"
-                  placeholder="LOCATION"
-                  value = "{{ this.newLocation }}"
-                  required>
-                  <mat-error>Location is required.</mat-error>
-                </mat-form-field>
+                <input
+                matInput
+                [(ngModel)] = "newtimeShift" 
+                name="newtimeShift"
+                type="textt"
+                placeholder="TIME SHIFT"
+                value = "{{ this.newtimeShift }}"
+                required>
+                <mat-error>Timeshift is required.</mat-error>
+              </mat-form-field>
+
             </div>
+
+            <mat-form-field style="width: 100%;">
+              <input
+              matInput
+              [(ngModel)] = "newLocation" 
+              name="newLocation"
+              type="textt"
+              placeholder="LOCATION"
+              value = "{{ this.newLocation }}"
+              required
+              class="form-control"
+              #search [formControl]="locationControl">
+              <mat-error>Location is required.</mat-error>
+            </mat-form-field>
         
         
       
         <mat-dialog-actions>
-          <div>
+          <span style="margin-left: 68%;">
               <input
               mat-raised-button
               class="black hoverable btn small"            
               type="submit"
               name="submit"
-              value="edit" > &nbsp;
+              value="SAVE" > &nbsp;
               <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
-          </div>
+          </span>
           <br>
           <br>
           <br>

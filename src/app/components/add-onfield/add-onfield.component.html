@@ -7,7 +7,7 @@
 
 <body>
   
-  <h2 mat-dialog-title><i class="material-icons red-text medium">recent_actors</i>ADD NEW DESK TMO</h2>
+  <h2 mat-dialog-title><i class="material-icons orange-text medium">person_pin_circle</i>ADD NEW ON-FIELD TMO</h2>
   <hr>
   <br>
   <mat-dialog-content>
@@ -63,16 +63,29 @@
           </span>
         </div>
 
-        <div class="row">  
+        <div class="row"> 
+          <mat-form-field style="width: 50%;" class="col">
+                <input
+                matInput
+                [(ngModel)] = "location" 
+                name="location"
+                type="textt"
+                placeholder="LOCATION"
+                required
+                class="form-control"
+                #search [formControl]="locationControl">
+                <mat-error>Location is required.</mat-error>
+          </mat-form-field>
+
           <mat-form-field style="width: 50%;" class="col">
             <input
             matInput
-            [(ngModel)] = "location" 
-            name="location"
+            [(ngModel)] = "timeShift" 
+            name="timeShift"
             type="textt"
-            placeholder="LOCATION"
+            placeholder="TIME OF SHIFT"
             required>
-            <mat-error>Location is required.</mat-error>
+            <mat-error>Time of shift is required.</mat-error>
           </mat-form-field>
           <!--
           <div style="width: 50%;" class="col">
@@ -84,13 +97,14 @@
             type="file"
             >
           </div> -->
+      
         </div>
     
   
       
     
       <mat-dialog-actions>
-        <div>
+        <span style="margin-left: 68%;">
             <input
             mat-raised-button
             class="black hoverable btn small"
@@ -98,7 +112,7 @@
             name="submit"
             value="ADD" > &nbsp;
             <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
-        </div>
+        </span>
         <br>
         <br>
         <br>

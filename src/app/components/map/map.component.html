@@ -1,11 +1,230 @@
 <app-navbar></app-navbar>
+<head>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js&libraries=geometry&sensor=true_or_false"></script>
+</head>
 <!--
-  <div *ngIf="afAuth.authState | async as user; else showLogin">
-    <h1>Hello {{ user.displayName }}!</h1>
-    <button (click)="logout()">Logout</button>
-  </div>
-  <ng-template #showLogin>
-    <p>Please login.</p>
-    <button (click)="login()">Login with Google</button>
-  </ng-template>
--->
+<div class="form-group">
+    <input 
+    style="margin-bottom:2px;"
+    placeholder="   Search for a location" 
+    autocorrect="off" autocapitalize="off" 
+    spellcheck="off" type="text" class="form-control" 
+    #search [formControl]="searchControl">
+</div>-->
+<div class="row" style="position: fixed; top: 70px; z-index: 2; width: 100%; ">
+    <span class="form-group col" style="width: 50%; margin-top: 8px; padding-top: 2px;">
+        <input 
+        style="background-color: white; height: 50px; padding-top:2px; margin-left: 5px;"
+        placeholder="   Search for a location" 
+        autocorrect="off" autocapitalize="off" 
+        spellcheck="off" type="text" 
+        class="form-control" 
+        #search [formControl]="searchControl">
+    </span>
+
+      <span class="container col" style="width: 50%;">
+          <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" style="background-color: white;">
+            <li>
+              <div class="collapsible-header">Directions</div>
+              <div class="collapsible-body">
+                  <i class="material-icons green-text small">location_on</i>
+                  <span class="form-group">
+                      <input 
+                      style="margin-bottom:2px; margin-left: 5px;"
+                      placeholder="   Input origin" 
+                      autocorrect="off" autocapitalize="off" 
+                      spellcheck="off" type="text" 
+                      class="form-control" 
+                      #origin [formControl]="originControl">
+                  </span>
+                  <br> <br>
+                  <span class="form-group">
+                      <i class="material-icons red-text small">location_on</i>
+                      <input 
+                      style="margin-bottom:2px; margin-left: 5px; "
+                      placeholder="  Input destination" 
+                      autocorrect="off" autocapitalize="off" 
+                      spellcheck="off" type="text" class="form-control" 
+                      #destination [formControl]="destinationControl">
+                  </span>
+                  <span *ngIf="distance != 0"><b>Distance: {{distance}} KM</b></span>
+                  <br><br>
+                  <span class="center">
+                      <button class="black hoverable btn small" type="button" (click)="getDirection()">Get</button>
+                  </span>       
+
+              </div>
+            </li>
+          </ul>
+           
+        </span>
+
+</div>
+
+<div *ngIf="latitude && longitude">
+    
+    <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom"
+    style="position: fixed; top: 0px; z-index: 1;">
+
+        <agm-marker [latitude]="latitude" [longitude]="longitude" >        
+          <agm-info-window>
+            <b>Current</b>
+          </agm-info-window>
+        </agm-marker>
+        
+
+        <!-- MARKERS FOR LIGHT TRAFFIC -->
+        <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+          >
+            <agm-marker 
+            *ngIf="mapUpdate.trafficRating == 'Light Traffic'
+            && (now - mapUpdate.timeUpdated) < 5400000"
+            [iconUrl]="'assets/light.png'"
+            [latitude]="mapUpdate.tlatitude" 
+            [longitude]="mapUpdate.tlongitude"
+            [label]="{
+              color: '#000000',
+              fontWeight: 'bold',
+              text: mapUpdate.trafficRating
+              }"
+            >
+              <agm-info-window>
+                  <span>
+                    <h6>{{mapUpdate.$key}}</h6>
+                    <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
+                    <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
+                 </span>
+                 </agm-info-window>
+            </agm-marker>         
+        </agm-marker> 
+
+        <!-- MARKERS FOR MODERATE TRAFFIC -->
+        <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+        >
+          <agm-marker 
+          *ngIf="mapUpdate.trafficRating == 'Moderate Traffic'
+          && (now - mapUpdate.timeUpdated) < 5400000"
+          [iconUrl]="'assets/moderate.png'"
+          [latitude]="mapUpdate.tlatitude" 
+          [longitude]="mapUpdate.tlongitude"
+          [label]="{
+            color: '#000000',
+            fontWeight: 'bold',
+            text: mapUpdate.trafficRating
+            }"
+          >
+            <agm-info-window>
+                <span>
+                  <h6>{{mapUpdate.$key}}</h6>
+                  <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
+                  <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
+               </span>
+               </agm-info-window>
+          </agm-marker>         
+      </agm-marker> 
+
+      <!-- MARKERS FOR HEAVY TRAFFIC -->
+      <agm-marker *ngFor="let mapUpdate of mapUpdates | async">
+        <agm-marker 
+        *ngIf="mapUpdate.trafficRating == 'Heavy Traffic'
+        && (now - mapUpdate.timeUpdated) < 5400000"
+        [iconUrl]="'assets/heavy.png'"
+        [latitude]="mapUpdate.tlatitude" 
+        [longitude]="mapUpdate.tlongitude"
+        [label]="{
+          color: '#000000',
+          fontWeight: 'bold',
+          text: mapUpdate.trafficRating
+          }"
+        >
+          <agm-info-window>
+              <span>
+                <h6>{{mapUpdate.$key}}</h6>
+                <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
+                <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
+             </span>
+             </agm-info-window>
+        </agm-marker>         
+    </agm-marker> 
+
+    <!-- MARKERS FOR AVAILABLE PARKING -->        
+        <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+        >
+          <agm-marker
+          *ngIf="mapUpdate.parkingAvailability == 'Available Parking'" 
+          [iconUrl]="'assets/parking_available.png'"
+          [latitude]="mapUpdate.platitude" 
+          [longitude]="mapUpdate.plongitude"
+          [label]="{
+            color: '#000000',
+            fontWeight: 'bold',
+            text: mapUpdate.parkingAvailability
+            }"
+          >
+            <agm-info-window>
+                <span>
+                  <h6>{{mapUpdate.$key}}</h6>
+                  <b>Updated by: {{mapUpdate.pFName}} {{mapUpdate.pLName}}</b><br>
+                  <b>Last Updated: {{mapUpdate.parkingTimeStamp}}</b>
+               </span>
+               </agm-info-window>
+
+          </agm-marker>        
+      </agm-marker> 
+
+       <!-- MARKERS FOR NO AVAILABLE PARKING -->        
+       <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
+       >
+         <agm-marker
+         *ngIf="mapUpdate.parkingAvailability == 'No Available Parking'" 
+         [iconUrl]="'assets/parking_unavailable.png'"
+         [latitude]="mapUpdate.platitude" 
+         [longitude]="mapUpdate.plongitude"
+         [label]="{
+           color: '#000000',
+           fontWeight: 'bold',
+           text: mapUpdate.parkingAvailability
+           }"
+         >
+           <agm-info-window>
+               <span>
+                 <h6>{{mapUpdate.$key}}</h6>
+                 <b>Updated by: {{mapUpdate.pFName}} {{mapUpdate.pLName}}</b><br>
+                 <b>Last Updated: {{mapUpdate.parkingTimeStamp}}</b>
+              </span>
+              </agm-info-window>
+
+         </agm-marker>        
+     </agm-marker> 
+     
+
+        <!-- MARKERS FOR TRACKING TMO -->
+        <agm-marker *ngFor="let ofLocation of ofLocations | async">
+            <agm-marker 
+            *ngIf = "ofLocation.status == 'login'"
+            [iconUrl]="'assets/tmo.png'"
+            class="shadow-text"
+            [latitude]="ofLocation.lat" 
+            [longitude]="ofLocation.lng"
+            [label]="{
+              color: '#000000',
+              fontWeight: 'bold',
+              text: ofLocation.lName
+              }" 
+            >
+            <agm-info-window>
+            <b>{{ofLocation.fName}} {{ofLocation.lName}}</b>
+             <p>Last Login: {{ ofLocation.timeStamp }}</p>
+            </agm-info-window>
+            </agm-marker>
+        </agm-marker>
+       
+
+        <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+    
+     
+      </agm-map>
+
+</div>
+
+

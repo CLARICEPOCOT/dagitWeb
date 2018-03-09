@@ -11,36 +11,48 @@
 
   <body>
     
-
     <div class="row" id="container">
-      
-      <a [routerLink] = "['/messages']" class="black-text text-black">
+      <div class="col">
+         <a [routerLink] = "['/messages']" class="black-text text-black">
         <div class="col hoverable" id="messages">
             <i class="large material-icons" id="messagesIcon">question_answer</i>
             <b style="padding-left: 30px;"> USER MESSAGES</b>
-            <span style="margin-top: 10px; margin-right:34%;" class="new badge black">12</span>
+           <!-- <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadM == true"></span>-->
         </div>
-      </a>
+        </a>
+      </div>
+            
 
-        <div class="col s1"></div>
+      <div class="col" style="padding-left:3%;">
+        <a [routerLink] = "['/accident-reports']" class="black-text text-black">  
+          <div class="col hoverable" id="areports">
+            <i class="large material-icons" id="areportsIcon">report</i>
+            <b  style="padding-left: 20px;"> ACCIDENT REPORTS </b><br>
+           <!-- <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadA == true"></span>-->
+          </div>
+        </a>  
+      </div>
 
-      <a [routerLink] = "['/accident-reports']" class="black-text text-black">  
-        <div class="col hoverable" id="areports">
-          <i class="large material-icons" id="areportsIcon">report</i>
-          <b  style="padding-left: 20px;"> ACCIDENT REPORTS </b><br>
-          <span style="margin-top: 10px; margin-right:34%;" class="new badge black">1</span>
-        </div>
-      </a>  
+      <div class="col" style="padding-left:3%;">
+        <a [routerLink] = "['/pedicab-reports']" class="black-text text-black">  
+          <div class="col hoverable" id="pedicab">
+            <i class="large material-icons" id="pedicabIcon">motorcycle</i>
+            <b  style="padding-left: 38px;"> MCH REPORTS </b><br>
+          <!--  <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadP == true"></span>-->
+          </div>
+        </a>  
+      </div>
 
-        <div class="col s1"></div>
-
-      <a [routerLink] = "['/violation-reports']" class="black-text text-black">  
-        <div class="col hoverable" id="vreports">
-          <i class="large material-icons" id="vreportsIcon">pan_tool</i>
-          <b style="padding-left: 20px;"> VIOLATION REPORTS </b>
-          <span style="margin-top: 10px; margin-right:34%;" class="new badge black">1</span>
-        </div>
-      </a>
+      <div class="col" style="padding-left:3%;">
+        <a [routerLink] = "['/violation-reports']" class="black-text text-black">  
+          <div class="col hoverable" id="vreports">
+            <i class="large material-icons" id="vreportsIcon">pan_tool</i>
+            <b style="padding-left: 20px;"> VIOLATION REPORTS </b>
+         <!--   <span style="margin-top: 10px; margin-right:34%;" class="new badge black" *ngIf="unreadV == true"></span>-->
+          </div>
+        </a>
+      </div>
+      
 
     </div>
   </body>

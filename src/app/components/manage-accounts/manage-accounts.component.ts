@@ -5,8 +5,19 @@ import { AddDeskTmoComponent } from '../add-desk-tmo/add-desk-tmo.component';
 import { EditDeskComponent } from '../edit-desk/edit-desk.component';
 import { EditOnFieldComponent } from '../edit-on-field/edit-on-field.component';
 import { SearchAccountsComponent } from '../search-accounts/search-accounts.component';
+import { SearchEmailComponent } from '../search-email/search-email.component';
+import { SearchLocationComponent } from '../search-location/search-location.component';
+import { SearchUsernameComponent } from '../search-username/search-username.component';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { UploadService } from '../../uploads/shared/upload.service';
+import { Upload } from '../../uploads/shared/upload';
+
+import { FirebaseApp } from 'angularfire2';
+
+//import * as admin from 'firebase-admin';
 
 
 @Component({
@@ -16,56 +27,96 @@ import * as firebase from 'firebase';
   encapsulation: ViewEncapsulation.None
 })
 export class ManageAccountsComponent implements OnInit {
+  //admin = require('firebase-admin');
+  //serviceAccount = require('../../../../dagit-7cbac-firebase-adminsdk-jv296-bdc9b332c9.json');
+
+  selectedFiles: FileList | null;
+  currentUpload: Upload;
+
   dialogOneResult = '';
   dialogTwoResult = '';
   dialogSearchResult = '';
   dialogEditOnfield = '';
   dialogEditDesk = '';
+  dialogSearchLocation = '';
+  dialogSearchEmail = '';
+  dialogSearchUsername = '';
+
+  accountOF: any;
+  accountD: any;
   onFieldTMO: any;
   deskTMO: any;
   imageURL: any;
   deskID: any;
   onFieldID: any;
+  users: any = [];
+  currUser: any;
+  currUserUid: any;
+
+  image: any;
+  currentUser: any;
+
+  
 
   constructor(
     public dialog: MatDialog,
     private firebaseService: FirebaseService,
+    private upSvc: UploadService,
+    public angularFireAuth: AngularFireAuth,
+    public firebaseApp: FirebaseApp,
+    public router: Router
   ) {
-    this.onFieldTMO = this.firebaseService.getOnfieldTMO();
-    this.deskTMO = this.firebaseService.getDeskTMO();
+    /*admin.initializeApp({
+      credential: admin.credential.cert(this.serviceAccount),
+      databaseURL: 'https://dagit-7cbac.firebaseio.com'
+    });*/
+
+      this.onFieldTMO = this.firebaseService.getOnfieldTMO();
+      this.deskTMO = this.firebaseService.getDeskTMO();
+      this.currentUser = angularFireAuth.auth.currentUser;
+      if (this.currentUser == null)
+      {
+        this.router.navigate(['/']);
+      }
+
+      this.deskTMO.subscribe(snapshot => {
+        var i = 0;
+        snapshot.forEach(snap => {
+          this.users[i] = snap;
+          i++;
+        })
+      });
   }
 
   ngOnInit() {
-
-
-    this.firebaseService.getOnfieldTMO().subscribe(onFieldTMO => {
-      
-      this.onFieldTMO = onFieldTMO;
     
-      const storageRef = firebase.storage().ref();
-      const spaceRef = storageRef.child(this.onFieldTMO.path);
-      storageRef.child(this.onFieldTMO.path).getDownloadURL().then((url) => {
-        // Set image url
-        this.imageURL = url;
-      }).catch((error) => {
-        console.log(error);
-      });
+
+    this.firebaseService.getOnfieldTMO().subscribe(accountOF => {
+      this.accountOF = accountOF;
+
+      console.log(accountOF);
     });
 
-    this.firebaseService.getDeskTMO().subscribe(deskTMO => {
-
-      this.deskTMO = deskTMO;
-
+    this.firebaseService.getDeskTMO().subscribe(accountD => {
+      this.accountD = accountD;
+      console.log(accountD);
+/*
       const storageRef = firebase.storage().ref();
-      const spaceRef = storageRef.child(this.deskTMO.path);
-      storageRef.child(this.deskTMO.path).getDownloadURL().then((url) => {
+      const spaceRef = storageRef.child(this.accountD.path).getDownloadURL().then((url) => {
         // Set image url
         this.imageURL = url;
       }).catch((error) => {
         console.log(error);
-      });
+      });*/
+    });
 
-    }); 
+    for(let i = 0; i < this.users.length; i++){
+      if(this.users[i].emailAddress == this.currentUser.email){
+        this.currUser = this.users[i];
+        this.currUserUid = this.users[i].uid;
+        break;
+      }
+    }
   }
 
   openDialog1() {
@@ -107,10 +158,47 @@ export class ManageAccountsComponent implements OnInit {
   });
   }
 
-  onEditDesk(account) {
+  openSearchLocation() {
+    const dialogRef = this.dialog.open(SearchLocationComponent, {
+      width: '800px',
+      data: 'SEARCH LOCATIONS'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchLocation = result;
+    });
+  }
+
+  openSearchEmail() {
+    const dialogRef = this.dialog.open(SearchEmailComponent, {
+      width: '800px',
+      data: 'SEARCH EMAILS'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchEmail = result;
+    });
+  }
+
+
+  openSearchUsername() {
+    const dialogRef = this.dialog.open(SearchUsernameComponent, {
+      width: '800px',
+      data: 'SEARCH USERNAMES'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.dialogSearchUsername = result;
+    });
+  }
+
+  onEditDesk(accountD) {
     const dialogRef = this.dialog.open(EditDeskComponent, {
       width: '800px',
-      data: account
+      data: accountD
 
     });
 
@@ -120,10 +208,10 @@ export class ManageAccountsComponent implements OnInit {
   });
   }
 
-  onEditOnfield(account) {
+  onEditOnfield(accountOF) {
     const dialogRef = this.dialog.open(EditOnFieldComponent, {
       width: '800px',
-      data: account
+      data: accountOF
 
     });
 
@@ -138,8 +226,101 @@ export class ManageAccountsComponent implements OnInit {
   }
 
   onDeleteDesk(key) {
-    this.firebaseService.deleteDeskTMO(key);
+    this.firebaseService.deleteDeskTMO(key.$key);
   }
 
+  // uploading images
+
+  selectFile(event){
+    const file = event.target.files.item(0);
+
+    if(file.type.match('image.*')){
+      this.selectedFiles = event.target.files;
+    }
   }
+
+  uploadMyAccount(deskTMO) {
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.firebaseService.addDeskImage(deskTMO, file);
+  }
+
+  uploadDesk(deskTMO) {
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.firebaseService.addDeskImage(deskTMO, file);
+  }
+
+  getPhoto(){
+    this.currUser =  this.firebaseService.uploadGetDeskPhoto(this.currUser);
+    return this.currUser.path;
+  }
+
+
+  uploadOF(onFieldTMO) {
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.firebaseService.addOnFieldImage(onFieldTMO, file);
+  }
+
+  // updating enabled
+
+  disableOF(val, key) {
+    this.firebaseService.editEnabledOF(val, key);
+  }
+
+  enableOF(val, key) {
+    this.firebaseService.editEnabledOF(val, key);
+  }
+
+  enableD(val, key) {
+    this.firebaseService.editEnabledD(val, key);
+  }
+
+  disableD(val, key) {
+    this.firebaseService.editEnabledD(val, key);
+  }
+
+  // getting images
+
+  getDeskPhoto(accountD) {
+    const path = accountD.path.toString();
+    console.log(path);
+    const storageRef = firebase.storage().ref();
+    const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
+    // Set image url
+    this.imageURL = url;
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  getUserPhoto(current){
+    const path = current.path.toString();
+    console.log(path);
+    const storageRef = firebase.storage().ref();
+    const spaceRef = storageRef.child(path).getDownloadURL().then((url) => {
+    // Set image url
+    this.imageURL = url;
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+
+  getOnFieldPhoto(accountOF) {
+    // const path = accountOF.path.toString();
+    // console.log(path);
+    const storageRef = firebase.storage().ref();
+    const spaceRef = storageRef.child(accountOF.path).getDownloadURL().then((url) => {
+    // Set image url
+    this.imageURL = url;
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+}
 

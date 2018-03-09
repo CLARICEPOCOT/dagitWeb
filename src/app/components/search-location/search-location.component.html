@@ -1,0 +1,55 @@
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+                   
+  </head>
+  
+  <body>
+    
+    <h2 mat-dialog-title><i class="material-icons green-text medium">location_searching</i>SEARCH ON-FIELD LOCATIONS</h2>
+    <hr>
+    <br>
+    <mat-dialog-content>
+      <div></div>
+      <form>
+          <div class="row">
+              
+            <mat-form-field style="width: 100%;" class="col">
+              <input
+              matInput
+              [(ngModel)] = "searchValue" 
+              name="searchValue"
+              type="textt"
+              placeholder="SEARCH"
+              class="form-control" 
+              #search [formControl]="searchControl"
+              required>
+              <mat-error>Please input a search value.</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf = "found == true"  style="font-size: large; margin: 10px;">
+            <h5 style="color: green;">Account Found</h5>
+            <div><b>Username:</b> {{ result.username }}</div>
+            <div><b>Name:</b> {{ result.fName + ' ' + result.lName }}</div>
+            <div><b>Location:</b> {{ result.location }}</div> 
+            <div><b>Timeshift:</b> {{ result.timeShift }}</div>
+          </div>
+          <div *ngIf = "found == false" style="margin: 10px;">
+            <h5 style="color: red;">Account Not Found</h5>
+          </div>
+          
+        <mat-dialog-actions>
+          <span style="margin-left: 65%;">
+              <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>
+              <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CANCEL</button>
+          </span>
+          <br>
+          <br>
+          <br>
+        </mat-dialog-actions>
+      </form>  
+    </mat-dialog-content>
+    
+  </body>

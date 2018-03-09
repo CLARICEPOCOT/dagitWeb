@@ -11,7 +11,12 @@ import * as firebase from 'firebase/app';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  current: any;
+
+
+  constructor(public angularFireAuth: AngularFireAuth) {
+    this.current = this.angularFireAuth.auth.currentUser;
+  }
 
   ngOnInit() {
   }

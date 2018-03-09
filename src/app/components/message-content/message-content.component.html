@@ -1,0 +1,62 @@
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">                 
+</head>
+
+<body>
+
+  <h6 style="background-color: #9DE69D; padding: 15px;">
+      <b style="color: black">{{ this.content.$key }}</b>
+  </h6>
+  <mat-dialog-content style="max-height: 300px; overflow: auto; height: y;" #scroll>
+      <div 
+      *ngFor="let chatMessage of chatMessages | async" >
+        
+            <div              
+                *ngIf="chatMessage.messageSender == this.content.$key 
+                && chatMessage.$key != 'status'
+                 "
+                id="sender">
+                {{ chatMessage.message }}
+                <br>
+                <span style="font-size: small">{{ chatMessage.timeStamp }}</span>
+            </div>
+            
+            <div
+                id="user"
+                *ngIf="chatMessage.messageSender != this.content.$key
+                && chatMessage.$key != 'status'">
+                {{ chatMessage.message }}
+                <br>
+                <span style="font-size: small">{{ chatMessage.timeStamp }}</span>
+            </div>
+
+      </div>
+    </mat-dialog-content>
+    <br>
+    <hr>
+    <div>
+        <mat-form-field style="width: 100%;">
+            <input
+            matInput
+            [(ngModel)] = "message" 
+            name="message"
+            type="textt"   
+            placeholder="Type a message">
+        </mat-form-field>
+      
+        <mat-dialog-actions>                              
+            <button 
+            style="float: right;"
+            mat-raised-button 
+            class="black hoverable btn small" 
+            (click) = "sendMessage()">
+            SEND                         
+            </button>
+    </mat-dialog-actions><br>
+    </div>
+  
+
+</body>
+
+

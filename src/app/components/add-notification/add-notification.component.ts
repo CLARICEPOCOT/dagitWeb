@@ -5,6 +5,8 @@ import { NotificationsComponent } from '../notifications/notifications.component
 import { toast } from 'angular2-materialize';
 import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
+import * as moment from 'moment';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-add-notification',
@@ -19,20 +21,21 @@ export class AddNotificationComponent implements OnInit {
   notifDetail: string;
   today = new Date();
 
-  current: any;
+  currentUser: any;
   dbFName: any[] = [];
   dbLName: any[] = [];
   fName: string;
   lName: string;
 
+  /*
   date = (this.today.getMonth() + 1) + '/' + this.today.getDate() + '/' + this.today.getFullYear();
   hours = this.today.getHours() <= 12 ? this.today.getHours() : this.today.getHours() - 12;
   am_pm = this.today.getHours() >= 12 ? 'PM' : 'AM';
   hoursFormatted = this.hours < 10 ? '0' + this.hours : this.hours;
   minutes = this.today.getMinutes() < 10 ? '0' + this.today.getMinutes() : this.today.getMinutes();
 
-  time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;
-  timeStamp = this.date + ' ' + this.time;
+  time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;*/
+  timeStamp = moment().format('MMMM Do YYYY, h:mm A');
 
 
 
@@ -40,9 +43,11 @@ export class AddNotificationComponent implements OnInit {
     public thisDialogRef: MatDialogRef<NotificationsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
-  ) { 
+    public angularFireAuth: AngularFireAuth
+  ) {
+    this.currentUser = this.angularFireAuth.auth.currentUser.displayName;
+    /*
     this.current = this.firebaseService.getCurrent();
-    
                 let j = 0;
                 this.current.subscribe(snapshots => {
                   snapshots.forEach(snapshot => {
@@ -51,7 +56,7 @@ export class AddNotificationComponent implements OnInit {
                     j++;
                   });
                 });
-                this.getUser();
+                this.getUser();*/
   }
 
   ngOnInit() {
@@ -73,11 +78,15 @@ export class AddNotificationComponent implements OnInit {
         'timeStamp': this.timeStamp,
         'title': this.title,
         'notifDetail': this.description,
-        'fName': this.fName,
-        'lName': this.lName
+        'fName': this.currentUser,
+        'lName': '',
+        'sort': 0 - Date.now()
       };
 
+      const date = moment().format('MMMM D YYYY');
+
       this.firebaseService.addNotification(this.notification);
+      this.firebaseService.addNotifLog(date, this.notification);
       console.log('Notification added');
       this.thisDialogRef.close('Add');
     }

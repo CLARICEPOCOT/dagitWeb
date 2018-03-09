@@ -1,75 +1,148 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import { toast } from 'angular2-materialize';
+import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
+import { FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FirebaseApp } from 'angularfire2';
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./login.component.css']
+
 })
 export class LoginComponent implements OnInit {
 
-  tempUser: any;
-  tempPass: any;
-  userInfo: any;
-  confirmUser: any[] = [];
-  confirmPass: any[] = [];
+  user: any;
+  password: string;
   check: boolean;
+  errorMessage: string;
+  errorDisabled: string;
+  email: string;
 
-  currentUser: any;
-  fName: any[] = [];
-  lName: any[] = [];
+  current: any;
+
+  userDb: any;
+  users: any = [];
+  currUserDb: any;
+
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  matcher = new MyErrorStateMatcher();
+
 
   constructor(
     private firebaseService: FirebaseService,
-    private router: Router
+    private router: Router,
+    public angularFireAuth: AngularFireAuth,
+    public firebaseApp: FirebaseApp
+
   ) {
-    this.userInfo = this.firebaseService.getDeskTMODetails();
-    let i = 0;
-    this.userInfo.subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        this.fName[i] = snapshot.val().fName;
-        this.lName[i] = snapshot.val().lName;
-        this.confirmUser[i] = snapshot.val().username;
-        this.confirmPass[i] = snapshot.val().password;
-        i++;
+    this.current = this.angularFireAuth.auth.currentUser;
+    console.log(this.current);
+    this.firebaseApp.database().ref('ACCOUNTS/ON_FIELD_TMO').on('value', snapshot => {
+      this.userDb = this.firebaseService.getDeskTMO();
+
+      this.userDb.subscribe( snapshot => {
+        let i = 0;
+        snapshot.forEach(snap => {
+          this.users[i] = snap;
+          i++;
+        });
       });
     });
-
-
   }
 
   ngOnInit() {
+  
+
   }
 
-  checkUser() {
-    this.check = false;
-   // console.log(this.confirmUser[0]);
-    for (let i = 0; i < this.confirmUser.length; i++) {
-    // console.log(this.confirmUser[i]);
-        // tslint:disable-next-line:triple-equals
-        if (this.tempUser == this.confirmUser[i]) {
-          // tslint:disable-next-line:triple-equals
-          if (this.tempPass == this.confirmPass[i]) {
-            this.check = true;
-            this.currentUser = {
-              'fName': this.fName[i],
-              'lName': this.lName[i]
-            };
-            this.firebaseService.storeCurrent(this.currentUser);
-            this.router.navigate(['/map']);
-            console.log('Logged in');
+  login(email, password) {
+
+    this.check = true;
+    this.errorMessage = '';
+    let complete = true;
+    if (email != null && password != null) {
+      this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        if (user.emailVerified) {
+          this.user = this.angularFireAuth.auth.currentUser;
+          for( let j = 0; j < this.users.length; j++) {
+            if( this.user.email == this.users[j].emailAddress) {
+              this.currUserDb = this.users[j];
+            }
           }
+          if(this.currUserDb.enabled == 'yes') {
+            this.user.password = password;
+            if(this.currUserDb.password != this.user.password) {
+              this.firebaseService.editPassword(this.currUserDb.$key, this.user.password);
+            }
+            console.log(user);
+            this.router.navigate(['/map']);
+          }
+          else{
+            // alert("Account disabled");
+            console.log('account disabled.');
+            this.errorDisabled = 'Account is disabled.';
+            this.angularFireAuth.auth.signOut();
+          }
+        } else {
+          this.sendemailVerification();
         }
-    }
-
-    if (!this.check) {
-      console.log('Invalid credentials');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        if ( errorCode === 'auth/invalid-email') {
+          this.check = false;
+          this.errorMessage = 'Invalid email address.';
+          console.log('invalid email');
+        }else if (errorCode === 'auth/user-not-found') {
+          this.check = false;
+          this.errorMessage = 'User not found.';
+          console.log('User not found');
+        }else if (errorCode === 'auth/wrong-password') {
+         this.check = false;
+         this.errorMessage = 'Incorrect password.';
+         console.log('Incorrect password');
+        }
+      });
+    } else {
+      complete = false;
     }
 
   }
+
+
+
+  sendemailVerification() {
+    this.angularFireAuth.authState.subscribe(user => {
+      user.sendEmailVerification()
+        .then(() => {
+          console.log('email sent');
+      });
+    });
+  }
+
+
 
 }

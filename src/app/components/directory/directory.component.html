@@ -39,9 +39,16 @@
                   {{ directory.operatingHours }}
                </div>
                <br><br><br><br>
-               <div class="center" *ngIf="directory.otherInformation != null">
+               <div class="center" 
+               *ngIf="directory.otherInformation != null"
+               style="margin-top: 10px;">
                  <i class="material-icons">info_outline</i> Other Information <hr>
                  {{ directory.otherInformation }}
+               </div>
+               <br><br>
+               <div class="center">
+                 <i class="material-icons">info_outline</i> Created By <hr>
+                 {{ directory.deskTMO }}
                </div>
                <br><br>
                <div class="center">
@@ -83,9 +90,16 @@
                         {{ directory.operatingHours }}
                      </div>
                      <br><br><br><br>
-                     <div class="center" *ngIf="directory.otherInformation != null">
+                     <div class="center" 
+                     *ngIf="directory.otherInformation != null"
+                     style="margin-top: 10px;">
                        <i class="material-icons">info_outline</i> Other Information <hr>
                        {{ directory.otherInformation }}
+                     </div>
+                     <br><br>
+                     <div class="center">
+                       <i class="material-icons">info_outline</i> Created By <hr>
+                       {{ directory.deskTMO }}
                      </div>
                      <br><br>
                      <div class="center">
@@ -128,9 +142,16 @@
                     {{ directory.operatingHours }}
                  </div>
                  <br><br><br><br>
-                 <div class="center" *ngIf="directory.otherInformation != null">
+                 <div class="center"
+                  *ngIf="directory.otherInformation != null"
+                  style="margin-top: 10px;">
                    <i class="material-icons">info_outline</i> Other Information <hr>
                    {{ directory.otherInformation }}
+                 </div>
+                 <br><br>
+                 <div class="center">
+                   <i class="material-icons">info_outline</i> Created By <hr>
+                   {{ directory.deskTMO }}
                  </div>
                  <br><br>
                  <div class="center">
@@ -172,10 +193,17 @@
                     <i class="material-icons">access_time</i> Operating Hours<hr>
                     {{ directory.operatingHours }}
                  </div>
-                 <br><br><br><br>
-                 <div class="center" *ngIf="directory.otherInformation != null">
-                   <i class="material-icons">info_outline</i> Other Information <hr>
+                 
+                 <div class="center"
+                  *ngIf="directory.otherInformation != null"
+                  style="margin-top: 10px;">
+                   <i class=" center material-icons">info_outline</i> Other Information <hr>
                    {{ directory.otherInformation }}
+                 </div>
+                 <br><br>
+                 <div class="center">
+                   <i class="material-icons">info_outline</i> Created By <hr>
+                   {{ directory.deskTMO }}
                  </div>
                  <br><br>
                  <div class="center">

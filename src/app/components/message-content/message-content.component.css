@@ -1,0 +1,21 @@
+#sender {
+    float:left;
+    display: block;
+    background-color: #ebebeb; 
+    padding: 14px; 
+    margin-block-end: 10px;
+    width: 400px;
+    border-radius: 15px;
+    margin: 8px;
+}
+
+#user {
+    float:right;
+    display: block;
+    background-color: black; 
+    margin-block-end: 10px;
+    width: 400px;
+    padding: 14px; 
+    margin: 8px;
+    border-radius: 15px; color: white;
+}

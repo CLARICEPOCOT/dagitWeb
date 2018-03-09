@@ -1,0 +1,43 @@
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">                 
+</head>
+  
+  <body>
+      <span style="background-color: #E9334D; padding: 12px; border-radius: 5px;">
+          <b style="color: white">VIOLATION REPORT CONTENT</b>
+      </span>
+        <br><br>
+    <hr>
+    <mat-dialog-content>
+
+      <div>
+          <p><b>Report Sender: </b>{{ this.violation.reportSender }}</p>
+          <p><b>Time Sent: </b>{{ this.violation.timeStamp }}</p>
+          <p><b>Vehicle Type: </b>{{ this.violation.location }}</p>
+          <p><b>Plate Number: </b>{{ this.violation.plateNumber }}</p>
+          <p><b>Color: </b>{{ this.violation.color }}</p>
+          <p><b>Model: </b>{{ this.violation.model }}</p>
+          <p><b>Report Details</b></p>
+          <div style="background-color:#ebebeb; padding: 12px; border-radius: 5px;">
+              <p>{{ this.violation.reportContent }}</p>
+          </div>
+          <br>
+          <div class="center" *ngIf="imageURL != null">
+                <img style="width:80%;  height: 80%;border: 4px solid black;" class="thumbnail" src="{{this.imageURL}}">
+          </div>
+               
+      </div>
+    
+
+      <mat-dialog-actions>
+          <div>
+              <button mat-raised-button class="black hoverable btn small" (click) = "onClose()">CLOSE</button>
+          </div>
+          <br>
+          <br>
+          <br>
+        </mat-dialog-actions>
+    </mat-dialog-content>
+    
+  </body>

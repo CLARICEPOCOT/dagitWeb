@@ -15,13 +15,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   
     <br><br>
+     
     <div class="container">
+        <i class="medium material-icons left green-text lighten-5">question_answer</i>
+        <b style="font-size: 40px;">USER MESSAGES</b><br>
       <div class="collection">
         <!-- loop database content -->
-          <a href="" class="collection-item black-text"><span class="new badge black">1</span>User</a>
-          <a href="" class="collection-item black-text"><span class="new badge black">4</span>User</a>
-          <a href="" class="collection-item black-text">User</a>
-          <a href="" class="collection-item black-text">User</a>
+        <a
+        class="collection-item black-text"
+        *ngFor="let message of messages | async"
+        (click) ="open(message)">
+        {{ message.$key }} 
+        <span class="new badge black" *ngIf="message.status == 'unread'"></span>
+        </a>
       </div>
     </div>
 
