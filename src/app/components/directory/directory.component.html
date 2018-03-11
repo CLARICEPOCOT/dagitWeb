@@ -68,7 +68,7 @@
       <!--Collection for Fire Station -->
       <div>
           <i class="medium material-icons left red-text">whatshot</i>
-          <b style="font-size: 40px;">FIRE</b><br>
+          <b style="font-size: 40px;">FIRE STATIONS</b><br>
            <!--loop data in database -->
            <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
               <li *ngFor = "let directory of directories | async">
@@ -119,7 +119,7 @@
       <!--Collection for Police Stations -->
       <div>
           <i class="medium material-icons left blue-text">assignment_ind</i>
-          <b style="font-size: 40px;">POLICE</b>
+          <b style="font-size: 40px;">POLICE STATIONS</b>
       <br>
       <!--loop data in database -->
       <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
@@ -223,10 +223,16 @@
  
     <!-- fixed button -->
     <div class="fixed-action-btn">
-        <a class="btn-floating  yellow darken-1 btn-large hoverable">
+        <a materialize="tooltip"
+        class="btn-floating  yellow darken-1 btn-large hoverable"
+        data-position="left"
+        data-delay="30"
+        data-tooltip="Add directory"
+        (click) = "openDialog()">
           <i class="large material-icons black-text">add</i>
         </a>
-        <ul>           
+        <ul>   
+          <!--        
             <li>
               <a materialize="tooltip"
               class="btn-floating green tooltipped"
@@ -245,7 +251,7 @@
               data-tooltip="Add directory"
               (click) = "openDialog()">
               <i class="material-icons">add_location</i></a>
-            </li>
+            </li>-->
         </ul>
     </div><br><br>
 

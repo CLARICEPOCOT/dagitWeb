@@ -60,12 +60,13 @@ export class AddOnfieldComponent implements OnInit {
   ngOnInit() {
     this.locationControl = new FormControl();
 
+    const restrict = {
+      componentRestrictions: {country: 'phl'}
+    };
+
     // load places autocomplete
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-       // types: ['street']
-
-      });
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, restrict);
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           // get the place result

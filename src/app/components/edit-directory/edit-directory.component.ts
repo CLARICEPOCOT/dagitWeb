@@ -36,9 +36,9 @@ export class EditDirectoryComponent implements OnInit {
   categoryControl = new FormControl('', [Validators.required]);
 
     categories = [
-      {name: 'Fire', value: 'Fire'},
-      {name: 'Medical', value: 'Medical'},
-      {name: 'Police', value: 'Police'},
+      {name: 'Fire Station', value: 'Fire'},
+      {name: 'Hospital', value: 'Medical'},
+      {name: 'Police Station', value: 'Police'},
       {name: 'Terminal', value: 'Terminal'},
     ];
 

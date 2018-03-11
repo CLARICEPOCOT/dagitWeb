@@ -56,7 +56,7 @@ export class MessageContentComponent implements OnInit {
     this.content = data;
     this.chatMessages = this.firebaseService.getMessage(this.content.$key);
     console.log(this.chatMessages);
-  }
+  }  
 
 
 

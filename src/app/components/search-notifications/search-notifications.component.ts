@@ -63,21 +63,25 @@ export class SearchNotificationsComponent implements OnInit {
       const dayLength = this.day.trim().length;
       const yearLength = this.year.trim().length;
 
+
       if ( (monthLength !== 0)
          && (dayLength !== 0)
          && (yearLength !== 0)) {
           // setting the date to query
           this.date = this.month + ' ' + this.day + ' ' + this.year;
           console.log(this.date);
+          this.found = false;
+          this.notFound = false;
 
           this.notifications = this.firebaseService.getNotifLog(this.date);
+          if ( this.notifications == null ) {
+            this.notFound = true;
+          }
           this.firebaseService.getNotifLog(this.date).subscribe(notification => {
             // console.log(notification);
             this.notification = notification;
             if (this.notification != null) {
               this.found = true;
-            } else {
-              this.notFound = true;
             }
           });
 
