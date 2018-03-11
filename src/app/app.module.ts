@@ -98,8 +98,6 @@ import { SearchEmailComponent } from './components/search-email/search-email.com
 //import * as admin from 'firebase-admin';
 
 
-
-
 export const firebaseConfig = {
   apiKey: 'AIzaSyDPsMJ-x7W6_U_k3JsNwMNkxL38e8NkQDI',
   authDomain: 'dagit-7cbac.firebaseapp.com',

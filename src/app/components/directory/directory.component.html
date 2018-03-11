@@ -16,7 +16,7 @@
       <div>
         <!--Collection for Hospitals -->
       <i class="medium material-icons left teal-text">local_hospital</i>
-      <b style="font-size: 40px;">HOSPITALS</b><br>
+      <b style="font-size: 40px;">MEDICAL</b><br>
 
        <!--COLLAPSIBLE: loop data in database -->
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
@@ -66,7 +66,7 @@
       <!--Collection for Fire Station -->
       <div>
           <i class="medium material-icons left red-text">whatshot</i>
-          <b style="font-size: 40px;">FIRE</b><br>
+          <b style="font-size: 40px;">FIRE STATIONS</b><br>
            <!--loop data in database -->
            <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
               <li *ngFor = "let directory of directories | async">
@@ -115,7 +115,7 @@
       <!--Collection for Police Stations -->
       <div>
           <i class="medium material-icons left blue-text">assignment_ind</i>
-          <b style="font-size: 40px;">POLICE</b>
+          <b style="font-size: 40px;">POLICE STATIONS</b>
       <br>
       <!--loop data in database -->
       <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
@@ -219,7 +219,7 @@
           <i class="large material-icons black-text">add</i>
         </a>
         <ul>           
-            <li>
+            <!--<li>
               <a materialize="tooltip"
               class="btn-floating green tooltipped"
               data-position="left"
@@ -228,7 +228,7 @@
               (click) = "openSearch()">
               <i class="material-icons">search</i>
             </a>
-            </li>
+            </li>-->
             <li>
               <a materialize="tooltip"
               class="btn-floating red modal-trigger tooltipped" 

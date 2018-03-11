@@ -49,9 +49,9 @@ export class AddDirectoryComponent implements OnInit {
   categoryControl = new FormControl('', [Validators.required]);
 
     categories = [
-      {name: 'Fire', value: 'Fire'},
+      {name: 'Fire Station', value: 'Fire'},
       {name: 'Medical', value: 'Medical'},
-      {name: 'Police', value: 'Police'},
+      {name: 'Police Station', value: 'Police'},
       {name: 'Terminal', value: 'Terminal'}
     ];
 
