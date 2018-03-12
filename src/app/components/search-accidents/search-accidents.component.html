@@ -48,7 +48,7 @@
             </div>
 
             <br><br>     
-            <div class="container" *ngIf="accidents != null">
+            <div *ngIf="accidents != null">
                 <i class="medium material-icons left yellow-text">report</i>
                 <b style="font-size: 40px;">ACCIDENT REPORTS</b><br>  
               <div class="collection">
@@ -58,7 +58,7 @@
                   (click) ="open(accident)">
                  <span style="margin-right: 550px;">{{ accident.reportSender }} </span> 
                  <span>{{ accident.timeStamp }}</span> 
-                  <span class="new badge black" *ngIf="accident.status == 'unread'"></span>      
+                 <!-- <span class="new badge black" *ngIf="accident.status == 'unread'"></span>  -->    
                   </a>
               </div>
         

@@ -50,7 +50,7 @@ export class SearchAccidentsComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSearch(directory) {
+  onSearch() {
     const monthLength = this.month.trim().length;
     const dayLength = this.day.trim().length;
     const yearLength = this.year.trim().length;
@@ -88,7 +88,7 @@ export class SearchAccidentsComponent implements OnInit {
   }
 
   open(content) {
-    this.firebaseService.readAccidents(content);
+    this.firebaseService.readAccidentLogs(content);
     const dialogRef = this.dialog.open(AccidentContentComponent, {
       width: '800px',
       data: content
