@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AccidentReportsComponent } from '../accident-reports/accident-reports.component';
+import { SearchAccidentsComponent } from '../search-accidents/search-accidents.component';
 import { FirebaseService } from '../../services/firebase.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as firebase from 'firebase';

@@ -45,14 +45,24 @@
             placeholder="Type a message">
         </mat-form-field>
       
-        <mat-dialog-actions>                              
-            <button 
-            style="float: right;"
-            mat-raised-button 
-            class="black hoverable btn small" 
-            (click) = "sendMessage()">
-            SEND                         
-            </button>
+        <mat-dialog-actions>
+            <span style="margin-left: 65%;">
+                <button 
+                mat-raised-button 
+                class="black hoverable btn small" 
+                (click) = "sendMessage()">                    
+                SEND                         
+                </button>
+            </span>  &nbsp;&nbsp;&nbsp;  
+            <span >
+                <button 
+                mat-raised-button 
+                class="black hoverable btn small" 
+                (click) = "onClose()">                    
+                CLOSE                        
+                </button>
+            </span>                       
+            
     </mat-dialog-actions><br>
     </div>
   

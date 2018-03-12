@@ -245,6 +245,16 @@ export class FirebaseService {
     this.dagit.object('/ACCIDENT/' + user.$key + '/status').set('read');
   }
 
+  // ACCIDENT LOGS
+  getAccidentLog(date) {
+      return this.dagit.list('/ACCIDENTLOGS/' + date, {
+        query: {
+          orderByChild: 'sort'
+        }
+      });
+    }
+
+
   // VIOLATION REPORTS
 
   getViolations() {
@@ -261,10 +271,27 @@ export class FirebaseService {
     this.dagit.object('/VIOLATION/' + user.$key + '/status').set('read');
   }
 
-  // PEDICAB REPORTS
+  // VIOLATION LOGS
+  getViolationLog(date) {
+    return this.dagit.list('/ACCIDENTLOGS/' + date, {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
+  }
 
+  // PEDICAB REPORTS
   getPedicabReports() {
     return this.dagit.list('/PEDICAB', {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
+  }
+
+  // PEDICAB LOGS
+  getPedicabLog(date) {
+    return this.dagit.list('/PEDICABLOGS/' + date, {
       query: {
         orderByChild: 'sort'
       }

@@ -35,4 +35,64 @@
     <div class="center">
         <a [routerLink] = "['/helpdesk']"><button class="black hoverable btn">BACK TO HELPDESK</button></a><br><br>
     </div>
+
+     <!-- fixed button -->
+     <div class="fixed-action-btn">
+        <a
+         materialize="tooltip"
+         class="btn-floating btn-large yellow darken-1 hoverable"
+         data-position="left"
+         data-delay="30"
+         data-tooltip="Search accidents"
+         (click) = "openSearch()">
+          <i class="large material-icons black-text">search</i>
+        </a>
+        <ul>
+          <!--
+            <li>
+                <a materialize="tooltip"
+                class="btn-floating green tooltipped"
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Search notification"
+                (click) = "openSearch()">
+                <i class="material-icons">search</i>
+              </a>
+            </li>
+            <li>
+                <a materialize="tooltip"
+                class="btn-floating light-blue-text tooltipped"
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Publish announcement"
+                (click) = "addAnnouncement()">
+                <i class="material-icons">description</i>
+              </a>
+            </li>
+            <li>
+              <a materialize="tooltip"
+              class="btn-floating red tooltipped"
+              data-position="left"
+              data-delay="30"
+              data-tooltip="Add traffic advisory"
+              (click) = "addTraffic()">
+              <i class="material-icons">traffic</i>
+            </a>
+            </li>
+            <li>
+                <a materialize="tooltip"
+                class="btn-floating orange tooltipped"
+                data-position="left"
+                data-delay="30"
+                data-tooltip="Add parking advisory"
+                (click) = "addParking()">
+                <i class="material-icons">local_taxi</i>
+              </a>
+              </li>
+            -->
+        </ul>
+      </div>
+      <br><br>
+
+
   </body>

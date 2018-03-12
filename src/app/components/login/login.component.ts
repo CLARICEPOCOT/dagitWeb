@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   check: boolean;
   errorMessage: string;
   errorDisabled: string;
+  errorVerify: string;
   email: string;
 
   current: any;
@@ -100,7 +101,7 @@ export class LoginComponent implements OnInit {
             console.log(user);
             this.router.navigate(['/map']);
           }
-          else{
+          else {
             // alert("Account disabled");
             console.log('account disabled.');
             this.errorDisabled = 'Account is disabled.';
@@ -139,6 +140,7 @@ export class LoginComponent implements OnInit {
       user.sendEmailVerification()
         .then(() => {
           console.log('email sent');
+          this.errorVerify = 'Verify account';
       });
     });
   }

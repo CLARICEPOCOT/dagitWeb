@@ -26,6 +26,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RecoverAccountComponent implements OnInit {
 
+  // errorMessage: string;
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -44,6 +46,7 @@ export class RecoverAccountComponent implements OnInit {
   }
 
   recover(email) {
+    let errorMessage;
     console.log('function');
     let noError = true;
     this.angularFireAuth.auth.sendPasswordResetEmail(email)
@@ -52,9 +55,13 @@ export class RecoverAccountComponent implements OnInit {
       console.log(errorCode);
       if (errorCode === 'auth/invalid-email') {
         console.log('invalid email');
+        // alert('Invalid email');
+        errorMessage = 'Invalid email';
         noError = false;
       } else if (errorCode === 'auth/user-not-found') {
         console.log('user not found');
+        alert('User not found');
+        errorMessage = 'User not found';
         noError = false;
       }
     })

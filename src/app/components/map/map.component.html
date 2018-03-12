@@ -47,7 +47,7 @@
                       spellcheck="off" type="text" class="form-control" 
                       #destination [formControl]="destinationControl">
                   </span>
-                  <span *ngIf="distance != 0"><b>Distance: {{distance}} KM</b></span>
+                  <span *ngIf="distance > 0"><b>Distance: {{distance}} KM</b></span>
                   <br><br>
                   <span class="center">
                       <button class="black hoverable btn small" type="button" (click)="getDirection()">Get</button>

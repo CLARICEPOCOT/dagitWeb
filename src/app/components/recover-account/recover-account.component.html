@@ -18,6 +18,9 @@
         </mat-error>
       </mat-form-field>
       <br><br><br>
+      <span style="font-size: medium; color: red;" *ngIf="noError == false">
+          <strong>{{ errorMessage }}</strong> 
+       </span><br><br>
       <div class="center">
       <input
       mat-raised-button

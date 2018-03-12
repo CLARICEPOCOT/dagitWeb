@@ -69,7 +69,10 @@
 
       <span style="font-size: medium; color: red;" *ngIf="errorDisabled != null">
         <strong>{{ errorDisabled }}</strong> 
-      </span>  
+      </span>
+      <span style="font-size: medium; color: red;" *ngIf="errorVerify != null">
+          <strong>{{ errorVerify }}</strong> 
+        </span>  
       <span style="font-size: medium; color: red;" *ngIf="check == false">
          <strong>{{ errorMessage }}</strong> 
       </span><br><br>

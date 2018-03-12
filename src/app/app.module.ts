@@ -96,6 +96,9 @@ import { SearchEmailComponent } from './components/search-email/search-email.com
 
 // email verification
 import { AngularFireAuth } from 'angularfire2/auth';
+import { SearchAccidentsComponent } from './components/search-accidents/search-accidents.component';
+import { SearchPedicabComponent } from './components/search-pedicab/search-pedicab.component';
+import { SearchViolationComponent } from './components/search-violation/search-violation.component';
 
 // import * as admin from 'firebase-admin';
 
@@ -186,7 +189,10 @@ const appRoutes: Routes = [
     SampleComponent,
     SearchLocationComponent,
     SearchUsernameComponent,
-    SearchEmailComponent
+    SearchEmailComponent,
+    SearchAccidentsComponent,
+    SearchPedicabComponent,
+    SearchViolationComponent
   ],
   imports: [
     BrowserModule,
@@ -233,7 +239,10 @@ const appRoutes: Routes = [
     MessageContentComponent,
     SearchEmailComponent,
     SearchLocationComponent,
-    SearchUsernameComponent
+    SearchUsernameComponent,
+    SearchViolationComponent,
+    SearchAccidentsComponent,
+    SearchPedicabComponent
   ],
   providers: [FirebaseService, GeoService, AngularFireAuth, UploadService],
   bootstrap: [AppComponent]
