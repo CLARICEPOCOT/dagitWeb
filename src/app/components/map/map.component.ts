@@ -80,9 +80,9 @@ export class MapComponent implements OnInit {
     {
       this.router.navigate(['/']);
     }
-    this.mapUpdates = this.firebaseService.getMapUpdates();
+    this.mapUpdates = this.firebaseService.getMapUpdate();
     this.ofLocations = this.firebaseService.trackLocation();
-    this.mapData = this.firebaseService.getMapUpdates();
+
 
 
   }

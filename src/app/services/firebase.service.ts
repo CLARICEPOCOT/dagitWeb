@@ -333,17 +333,19 @@ export class FirebaseService {
   }
 
   // MAP
+  /*
   getMap(location) {
     return this.dagit.list('/MAP/' + location);
   }
 
   getMapData(location) {
     return this.dagit.list('/MAP/' + location);
-  }
+  }*/
 
   updateMapData(location, update) {
     this.dagit.object('/MAP/' + location).update(update);
   }
+  /*
 
   addMapData(location, update) {
     this.dagit.list('/MAP/' + location).push(update);
@@ -352,7 +354,7 @@ export class FirebaseService {
    // MAP DATA
   addMapLocations(coordinates) {
     this.dagit.list('/MAP').push(coordinates);
-  }
+  }*/
 
 
   getMapUpdates() {
@@ -362,6 +364,17 @@ export class FirebaseService {
   trackLocation() {
     return this.dagit.list('/LOCATION');
   }
+
+  // MAP UPDATES REVISED
+  addMapUpdate(coordinates, update) {
+    this.dagit.object('/MAPS/' + coordinates).update(update);
+  }
+
+  getMapUpdate() {
+    return this.dagit.list('/MAPS');
+  }
+
+
 
 
 

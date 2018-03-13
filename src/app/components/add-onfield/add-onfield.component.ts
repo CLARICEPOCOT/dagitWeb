@@ -58,6 +58,7 @@ export class AddOnfieldComponent implements OnInit {
    }
 
   ngOnInit() {
+    /*
     this.locationControl = new FormControl();
 
     const restrict = {
@@ -92,7 +93,7 @@ export class AddOnfieldComponent implements OnInit {
 
         });
       });
-    });
+    });*/
 
   }
 
@@ -143,8 +144,8 @@ export class AddOnfieldComponent implements OnInit {
           'password': this.password,
           'location': this.location,
           'timeShift': this.timeShift,
-          'locLat': this.locLat,
-          'locLng': this.locLng,
+          // 'locLat': this.locLat,
+          // 'locLng': this.locLng,
           'enabled': 'yes',
           'path': '',
           'isTrackable': false
