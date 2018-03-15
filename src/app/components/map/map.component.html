@@ -64,19 +64,24 @@
 <div *ngIf="latitude && longitude">
     
     <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom"
-    style="position: fixed; top: 0px; z-index: 1;">
+    style="position: fixed; top: 0px; z-index: 1;" #gm>
 
-        <agm-marker [latitude]="latitude" [longitude]="longitude" >        
-          <agm-info-window>
-            <b>Current</b>
-          </agm-info-window>
+        <agm-marker
+         [latitude]="latitude" 
+         [longitude]="longitude"
+         (mouseOver)="onMouseOver(infoWindow,gm)"
+          >   
+            <agm-info-window [disableAutoPan]="false" #infoWindow>
+                <b >Current</b>
+            </agm-info-window>             
         </agm-marker>
         
 
         <!-- MARKERS FOR LIGHT TRAFFIC -->
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
-          >
-            <agm-marker 
+        >
+            <agm-marker
+            (mouseOver)="onMouseOver(infoWindow,gm)" 
             *ngIf="mapUpdate.trafficRating == 'Light Traffic'
             && (now - mapUpdate.timeUpdated) < 5400000"
             [iconUrl]="'assets/light.png'"
@@ -88,7 +93,7 @@
               text: mapUpdate.trafficRating
               }"
             >
-              <agm-info-window>
+              <agm-info-window [disableAutoPan]="false" #infoWindow>
                   <span>
                     <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
                     <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
@@ -101,6 +106,7 @@
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
         >
           <agm-marker 
+          (mouseOver)="onMouseOver(infoWindow,gm)"
           *ngIf="mapUpdate.trafficRating == 'Moderate Traffic'
           && (now - mapUpdate.timeUpdated) < 5400000"
           [iconUrl]="'assets/moderate.png'"
@@ -112,7 +118,7 @@
             text: mapUpdate.trafficRating
             }"
           >
-            <agm-info-window>
+            <agm-info-window #infoWindow>
                 <span>
                   <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
                   <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
@@ -122,8 +128,10 @@
       </agm-marker> 
 
       <!-- MARKERS FOR HEAVY TRAFFIC -->
-      <agm-marker *ngFor="let mapUpdate of mapUpdates | async">
+      <agm-marker *ngFor="let mapUpdate of mapUpdates | async"
+      >
         <agm-marker 
+        (mouseOver)="onMouseOver(infoWindow,gm)"
         *ngIf="mapUpdate.trafficRating == 'Heavy Traffic'
         && (now - mapUpdate.timeUpdated) < 5400000"
         [iconUrl]="'assets/heavy.png'"
@@ -135,7 +143,7 @@
           text: mapUpdate.trafficRating
           }"
         >
-          <agm-info-window>
+          <agm-info-window #infoWindow>
               <span>
                 <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
                 <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
@@ -148,6 +156,7 @@
         <agm-marker *ngFor="let mapUpdate of mapUpdates | async"      
         >
           <agm-marker
+          (mouseOver)="onMouseOver(infoWindow,gm)"
           *ngIf="mapUpdate.parkingAvailability == 'Available Parking'" 
           [iconUrl]="'assets/parking_available.png'"
           [latitude]="mapUpdate.platitude" 
@@ -158,12 +167,12 @@
             text: mapUpdate.parkingAvailability
             }"
           >
-            <agm-info-window>
+            <agm-info-window #infoWindow>
                 <span>
                   <b>Updated by: {{mapUpdate.pFName}} {{mapUpdate.pLName}}</b><br>
                   <b>Last Updated: {{mapUpdate.parkingTimeStamp}}</b>
                </span>
-               </agm-info-window>
+            </agm-info-window>
 
           </agm-marker>        
       </agm-marker> 
@@ -196,8 +205,10 @@
      
 
         <!-- MARKERS FOR TRACKING TMO -->
-        <agm-marker *ngFor="let ofLocation of ofLocations | async">
+        <agm-marker *ngFor="let ofLocation of ofLocations | async"
+        >
             <agm-marker 
+            (mouseOver)="onMouseOver(infoWindow,gm)"
             *ngIf = "ofLocation.status == 'login'"
             [iconUrl]="'assets/tmo.png'"
             class="shadow-text"
@@ -209,7 +220,7 @@
               text: ofLocation.lName
               }" 
             >
-            <agm-info-window>
+            <agm-info-window #infoWindow>
             <b>{{ofLocation.fName}} {{ofLocation.lName}}</b>
              <p>Last Login: {{ ofLocation.timeStamp }}</p>
             </agm-info-window>

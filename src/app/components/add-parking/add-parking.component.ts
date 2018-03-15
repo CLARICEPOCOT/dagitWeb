@@ -145,8 +145,8 @@ export class AddParkingComponent implements OnInit {
       console.log(location);
       // updating MAPS
       this.mapUpdate = {
-        'platitude': this.latitude + 0.0001,
-        'plongitude': this.longitude + 0.0001,
+        'platitude': this.latitude - 0.0001,
+        'plongitude': this.longitude - 0.0001,
         'parkingAvailability': this.rating,
         'parkingTimeStamp': this.timeStamp,
         'pFName': this.current,

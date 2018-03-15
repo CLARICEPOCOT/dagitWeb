@@ -200,7 +200,20 @@ export class MapComponent implements OnInit {
   });
 
 
+
 }
+
+  public onMouseOver(infoWindow, gm) {
+
+      if (gm.lastOpen != null) {
+          gm.lastOpen.close();
+      }
+
+      gm.lastOpen = infoWindow;
+      infoWindow.open();
+  }
+
+
 
 
   public getDuration() {
