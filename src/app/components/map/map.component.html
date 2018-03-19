@@ -87,14 +87,11 @@
             [iconUrl]="'assets/light.png'"
             [latitude]="mapUpdate.tlatitude" 
             [longitude]="mapUpdate.tlongitude"
-            [label]="{
-              color: '#000000',
-              fontWeight: 'bold',
-              text: mapUpdate.trafficRating
-              }"
+          
             >
               <agm-info-window [disableAutoPan]="false" #infoWindow>
                   <span>
+                    <b>{{mapUpdate.trafficRating}}</b><br>
                     <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
                     <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
                  </span>
@@ -112,14 +109,11 @@
           [iconUrl]="'assets/moderate.png'"
           [latitude]="mapUpdate.tlatitude" 
           [longitude]="mapUpdate.tlongitude"
-          [label]="{
-            color: '#000000',
-            fontWeight: 'bold',
-            text: mapUpdate.trafficRating
-            }"
+          
           >
             <agm-info-window #infoWindow>
                 <span>
+                  <b>{{mapUpdate.trafficRating}}</b><br>
                   <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
                   <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
                </span>
@@ -137,14 +131,11 @@
         [iconUrl]="'assets/heavy.png'"
         [latitude]="mapUpdate.tlatitude" 
         [longitude]="mapUpdate.tlongitude"
-        [label]="{
-          color: '#000000',
-          fontWeight: 'bold',
-          text: mapUpdate.trafficRating
-          }"
+        
         >
           <agm-info-window #infoWindow>
               <span>
+                <b>{{mapUpdate.trafficRating}}</b><br>
                 <b>Updated by: {{mapUpdate.tFName}} {{mapUpdate.tLName}}</b><br>
                 <b>Last Updated: {{mapUpdate.trafficTimeStamp}}</b>
              </span>
@@ -161,14 +152,10 @@
           [iconUrl]="'assets/parking_available.png'"
           [latitude]="mapUpdate.platitude" 
           [longitude]="mapUpdate.plongitude"
-          [label]="{
-            color: '#000000',
-            fontWeight: 'bold',
-            text: mapUpdate.parkingAvailability
-            }"
           >
             <agm-info-window #infoWindow>
                 <span>
+                  <b>{{mapUpdate.parkingAvailability}}</b><br>
                   <b>Updated by: {{mapUpdate.pFName}} {{mapUpdate.pLName}}</b><br>
                   <b>Last Updated: {{mapUpdate.parkingTimeStamp}}</b>
                </span>
