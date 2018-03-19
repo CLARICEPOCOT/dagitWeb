@@ -50,11 +50,7 @@ export class AddDirectoryComponent implements OnInit {
 
     categories = [
       {name: 'Fire Station', value: 'Fire'},
-<<<<<<< HEAD
-      {name: 'Medical', value: 'Medical'},
-=======
       {name: 'Hospital', value: 'Medical'},
->>>>>>> test
       {name: 'Police Station', value: 'Police'},
       {name: 'Terminal', value: 'Terminal'}
     ];
