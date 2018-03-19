@@ -38,6 +38,7 @@ export class AddParkingComponent implements OnInit {
   rating: string;
   category: string;
   notifDetail: string;
+  coordinates: any;
 
 
   current: any;
@@ -127,7 +128,7 @@ export class AddParkingComponent implements OnInit {
       this.notification = {
         'category': 'Parking',
         'timeStamp': this.timeStamp,
-        'notifDetail': this.rating + ': ' + this.loc,
+        'notifDetail': this.rating + ' near ' + this.loc,
         'fName': this.current,
         'lName': '',
         'sort': 0 - Date.now()
@@ -144,20 +145,23 @@ export class AddParkingComponent implements OnInit {
       console.log(location);
       // updating MAPS
       this.mapUpdate = {
-        'platitude': this.latitude + 0.0001,
-        'plongitude': this.longitude + 0.0001,
+        'platitude': this.latitude - 0.0001,
+        'plongitude': this.longitude - 0.0001,
         'parkingAvailability': this.rating,
         'parkingTimeStamp': this.timeStamp,
         'pFName': this.current,
         'pLName': '',
-        // 'trafficRating': this.mapData.trafficRating,
-        // 'trafficTimeStamp': this.mapData.trafficTimeStamp,
-        // 'tFName': this.mapData.tFName,
-        // 'tLName': this.mapData.tLName
       };
 
-     this.firebaseService.updateMapData(this.loc, this.mapUpdate);
-
+      const key = this.latitude + this.longitude;
+      // console.log(key);
+       this.coordinates = key.toString();
+      // console.log('Coordinates' + this.coordinates);
+      // const re = /./gi;
+      const coords = this.coordinates.replace('.', '-');
+      // console.log( coords);
+      this.firebaseService.addMapUpdate(coords, this.mapUpdate);
+      console.log('map updated');
 
       this.thisDialogRef.close('Add');
     }

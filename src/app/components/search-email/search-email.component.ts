@@ -4,6 +4,15 @@ import { MatInputModule } from '@angular/material/input';
 import { ManageAccountsComponent } from '../manage-accounts/manage-accounts.component';
 import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { FormGroupDirective, NgForm } from '@angular/forms';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-search-email',
@@ -20,6 +29,11 @@ export class SearchEmailComponent implements OnInit {
   result: any;
   found: boolean;
 
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
   constructor(
     public thisDialogRef: MatDialogRef<ManageAccountsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
@@ -32,20 +46,28 @@ export class SearchEmailComponent implements OnInit {
         snapshot.forEach(snap => {
           this.usersDesk[j] = snap;
           j++;
-        })
+        });
       });
   }
 
   ngOnInit() {
   }
 
-  onSearch(){
-    this.found = false;
-    this.searchEmail();
+  onSearch() {
+    let complete = false;
+    if ( this.searchValue != null ) {
+      complete = true;
+    }
+
+    if (complete) {
+      this.found = false;
+      this.searchEmail();
+    }
+
   }
 
   searchEmail(){
-    for(let i = 0; i < this.usersDesk.length; i++){
+    for(let i = 0; i < this.usersDesk.length; i++) {
       if(this.usersDesk[i].emailAddress.toLowerCase() == this.searchValue.toLowerCase()){
         this.result = this.usersDesk[i];
         this.found = true;

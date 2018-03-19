@@ -6,6 +6,7 @@ import { toast } from 'angular2-materialize';
 import { FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 
+
 @Component({
   selector: 'app-search-notifications',
   templateUrl: './search-notifications.component.html',
@@ -13,22 +14,35 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class SearchNotificationsComponent implements OnInit {
   directory: any;
-  category: string;
-  directoryName: string;
-  address: string;
-  contactNumber: string;
-  operatingHours: string;
-  otherInformation?: string;
+  month: string;
+  day: any;
+  year: any;
+  date: any;
+  found: boolean;
+  notFound: boolean;
+
+  notifications: any;
+  notification: any;
+  notifArray: any = [];
 
 
-  categoryControl = new FormControl('', [Validators.required]);
+  monthControl = new FormControl('', [Validators.required]);
 
-    categories = [
-      {name: 'Fire', value: 'Fire'},
-      {name: 'Medical', value: 'Medical'},
-      {name: 'Police', value: 'Police'},
-      {name: 'Terminal', value: 'Terminal'},
+    months = [
+      {name: 'January', value: 'January'},
+      {name: 'February', value: 'February'},
+      {name: 'March', value: 'March'},
+      {name: 'April', value: 'April'},
+      {name: 'May', value: 'May'},
+      {name: 'June', value: 'June'},
+      {name: 'July', value: 'July'},
+      {name: 'August', value: 'August'},
+      {name: 'September', value: 'September'},
+      {name: 'October', value: 'October'},
+      {name: 'November', value: 'November'},
+      {name: 'December', value: 'December'},
     ];
+
 
   constructor(
     public thisDialogRef: MatDialogRef<NotificationsComponent>,
@@ -36,20 +50,48 @@ export class SearchNotificationsComponent implements OnInit {
     private firebaseService: FirebaseService,
     ) {
 
+
      }
 
     ngOnInit() {
+
     }
 
 
     onSearch(directory) {
-      this.thisDialogRef.close('Add');
+      const monthLength = this.month.trim().length;
+      const dayLength = this.day.trim().length;
+      const yearLength = this.year.trim().length;
+
+
+      if ( (monthLength !== 0)
+         && (dayLength !== 0)
+         && (yearLength !== 0)) {
+          // setting the date to query
+          this.date = this.month + ' ' + this.day + ' ' + this.year;
+          console.log(this.date);
+          this.found = false;
+          this.notFound = false;
+
+          this.notifications = this.firebaseService.getNotifLog(this.date);
+          if ( this.notifications == null ) {
+            this.notFound = true;
+          }
+          this.firebaseService.getNotifLog(this.date).subscribe(notification => {
+            // console.log(notification);
+            this.notification = notification;
+            if (this.notification != null) {
+              this.found = true;
+            }
+          });
+
+        }
 
     }
 
 
     onCancel() {
-      this.thisDialogRef.close('Cancel');
+      this.thisDialogRef.close('CLOSE');
 
     }
 

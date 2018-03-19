@@ -4,6 +4,8 @@ import { ViolationContentComponent } from '../violation-content/violation-conten
 import { FirebaseService } from '../../services/firebase.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as firebase from 'firebase';
+import { SearchViolationComponent } from '../search-violation/search-violation.component';
+
 
 @Component({
   selector: 'app-violation-reports',
@@ -14,6 +16,7 @@ import * as firebase from 'firebase';
 export class ViolationReportsComponent implements OnInit {
 
   contentDialog = '';
+  searchDialog = '';
   violations: any;
   violation: any;
 
@@ -28,6 +31,18 @@ export class ViolationReportsComponent implements OnInit {
     this.firebaseService.getViolations().subscribe(violation => {
       console.log(violation);
       this.violation = violation;
+    });
+  }
+
+  openSearch() {
+    const dialogRef = this.dialog.open(SearchViolationComponent, {
+      width: '900px',
+      data: 'SEARCH VIOLATION'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.searchDialog = result;
     });
   }
 

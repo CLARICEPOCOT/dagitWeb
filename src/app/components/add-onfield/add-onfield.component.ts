@@ -58,14 +58,16 @@ export class AddOnfieldComponent implements OnInit {
    }
 
   ngOnInit() {
+    /*
     this.locationControl = new FormControl();
+
+    const restrict = {
+      componentRestrictions: {country: 'phl'}
+    };
 
     // load places autocomplete
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-       // types: ['street']
-
-      });
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, restrict);
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           // get the place result
@@ -91,7 +93,7 @@ export class AddOnfieldComponent implements OnInit {
 
         });
       });
-    });
+    });*/
 
   }
 
@@ -142,8 +144,8 @@ export class AddOnfieldComponent implements OnInit {
           'password': this.password,
           'location': this.location,
           'timeShift': this.timeShift,
-          'locLat': this.locLat,
-          'locLng': this.locLng,
+          // 'locLat': this.locLat,
+          // 'locLng': this.locLng,
           'enabled': 'yes',
           'path': '',
           'isTrackable': false

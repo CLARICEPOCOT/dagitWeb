@@ -51,7 +51,8 @@
        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
           <li *ngFor = "let accountD of deskTMO | async">
             <div class="collapsible-header">
-              <span style="width: 590px;"class="col">{{accountD.fName + ' ' + accountD.lName }} </span> <span class="badge black" *ngIf="accountD.emailAddress == currUser.emailAddress">My Account</span>
+              <span style="width: 590px;"class="col">{{accountD.fName + ' ' + accountD.lName }} </span> 
+              <span class="badge black" *ngIf="accountD.emailAddress == currUser.emailAddress">My Account</span>
             </div>
             <div class="collapsible-body">
               <div class="row">
@@ -73,33 +74,20 @@
                   </div>
                 <div class="col" style="width: 50%;">
                  <b>Email Address: </b> {{ accountD.emailAddress }}<br>
-                 <b>Password: </b> {{ accountD.password }}
+                <!-- <b>Password: </b> {{ accountD.password }} -->
                 </div>
               </div>
 
               <br><br>
               <div class="center" *ngIf="accountD.emailAddress != currUser.emailAddress">
-                <!--
-                  <i class="small material-icons">create</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <i class="small material-icons">delete</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <i class="small material-icons">add_a_photo</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                -->
-                
-                 <a (click) ="onEditDesk(accountD)" class="black hoverable btn small">EDIT</a>
+                <!-- <a (click) ="onEditDesk(accountD)" class="black hoverable btn small">EDIT</a>-->
                  &nbsp;
                  <a (click) = "onDeleteDesk(accountD)" class="black hoverable btn small">DELETE</a>
                  &nbsp;
                  <span *ngIf = " accountD.enabled == 'yes' "><a (click) = "disableD('no', accountD.$key)"class="black hoverable btn small">DISABLE</a></span>
                    <span *ngIf = " accountD.enabled == 'no' "><a (click) = "enableD('yes', accountD.$key)"class="black hoverable btn small">ENABLE</a></span>
                  &nbsp;
-                 <!--
-                 <div (click)="uploadDesk(accountD.$key)" class="fileUpload black hoverable btn small">EDIT IMAGE
-                  <input
-                  type="file" 
-                  id="image"
-                  [(ngModel)]="image"
-                  name="image" />
-                 </div>-->
+
               </div>       
 
             </div>
@@ -137,18 +125,21 @@
                   </div>  
                   <div class="col" style="width: 50%;">
                    <b>Username:</b> {{ accountOF.username }}<br>
-                   <b>Password: </b> {{ accountOF.password }}<br>
+                 <!-- <b>Password: </b> {{ accountOF.password }}<br> -->
                    <b>Assigned Location: </b> {{ accountOF.location }}<br>
                    <b>Time of Shift: </b> {{ accountOF.timeShift }}<br>
+<<<<<<< HEAD
                    <!--<b>Located: </b> {{ accountOF.located }}<br>
                    <b>Time of Login: </b> {{ accountOF.timeStamp }}<br>-->
+=======
+>>>>>>> test
                   </div>
                            
                 </div>
   
                 <br><br>
                 <div class="center">
-                  <!-- <a (click) ="onEditOnfield(accountOF)" class="black hoverable btn small">EDIT</a>-->
+                   <a (click) ="onEditOnfield(accountOF)" class="black hoverable btn small">EDIT</a>
                    &nbsp;
                    <a (click) = "onDeleteOnfield(accountOF.$key)" class="black hoverable btn small">DELETE</a>
                    &nbsp;

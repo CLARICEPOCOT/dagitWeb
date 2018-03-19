@@ -38,8 +38,16 @@ export class SearchUsernameComponent implements OnInit {
   }
 
   onSearch(){
-    this.found = false;
-    this.searchUsername();
+    let complete = false;
+    if (this.searchValue != null)
+    {
+      complete = true;
+    }
+    if(complete) {
+      this.found = false;
+      this.searchUsername();
+    }
+
   }
 
   searchUsername(){

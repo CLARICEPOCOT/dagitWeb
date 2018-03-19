@@ -51,8 +51,9 @@ export class MapComponent implements OnInit {
    notifLng: number;
    current: any;
 
-   sampleLat = 9.319988799999999 + 0.0001;
-   sampleLng = 123.30712629999994 + 0.0001;
+  now = Date.now();
+  duration: any;
+  durationMin: any;
 
 
 
@@ -79,9 +80,10 @@ export class MapComponent implements OnInit {
     {
       this.router.navigate(['/']);
     }
-    this.mapUpdates = this.firebaseService.getMapUpdates();
+    this.mapUpdates = this.firebaseService.getMapUpdate();
     this.ofLocations = this.firebaseService.trackLocation();
-    this.mapData = this.firebaseService.getMapUpdates();
+
+
 
   }
 
@@ -186,18 +188,39 @@ export class MapComponent implements OnInit {
 
   // getting map updates
   this.firebaseService.getMapUpdates().subscribe(mapUpdate => {
-    console.log(mapUpdate);
+    // console.log(mapUpdate);
     this.mapUpdate = mapUpdate;
+   // this.getDuration();
   });
 
   // tracking locations
   this.firebaseService.trackLocation().subscribe(ofLocation => {
-    console.log(ofLocation);
+    // console.log(ofLocation);
     this.ofLocation = ofLocation;
   });
 
 
+
 }
+
+  public onMouseOver(infoWindow, gm) {
+
+      if (gm.lastOpen != null) {
+          gm.lastOpen.close();
+      }
+
+      gm.lastOpen = infoWindow;
+      infoWindow.open();
+  }
+
+
+
+
+  public getDuration() {
+    this.duration = this.now - this.mapUpdate.timeUpdated;
+    this.durationMin = moment.duration( this.duration, 'milliseconds').asMinutes;
+    console.log(this.durationMin);
+  }
 
 
   // getting direction
@@ -206,10 +229,7 @@ export class MapComponent implements OnInit {
       origin: { lat: this.originLat, lng: this.originLng },
       destination: { lat: this.destinationLat, lng: this.destinationLng }
     };
-   // const origin = new google.maps.LatLng(this.originLat, this.originLng);
-   // const destination = new google.maps.LatLng(this.destinationLat, this.destinationLng);
-    // const distance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
-    // console.log(distance);
+
     const _eQuatorialEarthRadius = 6378.1370;
     const _d2r = (Math.PI / 180.0);
 
@@ -234,19 +254,7 @@ export class MapComponent implements OnInit {
       });
     }
 
-/*
-  private markerURL() {
-    return ('C:\Users\Calypso\CAPSTONE\db service\dagit\src\assets\heavy.png');
-  }*/
-/*
-    this.location = {
-      'coordinates': {
-         'lat': this.latitude,
-        'lng': this.longitude}
-    };
 
-    this.firebaseService.addMapLocations(this.location);
-*/
   }
 
   getTMOLocation () {

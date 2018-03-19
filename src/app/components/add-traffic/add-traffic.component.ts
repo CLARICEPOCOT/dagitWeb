@@ -32,6 +32,8 @@ export class AddTrafficComponent implements OnInit {
   loc: any;
   locLat: number;
   locLng: number;
+  
+  coordinates: any;
 
   @ViewChild('location')
   public searchElementRef: ElementRef;
@@ -116,7 +118,7 @@ export class AddTrafficComponent implements OnInit {
       this.notification = {
         'category': 'Traffic',
         'timeStamp': this.timeStamp,
-        'notifDetail': this.rating + ': ' + this.loc,
+        'notifDetail': this.rating + ' near ' + this.loc,
         'fName': this.current,
         'lName': '',
         'sort' : 0 - Date.now()
@@ -129,22 +131,50 @@ export class AddTrafficComponent implements OnInit {
       // updating LOGS
       const date = moment().format('MMMM D YYYY');
       this.firebaseService.addNotifLog(date, this.notification);
+      console.log('notiflog added');
 
-
-      console.log(location);
+/*
+      // console.log(location);
       // updating MAPS
       this.mapUpdate = {
         'tlatitude': this.latitude,
         'tlongitude': this.longitude,
         'trafficRating': this.rating,
         'trafficTimeStamp': this.timeStamp,
+        'timeUpdated': Date.now(),
         'tFName': this.current,
         'tLName': ''
       };
 
 
-     this.firebaseService.updateMapData(this.loc, this.mapUpdate);
-     this.thisDialogRef.close('Add');
+     this.firebaseService.updateMapData(this.loc, this.mapUpdate);*/
+     this.mapUpdate = {
+      'tlatitude': this.latitude,
+      'tlongitude': this.longitude,
+      'trafficRating': this.rating,
+      'trafficTimeStamp': this.timeStamp,
+      'timeUpdated': Date.now(),
+      'tFName': this.current,
+      'tLName': ''
+    };
+
+    const lat = this.latitude.toString();
+    const finalLat = lat.replace('.', '-');
+    const lng = this.longitude.toString();
+    const finalLng = lng.replace('.', '-');
+    const lastCoords = finalLat + finalLng;
+    /*
+    const key = this.latitude + this.longitude;
+    // console.log(key);
+     this.coordinates = key.toString();
+    // console.log('Coordinates' + this.coordinates);
+    // const re = /./gi;
+    const coords = this.coordinates.replace('.', '-');
+    // console.log( coords);
+    */
+    this.firebaseService.addMapUpdate(lastCoords, this.mapUpdate);
+    console.log('map updated');
+    this.thisDialogRef.close('Add');
     }
 
   }

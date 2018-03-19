@@ -76,7 +76,7 @@ export class FirebaseService {
     });
   }
 
-  uploadGetDeskPhoto(user){
+  uploadGetDeskPhoto(user) {
     return this.dagit.object('ACCOUNTS/DESK_TMO/' + user.$key);
   }
 
@@ -90,7 +90,7 @@ export class FirebaseService {
     });
   }
 
-  editPassword(key, newPass){
+  editPassword(key, newPass) {
     this.dagit.object('/ACCOUNTS/DESK_TMO/' + key + '/password').set(newPass);
   }
 
@@ -116,7 +116,7 @@ export class FirebaseService {
 
 // ON-FIELD TMO
 
-  editEnabledOF(val, key){
+  editEnabledOF(val, key) {
     this.dagit.object('/ACCOUNTS/ON_FIELD_TMO/' + key + '/enabled').set(val);
   }
 
@@ -167,7 +167,7 @@ export class FirebaseService {
   }
 
   updateOnfieldTMO(id, onFieldTMO) {
-    return this.dagit.list('/ACCOUNTS/ON_FIELD_TMO').update(id, onFieldTMO);
+    return this.dagit.object('/ACCOUNTS/ON_FIELD_TMO/' + id).update(onFieldTMO);
   }
 
   deleteOnfieldTMO(key) {
@@ -240,33 +240,83 @@ export class FirebaseService {
     });
   }
 
-  readAccidents(user){
+
+  readAccidents(user) {
     this.dagit.object('/ACCIDENT/' + user.$key + '/status').set('read');
   }
+
+  // ACCIDENT LOGS
+  getAccidentLog(date) {
+      return this.dagit.list('/ACCIDENTLOGS/' + date, {
+        query: {
+          orderByChild: 'sort'
+        }
+      });
+    }
+
+  readAccidentLogs(user) {
+      this.dagit.object('/ACCIDENTLOGS/' + user.$key + '/status').set('read');
+    }
+
 
   // VIOLATION REPORTS
 
   getViolations() {
-    return this.dagit.list('/VIOLATION');
+    return this.dagit.list('/VIOLATION', {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
   }
 
-  readViolations(user){
+
+
+  readViolations(user) {
     this.dagit.object('/VIOLATION/' + user.$key + '/status').set('read');
   }
 
-  // PEDICAB REPORTS
-
-  getPedicabReports() {
-    return this.dagit.list('/PEDICAB');
+  // VIOLATION LOGS
+  getViolationLog(date) {
+    return this.dagit.list('/VIOLATIONLOGS/' + date, {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
   }
 
-  readPedicab(user){
+  readViolationLogs(user) {
+    this.dagit.object('/VIOLATIONLOGS/' + user.$key + '/status').set('read');
+  }
+
+  // PEDICAB REPORTS
+  getPedicabReports() {
+    return this.dagit.list('/PEDICAB', {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
+  }
+
+  // PEDICAB LOGS
+  getPedicabLog(date) {
+    return this.dagit.list('/PEDICABLOGS/' + date, {
+      query: {
+        orderByChild: 'sort'
+      }
+    });
+  }
+
+  readPedicabLogs(user) {
+    this.dagit.object('/PEDICABLOGS/' + user.$key + '/status').set('read');
+  }
+
+  readPedicab(user) {
     this.dagit.object('/PEDICAB/' + user.$key + '/status').set('read');
   }
 
   // MESSAGES
 
-  readMessage(user){
+  readMessage(user) {
     this.dagit.object('/CHAT/' + user.$key + '/status').set('read');
   }
 
@@ -283,17 +333,19 @@ export class FirebaseService {
   }
 
   // MAP
+  /*
   getMap(location) {
     return this.dagit.list('/MAP/' + location);
   }
 
   getMapData(location) {
     return this.dagit.list('/MAP/' + location);
-  }
+  }*/
 
   updateMapData(location, update) {
     this.dagit.object('/MAP/' + location).update(update);
   }
+  /*
 
   addMapData(location, update) {
     this.dagit.list('/MAP/' + location).push(update);
@@ -302,7 +354,7 @@ export class FirebaseService {
    // MAP DATA
   addMapLocations(coordinates) {
     this.dagit.list('/MAP').push(coordinates);
-  }
+  }*/
 
 
   getMapUpdates() {
@@ -312,6 +364,17 @@ export class FirebaseService {
   trackLocation() {
     return this.dagit.list('/LOCATION');
   }
+
+  // MAP UPDATES REVISED
+  addMapUpdate(coordinates, update) {
+    this.dagit.object('/MAPS/' + coordinates).update(update);
+  }
+
+  getMapUpdate() {
+    return this.dagit.list('/MAPS');
+  }
+
+
 
 
 

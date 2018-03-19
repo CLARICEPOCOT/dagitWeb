@@ -26,6 +26,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RecoverAccountComponent implements OnInit {
 
+  // errorMessage: string;
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -44,6 +46,7 @@ export class RecoverAccountComponent implements OnInit {
   }
 
   recover(email) {
+    let errorMessage;
     console.log('function');
     let noError = true;
     this.angularFireAuth.auth.sendPasswordResetEmail(email)
@@ -52,35 +55,19 @@ export class RecoverAccountComponent implements OnInit {
       console.log(errorCode);
       if (errorCode === 'auth/invalid-email') {
         console.log('invalid email');
+        // alert('Invalid email');
+        errorMessage = 'Invalid email';
         noError = false;
-        /*
-        const alert = this.alertCtrl.create({
-          title: 'Invalid Email',
-          subTitle: 'The email you entered is invalid. Please enter a valid email address and try again.',
-          buttons: ['OK']
-        });
-        alert.present();*/
       } else if (errorCode === 'auth/user-not-found') {
         console.log('user not found');
+        alert('User not found');
+        errorMessage = 'User not found';
         noError = false;
-        /*
-        const alert = this.alertCtrl.create({
-          title: 'User Not Found',
-          subTitle: 'The user does not exist. Please retype your email and try again.',
-          buttons: ['OK']
-        });
-        alert.present();*/
       }
     })
     .then(() => {
+      alert('Please check your email.');
       console.log('email sent');
-      /*
-      const alert = this.alertCtrl.create({
-        title: 'Email sent!',
-        subTitle: 'A reset password link has been sent to your email. Please check your email and click the link to reset your password.',
-        buttons: ['OK']
-      });
-      alert.present();*/
       this.router.navigate(['/']);
     });
   }

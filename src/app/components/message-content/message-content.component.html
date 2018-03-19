@@ -8,13 +8,14 @@
   <h6 style="background-color: #9DE69D; padding: 15px;">
       <b style="color: black">{{ this.content.$key }}</b>
   </h6>
-  <mat-dialog-content style="max-height: 300px; overflow: auto;">
+  <mat-dialog-content style="max-height: 300px; overflow: auto; height: y;" #scroll>
       <div 
-      *ngFor="let chatMessage of chatMessages | async"
-      ngx-auto-scroll lock-y-offset="10" observe-attributes>
-          
-            <div
-                *ngIf="chatMessage.messageSender == this.content.$key"
+      *ngFor="let chatMessage of chatMessages | async" >
+        
+            <div              
+                *ngIf="chatMessage.messageSender == this.content.$key 
+                && chatMessage.$key != 'status'
+                 "
                 id="sender">
                 {{ chatMessage.message }}
                 <br>
@@ -23,7 +24,8 @@
             
             <div
                 id="user"
-                *ngIf="chatMessage.messageSender != this.content.$key">
+                *ngIf="chatMessage.messageSender != this.content.$key
+                && chatMessage.$key != 'status'">
                 {{ chatMessage.message }}
                 <br>
                 <span style="font-size: small">{{ chatMessage.timeStamp }}</span>
@@ -43,14 +45,24 @@
             placeholder="Type a message">
         </mat-form-field>
       
-        <mat-dialog-actions>                              
-            <button 
-            style="float: right;"
-            mat-raised-button 
-            class="black hoverable btn small" 
-            (click) = "sendMessage()">
-            SEND                         
-            </button>
+        <mat-dialog-actions>
+            <span style="margin-left: 65%;">
+                <button 
+                mat-raised-button 
+                class="black hoverable btn small" 
+                (click) = "sendMessage()">                    
+                SEND                         
+                </button>
+            </span>  &nbsp;&nbsp;&nbsp;  
+            <span >
+                <button 
+                mat-raised-button 
+                class="black hoverable btn small" 
+                (click) = "onClose()">                    
+                CLOSE                        
+                </button>
+            </span>                       
+            
     </mat-dialog-actions><br>
     </div>
   

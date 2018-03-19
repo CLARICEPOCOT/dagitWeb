@@ -39,7 +39,9 @@
                   {{ directory.operatingHours }}
                </div>
                <br><br><br><br>
-               <div class="center" *ngIf="directory.otherInformation != null">
+               <div class="center" 
+               *ngIf="directory.otherInformation != null"
+               style="margin-top: 10px;">
                  <i class="material-icons">info_outline</i> Other Information <hr>
                  {{ directory.otherInformation }}
                </div>
@@ -88,7 +90,9 @@
                         {{ directory.operatingHours }}
                      </div>
                      <br><br><br><br>
-                     <div class="center" *ngIf="directory.otherInformation != null">
+                     <div class="center" 
+                     *ngIf="directory.otherInformation != null"
+                     style="margin-top: 10px;">
                        <i class="material-icons">info_outline</i> Other Information <hr>
                        {{ directory.otherInformation }}
                      </div>
@@ -138,7 +142,9 @@
                     {{ directory.operatingHours }}
                  </div>
                  <br><br><br><br>
-                 <div class="center" *ngIf="directory.otherInformation != null">
+                 <div class="center"
+                  *ngIf="directory.otherInformation != null"
+                  style="margin-top: 10px;">
                    <i class="material-icons">info_outline</i> Other Information <hr>
                    {{ directory.otherInformation }}
                  </div>
@@ -187,9 +193,11 @@
                     <i class="material-icons">access_time</i> Operating Hours<hr>
                     {{ directory.operatingHours }}
                  </div>
-                 <br><br><br><br>
-                 <div class="center" *ngIf="directory.otherInformation != null">
-                   <i class="material-icons">info_outline</i> Other Information <hr>
+                 
+                 <div class="center"
+                  *ngIf="directory.otherInformation != null"
+                  style="margin-top: 10px;">
+                   <i class=" center material-icons">info_outline</i> Other Information <hr>
                    {{ directory.otherInformation }}
                  </div>
                  <br><br>
@@ -215,11 +223,22 @@
  
     <!-- fixed button -->
     <div class="fixed-action-btn">
-        <a class="btn-floating  yellow darken-1 btn-large hoverable">
+        <a materialize="tooltip"
+        class="btn-floating  yellow darken-1 btn-large hoverable"
+        data-position="left"
+        data-delay="30"
+        data-tooltip="Add directory"
+        (click) = "openDialog()">
           <i class="large material-icons black-text">add</i>
         </a>
+<<<<<<< HEAD
         <ul>           
             <!--<li>
+=======
+        <ul>   
+          <!--        
+            <li>
+>>>>>>> test
               <a materialize="tooltip"
               class="btn-floating green tooltipped"
               data-position="left"
@@ -237,7 +256,7 @@
               data-tooltip="Add directory"
               (click) = "openDialog()">
               <i class="material-icons">add_location</i></a>
-            </li>
+            </li>-->
         </ul>
     </div><br><br>
 

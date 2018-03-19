@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PedicabReportContentComponent } from '../pedicab-report-content/pedicab-report-content.component';
+import { SearchPedicabComponent } from '../search-pedicab/search-pedicab.component';
 import { FirebaseService } from '../../services/firebase.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as firebase from 'firebase';
@@ -13,6 +14,7 @@ import * as firebase from 'firebase';
 export class PedicabReportsComponent implements OnInit {
 
   contentDialog = '';
+  searchDialog = '';
   reports: any;
   report: any;
 
@@ -27,6 +29,18 @@ export class PedicabReportsComponent implements OnInit {
     this.firebaseService.getPedicabReports().subscribe(report => {
       console.log(report);
       this.report = report;
+    });
+  }
+
+  openSearch() {
+    const dialogRef = this.dialog.open(SearchPedicabComponent, {
+      width: '900px',
+      data: 'SEARCH PEDICAB'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      this.searchDialog = result;
     });
   }
 

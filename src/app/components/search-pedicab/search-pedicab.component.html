@@ -1,0 +1,80 @@
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+                 
+</head>
+
+<body>
+  
+  <h2 mat-dialog-title>
+    <i class="material-icons red-text medium">search</i>SEARCH ACCIDENTS
+  </h2>
+  <hr>
+  <br>
+  <mat-dialog-content>
+    <form>
+        <div class="row">
+            <mat-form-field style="width: 40%;" class="col">
+              <mat-select placeholder="MONTH" [(ngModel)]="month" name = "month"[formControl]="monthControl" required>
+                <mat-option *ngFor="let month of months" [value]="month.value">
+                  {{month.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="monthControl.hasError('required')">Month is required.</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field style="width: 30%;" class="col">
+              <input
+              matInput
+              [(ngModel)] = "day" 
+              name="day"
+              type="textt"
+              placeholder="DAY"
+              required>
+              <mat-error>Day is required.</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field style="width: 30%;" class="col">
+              <input
+              matInput
+              [(ngModel)] = "year" 
+              name="year"
+              type="textt"
+              placeholder="YEAR"
+              required>
+              <mat-error>Year is required. </mat-error>
+            </mat-form-field>
+          </div>
+
+          <br><br>     
+          <div *ngIf="reports != null">
+            <i class="medium material-icons left orange-text lighten-2">motorcycle</i>
+            <b style="font-size: 40px;">MCH REPORTS</b><br>  
+          <div class="collection">
+              <a
+              class="collection-item black-text"
+              *ngFor="let report of reports | async"
+              (click) ="open(report)">
+              <span style="margin-right: 550px;">{{ report.reportSender }} </span> 
+              <span>{{ report.timeStamp }}</span>      
+              </a>
+          </div>
+      
+        </div>
+      
+       
+     
+      <mat-dialog-actions>
+        <span style="margin-left: 65%;">
+            <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>
+            <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CLOSE</button>
+        </span>
+        <br>
+        <br>
+        <br>
+      </mat-dialog-actions>
+    </form>  
+  </mat-dialog-content>
+  
+</body>

@@ -60,19 +60,27 @@ export class SearchAccountsComponent implements OnInit {
     }
 
     onSearch(){
-      this.result.length = 0;
-      this.found = false;
-      console.log(this.category);
-      if(this.category == 'desk'){
-        this.searchDesk();
+      let complete = false;
+      if (this.category != null && this.searchValue != null) {
+        complete = true;
       }
-      else if(this.category == 'onField'){
-        this.searchOf();
+
+      if (complete) {
+        this.result.length = 0;
+        this.found = false;
+        console.log(this.category);
+        if(this.category == 'desk'){
+          this.searchDesk();
+        }
+        else if(this.category == 'onField'){
+          this.searchOf();
+        }
+        else{
+          this.searchDesk();
+          this.searchOf();
+        }
       }
-      else{
-        this.searchDesk();
-        this.searchOf();
-      }
+      
     }
 
     searchDesk(){

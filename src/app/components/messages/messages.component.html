@@ -25,7 +25,8 @@
         class="collection-item black-text"
         *ngFor="let message of messages | async"
         (click) ="open(message)">
-        {{ message.$key }} <span class="new badge black" *ngIf="message.status == 'unread'"></span>
+        {{ message.$key }} 
+        <span class="new badge black" *ngIf="message.status == 'unread'"></span>
         </a>
       </div>
     </div>

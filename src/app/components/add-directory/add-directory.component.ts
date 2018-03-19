@@ -50,7 +50,11 @@ export class AddDirectoryComponent implements OnInit {
 
     categories = [
       {name: 'Fire Station', value: 'Fire'},
+<<<<<<< HEAD
       {name: 'Medical', value: 'Medical'},
+=======
+      {name: 'Hospital', value: 'Medical'},
+>>>>>>> test
       {name: 'Police Station', value: 'Police'},
       {name: 'Terminal', value: 'Terminal'}
     ];
@@ -74,43 +78,6 @@ export class AddDirectoryComponent implements OnInit {
 
     ngOnInit() {
 
-      /*this.locationControl = new FormControl();
-
-      const restrict = {
-        componentRestrictions: {country: 'phl'}
-      };
-      
-          // load places autocomplete
-          this.mapsAPILoader.load().then(() => {
-            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, restrict);
-            autocomplete.addListener('place_changed', () => {
-              this.ngZone.run(() => {
-                // get the place result
-      
-                // end
-                  const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-      
-                // verify result
-                if (place.geometry === undefined || place.geometry === null) {
-                  this.place = place;
-                 //  this.location = place.geometry.location;
-      
-                  return;
-                }
-                // set place
-                this.address = place.formatted_address;
-      
-                // set latitude, longitude
-                this.latitude = place.geometry.location.lat();
-                this.longitude = place.geometry.location.lng();
-                this.locLat = place.geometry.location.lat();
-                this.locLng = place.geometry.location.lng();
-      
-              });
-            });
-          });
-      
-          */
     }
 
 
@@ -148,6 +115,9 @@ export class AddDirectoryComponent implements OnInit {
           console.log('Directory added');
           this.thisDialogRef.close('ADD');
         } else { // if with otherInformation
+          if (this.otherInformation.trim().length === 0) {
+            this.otherInformation = null;
+          }
           this.directory = {
             'category': this.category,
             'directoryName': this.directoryName,

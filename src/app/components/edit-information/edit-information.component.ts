@@ -39,7 +39,18 @@ export class EditInformationComponent implements OnInit {
 
 
   onEdit(key, information) {
-    // tslint:disable-next-line:triple-equals
+    let complete = false;
+    const tLength = this.newTitle.trim().length;
+    const bLength = this.newBody.trim().length;
+    if ( (tLength !== 0) && (bLength !== 0)) {
+      complete = true;
+    } else {
+      complete = false;
+    }
+
+    if (complete === true) {
+
+      // tslint:disable-next-line:triple-equals
     if (this.newTitle != this.information.title) {
       this.title = this.newTitle;
     } else {
@@ -54,16 +65,22 @@ export class EditInformationComponent implements OnInit {
     }
 
 
-    this.information = {
-      'title': this.title,
-      'body': this.body,
-      'deskTMO': this.currentUser
-    };
+      this.information = {
+        'title': this.title,
+        'body': this.body,
+        'deskTMO': this.currentUser
+      };
+  
+  
+      this.firebaseService.updateInformation(key, this.information);
+      console.log('Information edited');
+      this.thisDialogRef.close('Edit');
 
+    }
+    
 
-    this.firebaseService.updateInformation(key, this.information);
-    console.log('Information edited');
-    this.thisDialogRef.close('Edit');
+    
+   
 
   }
 

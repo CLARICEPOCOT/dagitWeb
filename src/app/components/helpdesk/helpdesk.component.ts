@@ -54,7 +54,7 @@ export class HelpdeskComponent implements OnInit {
       snapshot.forEach(snap => {
         this.message[i] = snap;
         i++;
-      });
+      });0
     });
     
     this.violations.subscribe( snapshot => {
