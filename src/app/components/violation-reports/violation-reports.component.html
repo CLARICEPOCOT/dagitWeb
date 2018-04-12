@@ -23,9 +23,11 @@
           class="collection-item black-text"
           *ngFor="let violation of violations | async"
           (click) ="open(violation)">
-          <span style="margin-right: 550px;">{{ violation.reportSender }}</span>
-          <span>{{ violation.timeStamp }} </span>
-          <span class="new badge black" *ngIf="violation.status == 'unread'"></span>     
+          <span style="margin-left:30px;">{{ violation.reportSender }}</span>
+          <span  style="float: right; padding-right: 30px;">{{ violation.timeStamp }} </span>
+          <span 
+          class="new badge black" 
+          *ngIf="violation.status == 'unread'"></span>     
           </a>
       </div>
 
@@ -47,50 +49,7 @@
        (click) = "openSearch()">
         <i class="large material-icons black-text">search</i>
       </a>
-      <ul>
-        <!--
-          <li>
-              <a materialize="tooltip"
-              class="btn-floating green tooltipped"
-              data-position="left"
-              data-delay="30"
-              data-tooltip="Search notification"
-              (click) = "openSearch()">
-              <i class="material-icons">search</i>
-            </a>
-          </li>
-          <li>
-              <a materialize="tooltip"
-              class="btn-floating light-blue-text tooltipped"
-              data-position="left"
-              data-delay="30"
-              data-tooltip="Publish announcement"
-              (click) = "addAnnouncement()">
-              <i class="material-icons">description</i>
-            </a>
-          </li>
-          <li>
-            <a materialize="tooltip"
-            class="btn-floating red tooltipped"
-            data-position="left"
-            data-delay="30"
-            data-tooltip="Add traffic advisory"
-            (click) = "addTraffic()">
-            <i class="material-icons">traffic</i>
-          </a>
-          </li>
-          <li>
-              <a materialize="tooltip"
-              class="btn-floating orange tooltipped"
-              data-position="left"
-              data-delay="30"
-              data-tooltip="Add parking advisory"
-              (click) = "addParking()">
-              <i class="material-icons">local_taxi</i>
-            </a>
-            </li>
-          -->
-      </ul>
+    
     </div>
     <br><br>
   </body>
