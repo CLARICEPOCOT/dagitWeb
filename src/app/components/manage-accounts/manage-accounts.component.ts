@@ -17,8 +17,6 @@ import { Upload } from '../../uploads/shared/upload';
 
 import { FirebaseApp } from 'angularfire2';
 
-//import * as admin from 'firebase-admin';
-
 
 @Component({
   selector: 'app-manage-accounts',
@@ -27,8 +25,7 @@ import { FirebaseApp } from 'angularfire2';
   encapsulation: ViewEncapsulation.None
 })
 export class ManageAccountsComponent implements OnInit {
-  //admin = require('firebase-admin');
-  //serviceAccount = require('../../../../dagit-7cbac-firebase-adminsdk-jv296-bdc9b332c9.json');
+
 
   selectedFiles: FileList | null;
   currentUpload: Upload;
@@ -56,8 +53,6 @@ export class ManageAccountsComponent implements OnInit {
   image: any;
   currentUser: any;
 
-  
-
   constructor(
     public dialog: MatDialog,
     private firebaseService: FirebaseService,
@@ -66,10 +61,6 @@ export class ManageAccountsComponent implements OnInit {
     public firebaseApp: FirebaseApp,
     public router: Router
   ) {
-    /*admin.initializeApp({
-      credential: admin.credential.cert(this.serviceAccount),
-      databaseURL: 'https://dagit-7cbac.firebaseio.com'
-    });*/
 
       this.onFieldTMO = this.firebaseService.getOnfieldTMO();
       this.deskTMO = this.firebaseService.getDeskTMO();
@@ -100,14 +91,6 @@ export class ManageAccountsComponent implements OnInit {
     this.firebaseService.getDeskTMO().subscribe(accountD => {
       this.accountD = accountD;
       console.log(accountD);
-/*
-      const storageRef = firebase.storage().ref();
-      const spaceRef = storageRef.child(this.accountD.path).getDownloadURL().then((url) => {
-        // Set image url
-        this.imageURL = url;
-      }).catch((error) => {
-        console.log(error);
-      });*/
     });
 
     for(let i = 0; i < this.users.length; i++){
@@ -312,8 +295,6 @@ export class ManageAccountsComponent implements OnInit {
 
 
   getOnFieldPhoto(accountOF) {
-    // const path = accountOF.path.toString();
-    // console.log(path);
     const storageRef = firebase.storage().ref();
     const spaceRef = storageRef.child(accountOF.path).getDownloadURL().then((url) => {
     // Set image url

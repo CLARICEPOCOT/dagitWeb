@@ -1,9 +1,7 @@
 <head>
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   
-                   
-  </head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">               
+</head>
   
   <body>
     
@@ -57,15 +55,11 @@
                   *ngFor="let accident of accidents | async"
                   (click) ="open(accident)">
                  <span style="margin-right: 550px;">{{ accident.reportSender }} </span> 
-                 <span>{{ accident.timeStamp }}</span> 
-                 <!-- <span class="new badge black" *ngIf="accident.status == 'unread'"></span>  -->    
+                 <span>{{ accident.timeStamp }}</span>   
                   </a>
               </div>
-        
-            </div>
-         
-       
-        <mat-dialog-actions>
+            </div>     
+    <mat-dialog-actions>
           <span style="margin-left: 65%;">
               <button mat-raised-button class="black hoverable btn small" (click) = "onSearch()">SEARCH</button>
               <button mat-raised-button class="black hoverable btn small" (click) = "onCancel()">CLOSE</button>

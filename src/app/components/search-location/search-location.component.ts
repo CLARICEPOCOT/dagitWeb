@@ -53,17 +53,15 @@ export class SearchLocationComponent implements OnInit {
     const restrict = {
       componentRestrictions: {country: 'phl'}
     };
-  
-  
+
      // load places autocomplete
      this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, restrict);
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           // get the place result
-  
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  
+          
           // verify result
           if (place.geometry === undefined || place.geometry === null) {
             this.place = place;

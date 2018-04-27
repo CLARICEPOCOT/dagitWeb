@@ -32,8 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FirebaseService } from './services/firebase.service';
-// import { AngularFireAuthModule, AngularFireAuthProvider, AUTH_PROVIDERS } from 'angularfire2/auth';
-// import { environment } from '../environments/environment';
+
 
 
 // imports for maps
@@ -100,7 +99,7 @@ import { SearchAccidentsComponent } from './components/search-accidents/search-a
 import { SearchPedicabComponent } from './components/search-pedicab/search-pedicab.component';
 import { SearchViolationComponent } from './components/search-violation/search-violation.component';
 
-// import * as admin from 'firebase-admin';
+
 
 
 

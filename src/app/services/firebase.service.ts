@@ -332,29 +332,12 @@ export class FirebaseService {
     this.dagit.list('/CHAT/' + user).push(message);
   }
 
-  // MAP
-  /*
-  getMap(location) {
-    return this.dagit.list('/MAP/' + location);
-  }
 
-  getMapData(location) {
-    return this.dagit.list('/MAP/' + location);
-  }*/
 
   updateMapData(location, update) {
     this.dagit.object('/MAP/' + location).update(update);
   }
-  /*
 
-  addMapData(location, update) {
-    this.dagit.list('/MAP/' + location).push(update);
-  }
-
-   // MAP DATA
-  addMapLocations(coordinates) {
-    this.dagit.list('/MAP').push(coordinates);
-  }*/
 
 
   getMapUpdates() {
@@ -394,9 +377,6 @@ export class FirebaseService {
 }
 
 
-
-
-// not used
 interface Directory {
   $key: string;
   category: string;

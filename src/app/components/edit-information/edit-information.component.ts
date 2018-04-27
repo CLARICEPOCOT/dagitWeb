@@ -70,17 +70,12 @@ export class EditInformationComponent implements OnInit {
         'body': this.body,
         'deskTMO': this.currentUser
       };
-  
-  
+
       this.firebaseService.updateInformation(key, this.information);
       console.log('Information edited');
       this.thisDialogRef.close('Edit');
 
     }
-    
-
-    
-   
 
   }
 

@@ -56,9 +56,7 @@ export class MessageContentComponent implements OnInit {
     this.content = data;
     this.chatMessages = this.firebaseService.getMessage(this.content.$key);
     console.log(this.chatMessages);
-  }  
-
-
+  }
 
   sendMessage() {
     console.log(this.message);
@@ -73,7 +71,6 @@ export class MessageContentComponent implements OnInit {
     }
     this.message = '';
   }
-
 
   onClose() {
     this.thisDialogRef.close('Close');

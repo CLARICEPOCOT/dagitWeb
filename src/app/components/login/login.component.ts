@@ -18,8 +18,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -100,9 +98,8 @@ export class LoginComponent implements OnInit {
             }
             console.log(user);
             this.router.navigate(['/map']);
-          }
-          else {
-            // alert("Account disabled");
+          } else {
+
             console.log('account disabled.');
             this.errorDisabled = 'Account is disabled.';
             this.angularFireAuth.auth.signOut();

@@ -21,7 +21,6 @@ export class SearchPedicabComponent implements OnInit {
     date: any;
     found: boolean;
     notFound: boolean;
-
     reports: any;
     report: any;
 

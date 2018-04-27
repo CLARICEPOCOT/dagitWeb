@@ -65,15 +65,7 @@ export class AddParkingComponent implements OnInit {
   ) {
         this.current = this.angularFireAuth.auth.currentUser.displayName;
         this.fName = this.current;
-        /*this.mapData = this.firebaseService.getMapData(this.loc);
-        console.log('MAP DATA: ' + this.mapData.trafficRating);
-        if (this.mapData.trafficRating === undefined) {
-          console.log('null');
-          this.mapData.trafficRating = '';
-          this.mapData.trafficTimeStamp = '';
-          this.mapData.tFName = '';
-          this.mapData.tLName = '';
-        }*/
+
   }
 
   ngOnInit() {

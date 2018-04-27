@@ -134,12 +134,7 @@ export class AddDirectoryComponent implements OnInit {
         console.log('Please fill in all required fields.');
 
       }
-
-
-
     }
-
-
 
     onCancel() {
       this.thisDialogRef.close('Cancel');

@@ -58,43 +58,6 @@ export class AddOnfieldComponent implements OnInit {
    }
 
   ngOnInit() {
-    /*
-    this.locationControl = new FormControl();
-
-    const restrict = {
-      componentRestrictions: {country: 'phl'}
-    };
-
-    // load places autocomplete
-    this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, restrict);
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-
-          // end
-            const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            this.place = place;
-           //  this.location = place.geometry.location;
-
-            return;
-          }
-          // set place
-          this.location = place.formatted_address;
-
-          // set latitude, longitude
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.locLat = place.geometry.location.lat();
-          this.locLng = place.geometry.location.lng();
-
-        });
-      });
-    });*/
-
   }
 
 
@@ -144,8 +107,6 @@ export class AddOnfieldComponent implements OnInit {
           'password': this.password,
           'location': this.location,
           'timeShift': this.timeShift,
-          // 'locLat': this.locLat,
-          // 'locLng': this.locLng,
           'enabled': 'yes',
           'path': '',
           'isTrackable': false
@@ -174,7 +135,4 @@ export class AddOnfieldComponent implements OnInit {
     this.thisDialogRef2.close('Cancel');
 
   }
-
-  
-
 }

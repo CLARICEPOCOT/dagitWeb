@@ -91,7 +91,6 @@ export class DirectionComponent implements OnInit {
         this.ngZone.run(() => {
           // get the place result
 
-
           // end
             const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 

@@ -14,14 +14,12 @@ import { FirebaseService } from '../../services/firebase.service';
 export class SearchAccountsComponent implements OnInit {
   category: string;
   searchValue: string;
-
   usersDeskDb: any;
   usersOfDb: any;
   usersDesk: any = [];
   usersOf: any = [];
   result: any = [];
   found: boolean;
-
 
   categoryControl = new FormControl('', [Validators.required]);
 

@@ -25,7 +25,6 @@ export class SearchAccidentsComponent implements OnInit {
   accident: any;
 
   monthControl = new FormControl('', [Validators.required]);
-  
       months = [
         {name: 'January', value: 'January'},
         {name: 'February', value: 'February'},
@@ -76,9 +75,7 @@ export class SearchAccidentsComponent implements OnInit {
             this.found = true;
           }
         });
-
       }
-
   }
 
 

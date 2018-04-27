@@ -49,8 +49,6 @@ export class SearchNotificationsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: string,
     private firebaseService: FirebaseService,
     ) {
-
-
      }
 
     ngOnInit() {
@@ -88,7 +86,6 @@ export class SearchNotificationsComponent implements OnInit {
         }
 
     }
-
 
     onCancel() {
       this.thisDialogRef.close('CLOSE');

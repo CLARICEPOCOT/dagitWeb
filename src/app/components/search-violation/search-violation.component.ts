@@ -21,7 +21,6 @@ export class SearchViolationComponent implements OnInit {
     date: any;
     found: boolean;
     notFound: boolean;
-
     violations: any;
     violation: any;
 
@@ -86,7 +85,6 @@ export class SearchViolationComponent implements OnInit {
 
   onCancel() {
     this.thisDialogRef.close('CLOSE');
-
   }
 
   open(content) {
@@ -94,7 +92,6 @@ export class SearchViolationComponent implements OnInit {
     const dialogRef = this.dialog.open(ViolationContentComponent, {
       width: '800px',
       data: content
-
     });
 
   dialogRef.afterClosed().subscribe(result => {

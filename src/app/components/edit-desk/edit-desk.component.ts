@@ -29,7 +29,6 @@ export class EditDeskComponent implements OnInit {
   deskTMO: any;
   fName: string;
   lName: string;
- // username: string;
   password: string;
   emailAddress: string;
   image?: string;
@@ -37,10 +36,8 @@ export class EditDeskComponent implements OnInit {
 
   newFName: string;
   newLName: string;
- // newUsername: string;
   newPassword: string;
- // newEmailAddress: string;
- newName: string;
+  newName: string;
 
   currentUser: any;
 
@@ -62,8 +59,6 @@ export class EditDeskComponent implements OnInit {
       this.account = data;
       this.newFName = this.account.fName;
       this.newLName = this.account.lName;
-     // this.username = this.account.username;
-     // this.emailAddress = this.account.emailAddress;
       this.newPassword = this.account.password;
 
       this.currentUser = this.angularFireAuth.auth.currentUser;
@@ -114,13 +109,7 @@ export class EditDeskComponent implements OnInit {
         .then(() => {
           this.currentUser.password = this.newPassword;
           console.log('password changed');
-          /*
-          let alert = this.alertCtrl.create({
-            title: 'Password Changed',
-            subTitle: 'Password successfully changed.',
-            buttons: ['OK']
-          });
-          alert.present();*/
+
         });
 
       } else {
@@ -131,16 +120,13 @@ export class EditDeskComponent implements OnInit {
     this.deskTMO = {
       'fName': this.fName,
       'lName': this.lName,
-    //  'username': this.username,
       'password': this.password,
-    //  'email': this.emailAddress
     };
     this.firebaseService.updateDeskTMO(key, this.deskTMO);
     console.log('Desk TMO edited');
     this.thisDialogRef2.close('Edit');
 
   }
-
 
   onCancel() {
     this.thisDialogRef2.close('Cancel');

@@ -60,39 +60,6 @@ export class EditOnFieldComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*
-    this.locationControl = new FormControl();
-
-        // load places autocomplete
-        this.mapsAPILoader.load().then(() => {
-          const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-           // types: ['street']
-
-          });
-          autocomplete.addListener('place_changed', () => {
-            this.ngZone.run(() => {
-              // get the place result
-
-              // end
-                const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-              // verify result
-              if (place.geometry === undefined || place.geometry === null) {
-                this.place = place;
-
-
-                return;
-              }
-              // set place
-              this.newLocation = place.formatted_address;
-
-              // set latitude, longitude
-              this.newLocLat = place.geometry.location.lat();
-              this.newLocLng = place.geometry.location.lng();
-
-            });
-          });
-        });*/
   }
 
   onEditOnfield(key, onFieldTMO) {
@@ -124,29 +91,20 @@ export class EditOnFieldComponent implements OnInit {
       // tslint:disable-next-line:triple-equals
     if (this.newLocation != this.accountOF.location) {
       this.location = this.newLocation;
-     // this.locLat = this.newLocLat;
-     // this.locLng = this.newLocLng;
     } else {
        this.location = this.accountOF.location;
-      // this.locLat = this.accountOF.locLat;
-      // this.locLng = this.accountOF.locLng;
     }
 
     this.onFieldTMO = {
       'timeShift': this.timeShift,
       'password': this.password,
       'location': this.location,
-      // 'locLat': this.locLat,
-      // 'locLng': this.locLng
     };
     this.firebaseService.updateOnfieldTMO(key, this.onFieldTMO);
     console.log('Account updated');
     this.thisDialogRef2.close('Edit');
 
       }
-
-
-
   }
 
 
@@ -154,6 +112,4 @@ export class EditOnFieldComponent implements OnInit {
     this.thisDialogRef2.close('Cancel');
 
   }
-
-
 }

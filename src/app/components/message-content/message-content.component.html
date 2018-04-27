@@ -2,9 +2,7 @@
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">                 
 </head>
-
 <body>
-
   <h6 style="background-color: #9DE69D; padding: 15px;">
       <b style="color: black">{{ this.content.$key }}</b>
   </h6>
@@ -30,7 +28,6 @@
                 <br>
                 <span style="font-size: small">{{ chatMessage.timeStamp }}</span>
             </div>
-
       </div>
     </mat-dialog-content>
     <br>
@@ -43,8 +40,7 @@
             name="message"
             type="textt"   
             placeholder="Type a message">
-        </mat-form-field>
-      
+        </mat-form-field>    
         <mat-dialog-actions>
             <span style="margin-left: 65%;">
                 <button 
@@ -61,12 +57,9 @@
                 (click) = "onClose()">                    
                 CLOSE                        
                 </button>
-            </span>                       
-            
+            </span>                                  
     </mat-dialog-actions><br>
     </div>
-  
-
 </body>
 
 

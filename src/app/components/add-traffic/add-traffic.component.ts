@@ -32,7 +32,7 @@ export class AddTrafficComponent implements OnInit {
   loc: any;
   locLat: number;
   locLng: number;
-  
+
   coordinates: any;
 
   @ViewChild('location')
@@ -133,21 +133,7 @@ export class AddTrafficComponent implements OnInit {
       this.firebaseService.addNotifLog(date, this.notification);
       console.log('notiflog added');
 
-/*
-      // console.log(location);
-      // updating MAPS
-      this.mapUpdate = {
-        'tlatitude': this.latitude,
-        'tlongitude': this.longitude,
-        'trafficRating': this.rating,
-        'trafficTimeStamp': this.timeStamp,
-        'timeUpdated': Date.now(),
-        'tFName': this.current,
-        'tLName': ''
-      };
 
-
-     this.firebaseService.updateMapData(this.loc, this.mapUpdate);*/
      this.mapUpdate = {
       'tlatitude': this.latitude,
       'tlongitude': this.longitude,
@@ -163,15 +149,7 @@ export class AddTrafficComponent implements OnInit {
     const lng = this.longitude.toString();
     const finalLng = lng.replace('.', '-');
     const lastCoords = finalLat + finalLng;
-    /*
-    const key = this.latitude + this.longitude;
-    // console.log(key);
-     this.coordinates = key.toString();
-    // console.log('Coordinates' + this.coordinates);
-    // const re = /./gi;
-    const coords = this.coordinates.replace('.', '-');
-    // console.log( coords);
-    */
+
     this.firebaseService.addMapUpdate(lastCoords, this.mapUpdate);
     console.log('map updated');
     this.thisDialogRef.close('Add');

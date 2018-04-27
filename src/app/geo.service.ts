@@ -35,20 +35,6 @@ export class GeoService {
     });
    }
 
-/*
-   private seedDatabase() {
-    const dummyPoints = [
-      [37.9, -122.1],
-      [38.7, -122.2],
-      [38.1, -122.3],
-      [38.3, -122.0],
-      [38.7, -122.1]
-    ];
-    dummyPoints.forEach((val, idx) => {
-      const name = `dummy-location-${idx}`;
-      console.log(idx);
-      this.geo.setLocation(name, val);
-    });
-  }*/
+
 
 }

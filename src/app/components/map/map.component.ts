@@ -11,8 +11,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import {} from '@types/googlemaps';
 
 
-
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -82,14 +80,9 @@ export class MapComponent implements OnInit {
     }
     this.mapUpdates = this.firebaseService.getMapUpdate();
     this.ofLocations = this.firebaseService.trackLocation();
-
-
-
   }
 
   ngOnInit() {
-
-
   // set current position
   this.setCurrentPosition();
   // create search FormControl
@@ -101,7 +94,6 @@ export class MapComponent implements OnInit {
   const restrict = {
     componentRestrictions: {country: 'phl'}
   };
-
 
    // load places autocomplete
    this.mapsAPILoader.load().then(() => {
@@ -117,7 +109,6 @@ export class MapComponent implements OnInit {
           this.place = place;
           return;
         }
-
         // set latitude, longitude and zoom
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
@@ -135,8 +126,6 @@ export class MapComponent implements OnInit {
     autocomplete.addListener('place_changed', () => {
       this.ngZone.run(() => {
         // get the place result
-
-
         // end
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
@@ -160,12 +149,10 @@ export class MapComponent implements OnInit {
    // load places autocomplete
    this.mapsAPILoader.load().then(() => {
     const autocomplete = new google.maps.places.Autocomplete(this.destinationElementRef.nativeElement, restrict
-   // { types: ['address', 'restaurant', 'establishments', 'food']}
     );
     autocomplete.addListener('place_changed', () => {
       this.ngZone.run(() => {
         // get the place result
-
 
         // end
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -199,8 +186,6 @@ export class MapComponent implements OnInit {
     this.ofLocation = ofLocation;
   });
 
-
-
 }
 
   public onMouseOver(infoWindow, gm) {
@@ -214,14 +199,11 @@ export class MapComponent implements OnInit {
   }
 
 
-
-
   public getDuration() {
     this.duration = this.now - this.mapUpdate.timeUpdated;
     this.durationMin = moment.duration( this.duration, 'milliseconds').asMinutes;
     console.log(this.durationMin);
   }
-
 
   // getting direction
   public getDirection() {
@@ -253,31 +235,7 @@ export class MapComponent implements OnInit {
         this.zoom = 15;
       });
     }
-
-
   }
-
-  getTMOLocation () {
-    // insert codes from the other proj
-  }
-
-
-  getParking () {
-    // insert codes from the other proj
-  }
-
-
-  getTraffic () {
-    // insert codes from the other proj
-  }
-
-  login() {
-   // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  }
-  logout() {
-   // this.afAuth.auth.signOut();
-  }
-
 
 }
 

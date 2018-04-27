@@ -17,8 +17,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-
-
 @Component({
   selector: 'app-recover-account',
   templateUrl: './recover-account.component.html',
@@ -26,16 +24,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RecoverAccountComponent implements OnInit {
 
-  // errorMessage: string;
-
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
 
   matcher = new MyErrorStateMatcher();
-
-
   constructor(
     private firebaseService: FirebaseService,
     private router: Router,

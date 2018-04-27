@@ -27,17 +27,7 @@ export class AddNotificationComponent implements OnInit {
   fName: string;
   lName: string;
 
-  /*
-  date = (this.today.getMonth() + 1) + '/' + this.today.getDate() + '/' + this.today.getFullYear();
-  hours = this.today.getHours() <= 12 ? this.today.getHours() : this.today.getHours() - 12;
-  am_pm = this.today.getHours() >= 12 ? 'PM' : 'AM';
-  hoursFormatted = this.hours < 10 ? '0' + this.hours : this.hours;
-  minutes = this.today.getMinutes() < 10 ? '0' + this.today.getMinutes() : this.today.getMinutes();
-
-  time = this.hoursFormatted + ':' + this.minutes + ' ' + this.am_pm;*/
   timeStamp = moment().format('MMMM Do YYYY, h:mm A');
-
-
 
   constructor(
     public thisDialogRef: MatDialogRef<NotificationsComponent>,
@@ -46,17 +36,7 @@ export class AddNotificationComponent implements OnInit {
     public angularFireAuth: AngularFireAuth
   ) {
     this.currentUser = this.angularFireAuth.auth.currentUser.displayName;
-    /*
-    this.current = this.firebaseService.getCurrent();
-                let j = 0;
-                this.current.subscribe(snapshots => {
-                  snapshots.forEach(snapshot => {
-                    this.dbFName[j] = snapshot.val().fName;
-                    this.dbLName[j] = snapshot.val().lName;
-                    j++;
-                  });
-                });
-                this.getUser();*/
+
   }
 
   ngOnInit() {
